@@ -14,9 +14,7 @@ public class sliderClaw_controller {
 
     private final Servo claw;
 
-    public sliderClaw_controller(Servo claw) {
-        this.claw = claw;
-    }
+    public sliderClaw_controller(Servo claw) {this.claw = claw;}
 
     public void setPos(double targetPosition){
         this.targetPosition = targetPosition;

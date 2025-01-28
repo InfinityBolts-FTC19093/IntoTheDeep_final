@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gam
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad2;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -25,11 +26,11 @@ public class robot_drive {
         this.imu = imu;
     }
 
-    public void robotCentricDrive() {
+    public void robotCentricDrive(float left_y, float left_x, float right_x) {
         Constants.currentRobotDriveStatus = Constants.RobotDriveStatus.ROBOT_CENTRIC;
-        double y = -gamepad1.left_stick_y;
-        double x =  gamepad1.left_stick_x* 1;
-        double rx = gamepad1.right_stick_x*1;
+        double y = -left_y;
+        double x =  left_x* 1;
+        double rx = right_x*1;
 
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
 
@@ -55,13 +56,13 @@ public class robot_drive {
 
     double Clip(double Speed,double lim) {return Math.max(Math.min(Speed,lim),-lim);}
 
-    public void FieldCentricDrive(){
+    public void FieldCentricDrive(float left_y, float left_x, float right_x){
         Constants.currentRobotDriveStatus = Constants.RobotDriveStatus.FIELD_CENTRIC;
         // Adjust the orientation parameters to match your robot
 
-        double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
-        double x = gamepad1.left_stick_x;
-        double rx = gamepad1.right_stick_x;
+        double y = -left_y;
+        double x =  left_x* 1;
+        double rx = right_x*1;
 
         // This button choice was made so that it is hard to hit on accident,
         // it can be freely changed based on preference.
@@ -95,9 +96,9 @@ public class robot_drive {
 
     public void switchDrive(){
         if(Constants.currentRobotDriveStatus == Constants.RobotDriveStatus.ROBOT_CENTRIC){
-            FieldCentricDrive();
+            FieldCentricDrive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         }else if (Constants.currentRobotDriveStatus == Constants.RobotDriveStatus.FIELD_CENTRIC){
-            robotCentricDrive();
+            robotCentricDrive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
     }
 }

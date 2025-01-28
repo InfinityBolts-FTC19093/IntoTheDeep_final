@@ -15,9 +15,7 @@ public class claw_controller{
 
     private Servo claw;
 
-    public claw_controller(Servo claw){
-        this.claw = claw;
-    }
+    public claw_controller(Servo claw){this.claw = claw;}
 
     public void setPos(double targetPosition){
         this.targetPosition = targetPosition;

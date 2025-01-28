@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.constants;
 
+import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -8,7 +9,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import java.util.concurrent.TimeUnit;
+
 public class RobotMap {
+
+    Timing.Timer timer;
 
     public DcMotorEx leftFront = null;
     public DcMotorEx leftBack = null;
@@ -68,18 +73,10 @@ public class RobotMap {
 
 
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD)
-        );
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.UsbFacingDirection.UP
+        ));
         imu.initialize(parameters);
-
-    }
-
-    public void reset(){
-        claw.setPosition(Constants.OPEN_CLAW);
-        slider_claw.setPosition(Constants.SLIDER_OPEN);
-        linkage.setPosition(Constants.LINKAGE_INIT_POS);
-        claw_tilt.setPosition(Constants.TILT_INIT);
 
     }
 }

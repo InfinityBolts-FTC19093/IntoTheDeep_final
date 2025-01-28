@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.actions.ridica_action;
+import org.firstinspires.ftc.teamcode.actions.G2_Action;
 import org.firstinspires.ftc.teamcode.actions.robot_drive;
 import org.firstinspires.ftc.teamcode.actions.score_action;
 import org.firstinspires.ftc.teamcode.actions.servo_linkage_action;
@@ -24,16 +24,16 @@ public class Teleop extends LinearOpMode {
         sliderClaw_controller sliderClawController = new sliderClaw_controller(robot.slider_claw);
 
         servo_linkage_action servoLinkageAction = new servo_linkage_action(robot.claw_tilt, robot.linkage);
+
         score_action scoreAction = new score_action();
         servo_slider_action servoSliderAction = new servo_slider_action();
-
-        ridica_action ridicaAction = new ridica_action();
+        G2_Action g2Action = new G2_Action();
 
         robot_drive robotDrive = new robot_drive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.imu);
 
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
-            robotDrive.robotCentricDrive();
+            robotDrive.robotCentricDrive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
 
             if (gamepad1.dpad_right) {clawController.open_close();}
 
@@ -51,8 +51,9 @@ public class Teleop extends LinearOpMode {
 
             if (gamepad1.b) {scoreAction.placeInLowBusket();}
 
-            if (gamepad2.right_bumper){ridicaAction.start();}
+            if (gamepad2.right_stick_button && gamepad2.left_stick_button){g2Action.lev2Asent();}
 
+            if(gamepad2.ps){g2Action.zeroPos();}
 
             sliderClawController.update();
             sliderController.update();
