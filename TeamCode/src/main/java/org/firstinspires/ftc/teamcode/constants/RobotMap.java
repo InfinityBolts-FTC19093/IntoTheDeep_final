@@ -21,10 +21,13 @@ public class RobotMap {
     public Servo linkage;
     public Servo claw_rotate;
     public Servo claw_tilt;
+    public Servo angle;
+
+    public Servo liftRobot;
+
     public Servo slider_claw;
     public Servo slider_claw_rotate;
     public Servo slider_claw_tilt;
-    public Servo unghi_robot;
 
     public RobotMap(HardwareMap hardwareMap){
         leftFront  = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_LEFT_FRONT);
@@ -32,30 +35,32 @@ public class RobotMap {
         rightFront = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_RIGHT_FRONT);
         rightBack  = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_RIGHT_BACK);
 
-        slider = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_SLIDER);
+   //     slider = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_SLIDER);
 
         claw = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW);
         linkage = hardwareMap.get(Servo.class, HardwareConstants.ID_LINKAGE_SERVO);
         claw_rotate = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW_ROTATE);
         claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW_TILT);
 
-        slider_claw = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW);
-        slider_claw_rotate = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_ROTATE);
-        slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
+        liftRobot= hardwareMap.get(Servo.class, HardwareConstants.ID_LIFT_ROBOT);
 
-        unghi_robot = hardwareMap.get(Servo.class, HardwareConstants.ID_MODIFICA_UNGHI_ROBOT);
+//        slider_claw = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW);
+//        slider_claw_rotate = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_ROTATE);
+//        slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
-        slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        slider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        angle = hardwareMap.get(Servo.class, HardwareConstants.ID_ANDGLE);
+
+//        slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        slider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftFront .setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack  .setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBack .setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
 //        claw.setDirection(Servo.Direction.REVERSE);
 //        linkage.setDirection(Servo.Direction.REVERSE);
@@ -67,11 +72,11 @@ public class RobotMap {
 //        unghi_robot.setDirection(Servo.Direction.REVERSE);
 
 
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD)
-        );
-        imu.initialize(parameters);
+//        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+//                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+//                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD)
+//        );
+//        imu.initialize(parameters);
 
     }
 

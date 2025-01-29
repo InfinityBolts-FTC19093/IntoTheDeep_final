@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
-import org.firstinspires.ftc.teamcode.systems.autoClaw_controller;
-import org.firstinspires.ftc.teamcode.systems.claw_controller;
+import org.firstinspires.ftc.teamcode.systems.linkage.autoClaw_controller;
+import org.firstinspires.ftc.teamcode.systems.linkage.claw_controller;
 
 import java.util.concurrent.TimeUnit;
 

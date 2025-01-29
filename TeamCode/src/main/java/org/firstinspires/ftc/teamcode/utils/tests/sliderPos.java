@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
-import org.firstinspires.ftc.teamcode.systems.slider_controller;
+import org.firstinspires.ftc.teamcode.systems.slider.slider_controller;
 
 @TeleOp
 public class sliderPos extends LinearOpMode {

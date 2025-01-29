@@ -3,15 +3,15 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.actions.robot_drive;
+
 import org.firstinspires.ftc.teamcode.actions.score_action;
 import org.firstinspires.ftc.teamcode.actions.servo_linkage_action;
 import org.firstinspires.ftc.teamcode.actions.servo_slider_action;
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
-import org.firstinspires.ftc.teamcode.systems.claw_controller;
-import org.firstinspires.ftc.teamcode.systems.sliderClaw_controller;
-import org.firstinspires.ftc.teamcode.systems.slider_controller;
+import org.firstinspires.ftc.teamcode.systems.linkage.claw_controller;
+import org.firstinspires.ftc.teamcode.systems.slider.sliderClaw_controller;
+import org.firstinspires.ftc.teamcode.systems.slider.slider_controller;
 
 public class ManualTeleOp extends LinearOpMode {
 
@@ -28,11 +28,11 @@ public class ManualTeleOp extends LinearOpMode {
     score_action scoreAction = new score_action();
     servo_slider_action servoSliderAction = new servo_slider_action();
 
-    robot_drive robotDrive = new robot_drive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.imu);
+    //robot_drive robotDrive = new robot_drive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.imu);
 
     @Override
     public void runOpMode() throws InterruptedException {
-        robotDrive.robotCentricDrive();
+    //    robotDrive.robotCentricDrive();
 
         if (gamepad1.left_trigger >= 0.005 || gamepad1.right_trigger >= 0.005) {
             if (gamepad1.left_trigger >= 0.01) {

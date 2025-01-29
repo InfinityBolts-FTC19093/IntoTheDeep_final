@@ -6,7 +6,7 @@ import com.arcrobotics.ftclib.util.Timing;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
-import org.firstinspires.ftc.teamcode.systems.slider_controller;
+import org.firstinspires.ftc.teamcode.systems.slider.slider_controller;
 
 import java.util.concurrent.TimeUnit;
 
