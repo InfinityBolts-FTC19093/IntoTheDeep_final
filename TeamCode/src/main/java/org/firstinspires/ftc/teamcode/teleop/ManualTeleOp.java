@@ -31,7 +31,7 @@ public class ManualTeleOp extends LinearOpMode {
     robot_drive robotDrive = new robot_drive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.imu);
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         robotDrive.robotCentricDrive();
 
         if (gamepad1.left_trigger >= 0.005 || gamepad1.right_trigger >= 0.005) {

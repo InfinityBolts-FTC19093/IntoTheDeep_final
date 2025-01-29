@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.systems.slider_controller;
 public class Teleop extends LinearOpMode {
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         RobotMap robot = new RobotMap(hardwareMap);
 
         slider_controller sliderController = new slider_controller(robot.slider);
