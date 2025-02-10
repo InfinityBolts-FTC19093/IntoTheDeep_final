@@ -15,7 +15,7 @@ public class RobotMap {
     public DcMotorEx rightFront = null;
     public DcMotorEx rightBack = null;
     public DcMotorEx slider = null;
-    public IMU imu = null;
+    //public IMU imu = null;
 
     public Servo claw;
     public Servo linkage;
@@ -67,19 +67,11 @@ public class RobotMap {
 //        unghi_robot.setDirection(Servo.Direction.REVERSE);
 
 
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD)
-        );
-        imu.initialize(parameters);
-
-    }
-
-    public void reset(){
-        claw.setPosition(Constants.OPEN_CLAW);
-        slider_claw.setPosition(Constants.SLIDER_OPEN);
-        linkage.setPosition(Constants.LINKAGE_INIT_POS);
-        claw_tilt.setPosition(Constants.TILT_INIT);
+//        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+//                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+//                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD)
+//        );
+//        imu.initialize(parameters);
 
     }
 }

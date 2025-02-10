@@ -44,7 +44,7 @@ public class servo_linkage_action {
 
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
-        autoClawController.placeInSlider();
+        robot.claw_rotate.setPosition(Constants.ROTATE_PLACE_IN_SLIDER);
 
         timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 

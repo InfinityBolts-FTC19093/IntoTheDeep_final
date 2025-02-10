@@ -1,19 +1,46 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.actions.ridica_action;
-import org.firstinspires.ftc.teamcode.actions.robot_drive;
+import org.firstinspires.ftc.teamcode.actions.G2_Action;
 import org.firstinspires.ftc.teamcode.actions.score_action;
 import org.firstinspires.ftc.teamcode.actions.servo_linkage_action;
 import org.firstinspires.ftc.teamcode.actions.servo_slider_action;
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
 import org.firstinspires.ftc.teamcode.systems.claw_controller;
+import org.firstinspires.ftc.teamcode.systems.manualSlider_controller;
 import org.firstinspires.ftc.teamcode.systems.sliderClaw_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
 public class Teleop extends LinearOpMode {
+
+    public void robotCentricDrive(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim) {
+        Constants.currentRobotDriveStatus = Constants.RobotDriveStatus.ROBOT_CENTRIC;
+        double y = -gamepad1.left_stick_y;
+        double x =  gamepad1.left_stick_x* 1;
+        double rx = gamepad1.right_stick_x*1;
+
+        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+
+        double frontLeftPower = (y + x + rx) / denominator;
+        double backLeftPower = (y - x + rx) / denominator;
+        double frontRightPower = (y - x - rx) / denominator;
+        double backRightPower = (y + x - rx) / denominator;
+
+        frontLeftPower = Clip(frontLeftPower,lim);
+        backLeftPower = Clip(backLeftPower,lim);
+        frontRightPower = Clip(frontRightPower,lim);
+        backRightPower = Clip(backRightPower,lim);
+
+        leftFront.setPower(frontLeftPower);
+        leftBack.setPower(backLeftPower);
+        rightFront.setPower(frontRightPower);
+        rightBack.setPower(backRightPower);
+    }
+
+    double Clip(double Speed,double lim) {return Math.max(Math.min(Speed,lim),-lim);}
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -27,13 +54,13 @@ public class Teleop extends LinearOpMode {
         score_action scoreAction = new score_action();
         servo_slider_action servoSliderAction = new servo_slider_action();
 
-        ridica_action ridicaAction = new ridica_action();
+        manualSlider_controller manualSliderController = new manualSlider_controller(robot.slider);
+        G2_Action g2Action = new G2_Action();
 
-        robot_drive robotDrive = new robot_drive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.imu);
 
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
-            robotDrive.robotCentricDrive();
+            robotCentricDrive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1);
 
             if (gamepad1.dpad_right) {clawController.open_close();}
 
@@ -51,9 +78,12 @@ public class Teleop extends LinearOpMode {
 
             if (gamepad1.b) {scoreAction.placeInLowBusket();}
 
-            if (gamepad2.right_bumper){ridicaAction.start();}
+            if (gamepad2.right_stick_button && gamepad2.left_stick_button){g2Action.lev2Asent();}
+
+            if(gamepad2.ps){g2Action.zeroPos();}
 
 
+            manualSliderController.control(gamepad1.left_trigger, gamepad1.right_trigger);
             sliderClawController.update();
             sliderController.update();
             clawController.update();
