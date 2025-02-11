@@ -9,10 +9,13 @@ public class HardwareConstants {
 
     public static final String ID_SLIDER = "slider";
 
-    public static final String ID_CLAW = "claw";
+
     public static final String ID_LINKAGE_SERVO = "linkage";
+
+    public static final String ID_ROTATE_CLAW_ASSEMBLY = "RCA";
     public static final String ID_CLAW_TILT = "CT";
     public static final String ID_CLAW_ROTATE = "CR";
+    public static final String ID_CLAW = "claw";
 
     public static final String ID_SLIDER_CLAW = "SC";
     public static final String ID_SLIDER_CLAW_ROTATE = "SCR";

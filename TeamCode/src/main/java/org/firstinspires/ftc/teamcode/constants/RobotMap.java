@@ -17,10 +17,12 @@ public class RobotMap {
     public DcMotorEx slider = null;
     //public IMU imu = null;
 
-    public Servo claw;
+
     public Servo linkage;
-    public Servo claw_rotate;
+    public Servo rotate_claw_assembly;
     public Servo claw_tilt;
+    public Servo claw_rotate;
+    public Servo claw;
     public Servo slider_claw;
     public Servo slider_claw_rotate;
     public Servo slider_claw_tilt;
@@ -38,6 +40,7 @@ public class RobotMap {
         linkage = hardwareMap.get(Servo.class, HardwareConstants.ID_LINKAGE_SERVO);
         claw_rotate = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW_ROTATE);
         claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW_TILT);
+        rotate_claw_assembly = hardwareMap.get(Servo.class, HardwareConstants.ID_ROTATE_CLAW_ASSEMBLY);
 
         slider_claw = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW);
         slider_claw_rotate = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_ROTATE);
@@ -65,6 +68,7 @@ public class RobotMap {
 //        slider_claw_rotate.setDirection(Servo.Direction.REVERSE);
 //        slider_claw_tilt.setDirection(Servo.Direction.REVERSE);
 //        unghi_robot.setDirection(Servo.Direction.REVERSE);
+//        rotate_claw_assembly.setDirection(Servo.Direction.REVERSE);
 
 
 //        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(

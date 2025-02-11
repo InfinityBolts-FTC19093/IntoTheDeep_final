@@ -13,20 +13,24 @@ import org.firstinspires.ftc.teamcode.systems.claw_controller;
 import java.util.concurrent.TimeUnit;
 
 public class servo_linkage_action {
-    private Servo tilt, linkage;
+    private Servo tilt, linkage, claw_rotate, claw, rotate_assembly;
     Timing.Timer timer;
-
-    RobotMap robot = new RobotMap(hardwareMap);
-    claw_controller clawController = new claw_controller(robot.claw);
     autoClaw_controller autoClawController = new autoClaw_controller();
 
-    public servo_linkage_action(Servo tilt, Servo linkage){
+    public servo_linkage_action(Servo claw, Servo tilt, Servo linkage, Servo claw_rotate, Servo rotate_assembly){
         this.tilt = tilt;
         this.linkage = linkage;
+        this.claw_rotate = claw_rotate;
+        this.claw = claw;
+        this.rotate_assembly = rotate_assembly;
     }
 
     public void takePos(){
-        clawController.setPos(Constants.OPEN_CLAW);
+        linkage.setPosition(Constants.LINKAGE_TAKE_POS);
+
+        claw.setPosition(Constants.OPEN_CLAW);
+        rotate_assembly.setPosition(Constants.CLAW_ASSEMBLY_TAKE);
+        tilt.setPosition(Constants.TILT_TAKE);
 
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
@@ -34,22 +38,26 @@ public class servo_linkage_action {
 
         timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
-        tilt.setPosition(Constants.TILT_TAKE);
-        linkage.setPosition(Constants.LINKAGE_TAKE_POS);
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.TAKE;
     }
 
     public void plaseInSlider(){
-        clawController.setPos(Constants.CLOSE_CLAW);
+        if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
+            claw.setPosition(Constants.CLOSE_CLAW);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+        }
+
+        claw_rotate.setPosition(Constants.ROTATE_PLACE_IN_SLIDER);
+
+        tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
+        rotate_assembly.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
+
+        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+
+        linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
 
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
-        robot.claw_rotate.setPosition(Constants.ROTATE_PLACE_IN_SLIDER);
-
-        timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
-
-        tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
-        linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.PLACE_IN_SLIDER;
     }
 

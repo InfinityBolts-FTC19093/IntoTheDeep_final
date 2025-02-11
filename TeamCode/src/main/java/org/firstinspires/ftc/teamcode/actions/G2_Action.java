@@ -27,6 +27,8 @@ public class G2_Action {
         robot.claw_tilt.setPosition(Constants.TILT_INIT);
         robot.claw_rotate.setPosition(Constants.ROTATE_INIT);
 
+        robot.rotate_claw_assembly.setPosition(Constants.CLAW_ASSEMBLY_INIT);
+
         robot.linkage.setPosition(Constants.LINKAGE_INIT_POS);
 
         sliderController.setTargetPosition(Constants.SLIDER_DOWN);

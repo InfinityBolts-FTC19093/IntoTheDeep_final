@@ -53,7 +53,7 @@ public class ManualTeleOp extends LinearOpMode {
     Timing.Timer timer;
 
     int SliderPos = 0;
-    double Linkage = 0, SliderClawRotate = 0.5, Claw = 0, SliderClaw = 0, SliderClawTilt = 0.5, ClawRotate=0, ClawTilt = 0, UnghiRobot=0;
+    double Linkage = 0, SliderClawRotate = 0.5, Claw = 0, SliderClaw = 0, SliderClawTilt = 0.5, ClawRotate=0, ClawTilt = 0, UnghiRobot = 0, clawAssembly = 0;
     public static int Wait = 200;
 
     RobotMap robot = new RobotMap(hardwareMap);
@@ -177,6 +177,19 @@ public class ManualTeleOp extends LinearOpMode {
                 timer = new Timing.Timer(Wait, TimeUnit.MILLISECONDS); while (!timer.done()); timer.pause();
             }
 
+
+            //Rotate Claw Assembly
+            if(gamepad1.left_stick_button){
+                clawAssembly -=0.05;
+                timer = new Timing.Timer(Wait, TimeUnit.MILLISECONDS); while (!timer.done()); timer.pause();
+            }
+
+            if(gamepad1.right_stick_button){
+                clawAssembly +=0.05;
+                timer = new Timing.Timer(Wait, TimeUnit.MILLISECONDS); while (!timer.done()); timer.pause();
+            }
+
+            //Reset Pos
             if(gamepad1.ps){g2Action.zeroPos();}
 
 
@@ -194,6 +207,8 @@ public class ManualTeleOp extends LinearOpMode {
             //unghi robot
             robot.unghi_robot.setPosition(UnghiRobot);
 
+            robot.rotate_claw_assembly.setPosition(clawAssembly);
+
 
             manualSliderController.control(gamepad1.left_trigger, gamepad1.right_trigger);
 
@@ -208,6 +223,7 @@ public class ManualTeleOp extends LinearOpMode {
             telemetry.addData("","");
             telemetry.addData("Slider-Claw-Rotate-Pos", SliderClawRotate);
             telemetry.addData("Slider-Claw-Tilt-Pos", SliderClawTilt);
+            telemetry.addData("Rotate-Claw-Assembly", clawAssembly);
             telemetry.addData("","");
             telemetry.addData("Claw-Rotate-Pos", ClawRotate);
             telemetry.addData("Claw-Tilt-Pos", ClawTilt);

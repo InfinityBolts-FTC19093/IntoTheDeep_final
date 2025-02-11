@@ -9,7 +9,7 @@ import com.acmerobotics.dashboard.config.Config;
 public class Constants {
 
     public static final int WAIT_FOR_LINKAGE_ACTION = 300;
-    public static final int WAIT_FOR_SLIDER_ACTION = 50;
+    public static final int WAIT_FOR_SLIDER_ACTION = 350;
 
     static RobotMap robot = new RobotMap(hardwareMap);
 
@@ -38,7 +38,8 @@ public class Constants {
 
     public enum SliderActionPos {
         TAKE_FOR_LINKAGE,
-        PLACE_IT,
+        PLACE_ON_CHAMBER,
+        PLACE_IN_BUSKET,
         INIT
     }
 
@@ -96,7 +97,6 @@ public class Constants {
     public static double OPEN_CLAW = 0;
     public static double CLOSE_CLAW = 0;
 
-
     /** Servo LINKAGE */
     public static double LINKAGE_INIT_POS = 0;
     public static double LINKAGE_MAX_POS = 0;
@@ -109,7 +109,6 @@ public class Constants {
     public static double TILT_TAKE = 0;
     public static double TILT_PLACE_IN_SLIDER = 0;
 
-
     /** Servo ROTATE */
     public static double ROTATE_INIT = 0;
     public static double ROTATE_TAKE = 0;
@@ -119,6 +118,12 @@ public class Constants {
     /** Servo Slider Claw */
     public static double SLIDER_OPEN = 0;
     public static double SLIDER_CLOSE = 0;
+
+    /** Servo Claw ASSEMBLY*/
+    public static double CLAW_ASSEMBLY_INIT = 0;
+    public static double CLAW_ASSEMBLY_PLACE_IN_SLIDER = 0;
+    public static double CLAW_ASSEMBLY_TAKE = 0;
+
 
     /** Servo Slider Claw Rotate */
     public static double SLIDER_ROTATE_INIT = 0;
@@ -133,6 +138,7 @@ public class Constants {
     public static double SLIDER_TILT_PLACE_ON_HIGH_CHAMBER = 0;
     public static double SLIDER_TILT_PLACE_ON_LOW_CHAMBER = 0;
     public static double SLIDER_TILT_TAKE_FORM_HUMAN = 0;
+
 
 
     /** Servo Unghi Robot */

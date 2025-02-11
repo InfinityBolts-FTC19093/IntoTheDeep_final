@@ -50,9 +50,9 @@ public class Teleop extends LinearOpMode {
         claw_controller clawController = new claw_controller(robot.claw);
         sliderClaw_controller sliderClawController = new sliderClaw_controller(robot.slider_claw);
 
-        servo_linkage_action servoLinkageAction = new servo_linkage_action(robot.claw_tilt, robot.linkage);
+        servo_linkage_action LinkageAction = new servo_linkage_action(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.rotate_claw_assembly);
         score_action scoreAction = new score_action();
-        servo_slider_action servoSliderAction = new servo_slider_action();
+        servo_slider_action SliderAction = new servo_slider_action();
 
         manualSlider_controller manualSliderController = new manualSlider_controller(robot.slider);
         G2_Action g2Action = new G2_Action();
@@ -68,7 +68,7 @@ public class Teleop extends LinearOpMode {
 
             if (gamepad1.dpad_down) {sliderController.setTargetPosition(Constants.SLIDER_DOWN);}
 
-            if (gamepad1.left_bumper) {servoLinkageAction.switchServoAction();}
+            if (gamepad1.left_bumper) {LinkageAction.switchServoAction();}
 
             if (gamepad1.y) {scoreAction.placeOnHighChamber();}
 
@@ -81,6 +81,8 @@ public class Teleop extends LinearOpMode {
             if (gamepad2.right_stick_button && gamepad2.left_stick_button){g2Action.lev2Asent();}
 
             if(gamepad2.ps){g2Action.zeroPos();}
+
+            if(gamepad2.dpad_right){SliderAction.placeOnLowBusket();}
 
 
             manualSliderController.control(gamepad1.left_trigger, gamepad1.right_trigger);

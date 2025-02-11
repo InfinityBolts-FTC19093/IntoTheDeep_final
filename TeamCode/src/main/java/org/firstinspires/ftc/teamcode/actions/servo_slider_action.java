@@ -25,14 +25,14 @@ public class servo_slider_action {
             timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
 
-        sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
-        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
-
         robot.slider_claw_rotate.setPosition(Constants.SLIDER_ROTATE_TAKE_FROM_LINKAGE);
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
         robot.slider_claw_tilt.setPosition(Constants.SLIDER_TILT_TAKE_FROM_LINKAGE);
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+
+        sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
+        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();};timer.pause();
 
         robot.slider_claw.setPosition(Constants.SLIDER_CLOSE);
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
@@ -48,9 +48,11 @@ public class servo_slider_action {
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
         sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER);
-        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
 
         sliderController.setTargetPosition(Constants.SLIDER_PLACE_ON_CHAMBER);
+
+        Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_ON_CHAMBER;
     }
 
     public void placeOnLowChamber(){
@@ -59,9 +61,20 @@ public class servo_slider_action {
 
     public void placeOnHighBusket(){
 
+
+
+        Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_IN_BUSKET;
     }
 
     public void placeOnLowBusket(){
 
+    }
+
+    public void switchSliderAction(){
+        if(Constants.currentSliderActionPos == Constants.SliderActionPos.PLACE_IN_BUSKET){
+            takeFromLinkage();
+        } else if (Constants.currentSliderActionPos == Constants.SliderActionPos.TAKE_FOR_LINKAGE) {
+            placeOnHighChamber();
+        }
     }
 }

@@ -18,7 +18,7 @@ public class score_action {
     Timing.Timer timer;
     RobotMap robot = new RobotMap(hardwareMap);
 
-    servo_linkage_action servoLinkageAction = new servo_linkage_action(robot.claw_tilt, robot.linkage);
+    servo_linkage_action servoLinkageAction = new servo_linkage_action(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.rotate_claw_assembly);
     servo_slider_action servoSliderAction =new servo_slider_action();
 
     sliderClaw_controller sliderClawController = new sliderClaw_controller(robot.slider_claw);
@@ -34,7 +34,7 @@ public class score_action {
             timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
 
-        if(Constants.currentSliderActionPos == Constants.SliderActionPos.PLACE_IT || Constants.currentSliderActionPos == Constants.SliderActionPos.INIT){
+        if(Constants.currentSliderActionPos == Constants.SliderActionPos.PLACE_ON_CHAMBER || Constants.currentSliderActionPos == Constants.SliderActionPos.INIT){
             servoSliderAction.takeFromLinkage();
             timer = new Timing.Timer(WAIT_FOR_SLIDER_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
@@ -44,6 +44,9 @@ public class score_action {
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
         sliderController.setTargetPosition(Constants.SLIDER_PLACE_ON_CHAMBER);
+        sliderController.update();
+        timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+
         sliderClawController.setPos(Constants.OPEN_CLAW);
 
         Constants.currentScorePos = Constants.ScorePos.PLACE_ON_HIGH_CHAMBER;
@@ -55,7 +58,7 @@ public class score_action {
             timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
 
-        if(Constants.currentSliderActionPos == Constants.SliderActionPos.PLACE_IT || Constants.currentSliderActionPos == Constants.SliderActionPos.INIT){
+        if(Constants.currentSliderActionPos == Constants.SliderActionPos.PLACE_ON_CHAMBER || Constants.currentSliderActionPos == Constants.SliderActionPos.INIT){
             servoSliderAction.takeFromLinkage();
             timer = new Timing.Timer(WAIT_FOR_SLIDER_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
