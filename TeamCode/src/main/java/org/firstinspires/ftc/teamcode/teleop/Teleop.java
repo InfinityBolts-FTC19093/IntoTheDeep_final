@@ -4,9 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.actions.G2_Action;
-import org.firstinspires.ftc.teamcode.actions.score_action;
-import org.firstinspires.ftc.teamcode.actions.servo_linkage_action;
-import org.firstinspires.ftc.teamcode.actions.servo_slider_action;
+import org.firstinspires.ftc.teamcode.actions.Score;
+import org.firstinspires.ftc.teamcode.actions.Collect;
+import org.firstinspires.ftc.teamcode.actions.Prepare;
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
 import org.firstinspires.ftc.teamcode.systems.claw_controller;
@@ -50,9 +50,9 @@ public class Teleop extends LinearOpMode {
         claw_controller clawController = new claw_controller(robot.claw);
         sliderClaw_controller sliderClawController = new sliderClaw_controller(robot.slider_claw);
 
-        servo_linkage_action LinkageAction = new servo_linkage_action(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.rotate_claw_assembly);
-        score_action scoreAction = new score_action(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.rotate_claw_assembly, robot.slider_claw, robot.slider_claw_tilt, robot.slider_claw_rotate, robot.slider);
-        servo_slider_action SliderAction = new servo_slider_action(robot.slider_claw, robot.slider_claw_tilt, robot.slider_claw_rotate, robot.slider);
+        Collect LinkageAction = new Collect(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.rotate_claw_assembly);
+        Score scoreAction = new Score(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.rotate_claw_assembly, robot.slider_claw, robot.slider_claw_tilt, robot.slider_claw_rotate, robot.slider);
+        Prepare SliderAction = new Prepare(robot.slider_claw, robot.slider_claw_tilt, robot.slider_claw_rotate, robot.slider);
 
         manualSlider_controller manualSliderController = new manualSlider_controller(robot.slider);
         G2_Action g2Action = new G2_Action(hardwareMap);

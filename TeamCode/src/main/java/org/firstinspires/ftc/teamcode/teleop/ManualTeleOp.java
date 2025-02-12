@@ -7,14 +7,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.actions.G2_Action;
-import org.firstinspires.ftc.teamcode.actions.score_action;
-import org.firstinspires.ftc.teamcode.actions.servo_linkage_action;
-import org.firstinspires.ftc.teamcode.actions.servo_slider_action;
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
-import org.firstinspires.ftc.teamcode.systems.claw_controller;
 import org.firstinspires.ftc.teamcode.systems.manualSlider_controller;
-import org.firstinspires.ftc.teamcode.systems.sliderClaw_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
 import java.util.concurrent.TimeUnit;

@@ -8,12 +8,12 @@ import org.firstinspires.ftc.teamcode.systems.autoClaw_controller;
 
 import java.util.concurrent.TimeUnit;
 
-public class servo_linkage_action {
+public class Collect {
     private Servo tilt, linkage, claw_rotate, claw, rotate_assembly;
     Timing.Timer timer;
     autoClaw_controller autoClawController = new autoClaw_controller();
 
-    public servo_linkage_action(Servo claw, Servo tilt, Servo linkage, Servo claw_rotate, Servo rotate_assembly){
+    public Collect(Servo claw, Servo tilt, Servo linkage, Servo claw_rotate, Servo rotate_assembly){
         this.tilt = tilt;
         this.linkage = linkage;
         this.claw_rotate = claw_rotate;

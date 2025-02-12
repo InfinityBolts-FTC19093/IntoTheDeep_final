@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.actions;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.teamcode.constants.Constants.WAIT_FOR_LINKAGE_ACTION;
 import static org.firstinspires.ftc.teamcode.constants.Constants.WAIT_FOR_SLIDER_ACTION;
 
@@ -9,21 +8,18 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
-import org.firstinspires.ftc.teamcode.constants.RobotMap;
 import org.firstinspires.ftc.teamcode.systems.sliderClaw_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
 import java.util.concurrent.TimeUnit;
 
-public class score_action {
+public class Score {
 
     Timing.Timer timer;
-    RobotMap robot = new RobotMap(hardwareMap);
-
     Servo claw, claw_tilt, linkage, claw_rotate, rotate_claw_assembly, slider_claw, slider_claw_tilt, slider_claw_rotate;
     DcMotorEx slider;
 
-    public score_action(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo rotate_claw_assembly, Servo slider_claw, Servo slider_claw_tilt, Servo slider_claw_rotate, DcMotorEx slider) {
+    public Score(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo rotate_claw_assembly, Servo slider_claw, Servo slider_claw_tilt, Servo slider_claw_rotate, DcMotorEx slider) {
         this.claw = claw;
         this.claw_tilt = claw_tilt;
         this.linkage = linkage;
@@ -35,8 +31,8 @@ public class score_action {
         this.slider = slider;
     }
 
-    servo_linkage_action LinkageAction = new servo_linkage_action(claw ,claw_tilt, linkage, claw_rotate, rotate_claw_assembly);
-    servo_slider_action SliderAction =new servo_slider_action(slider_claw, slider_claw_tilt, slider_claw_rotate, slider);
+    Collect LinkageAction = new Collect(claw ,claw_tilt, linkage, claw_rotate, rotate_claw_assembly);
+    Prepare SliderAction =new Prepare(slider_claw, slider_claw_tilt, slider_claw_rotate, slider);
 
     sliderClaw_controller sliderClawController = new sliderClaw_controller(slider_claw);
     slider_controller sliderController = new slider_controller(slider);
@@ -106,7 +102,7 @@ public class score_action {
         Constants.currentScorePos = Constants.ScorePos.BUSKET;
     }
 
-    public void score(){
+    public void placeSample(){
         if(Constants.currentScorePos == Constants.ScorePos.CHAMBER){
             sliderController.setTargetPosition(Constants.SLIDER_PLACE_ON_CHAMBER);
             timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();

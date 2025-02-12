@@ -1,24 +1,21 @@
 package org.firstinspires.ftc.teamcode.actions;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
-import org.firstinspires.ftc.teamcode.constants.RobotMap;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
 import java.util.concurrent.TimeUnit;
 
-public class servo_slider_action {
+public class Prepare {
     Timing.Timer timer;
 
     private Servo claw, tilt, rotate;
     private DcMotorEx slider;
 
-    public servo_slider_action(Servo claw, Servo tilt, Servo rotate, DcMotorEx slider){
+    public Prepare(Servo claw, Servo tilt, Servo rotate, DcMotorEx slider){
         this.claw = claw;
         this.tilt = tilt;
         this.rotate = rotate;
