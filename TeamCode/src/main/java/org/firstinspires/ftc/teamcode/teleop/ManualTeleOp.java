@@ -53,14 +53,14 @@ public class ManualTeleOp extends LinearOpMode {
     Timing.Timer timer;
 
     int SliderPos = 0;
-    double Linkage = 0, SliderClawRotate = 0.5, Claw = 0, SliderClaw = 0, SliderClawTilt = 0.5, ClawRotate=0, ClawTilt = 0, UnghiRobot = 0, clawAssembly = 0;
+    public double Linkage = 0, SliderClawRotate = 0.5, Claw = 0, SliderClaw = 0, SliderClawTilt = 0.5, ClawRotate=0, ClawTilt = 0, UnghiRobot = 0, clawAssembly = 0;
     public static int Wait = 200;
 
     RobotMap robot = new RobotMap(hardwareMap);
 
     slider_controller sliderController = new slider_controller(robot.slider);
     manualSlider_controller manualSliderController = new manualSlider_controller(robot.slider);
-    G2_Action g2Action = new G2_Action();
+    G2_Action g2Action = new G2_Action(hardwareMap);
 
 
     @Override

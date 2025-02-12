@@ -5,6 +5,8 @@ import static org.firstinspires.ftc.teamcode.constants.Constants.WAIT_FOR_LINKAG
 import static org.firstinspires.ftc.teamcode.constants.Constants.WAIT_FOR_SLIDER_ACTION;
 
 import com.arcrobotics.ftclib.util.Timing;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
@@ -18,48 +20,54 @@ public class score_action {
     Timing.Timer timer;
     RobotMap robot = new RobotMap(hardwareMap);
 
-    servo_linkage_action servoLinkageAction = new servo_linkage_action(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.rotate_claw_assembly);
-    servo_slider_action servoSliderAction =new servo_slider_action();
+    Servo claw, claw_tilt, linkage, claw_rotate, rotate_claw_assembly, slider_claw, slider_claw_tilt, slider_claw_rotate;
+    DcMotorEx slider;
 
-    sliderClaw_controller sliderClawController = new sliderClaw_controller(robot.slider_claw);
-    slider_controller sliderController = new slider_controller(robot.slider);
+    public score_action(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo rotate_claw_assembly, Servo slider_claw, Servo slider_claw_tilt, Servo slider_claw_rotate, DcMotorEx slider) {
+        this.claw = claw;
+        this.claw_tilt = claw_tilt;
+        this.linkage = linkage;
+        this.claw_rotate = claw_rotate;
+        this.rotate_claw_assembly = rotate_claw_assembly;
+        this.slider_claw = slider_claw;
+        this.slider_claw_tilt = slider_claw_tilt;
+        this.slider_claw_rotate = slider_claw_rotate;
+        this.slider = slider;
+    }
 
-    public score_action() {}
+    servo_linkage_action LinkageAction = new servo_linkage_action(claw ,claw_tilt, linkage, claw_rotate, rotate_claw_assembly);
+    servo_slider_action SliderAction =new servo_slider_action(slider_claw, slider_claw_tilt, slider_claw_rotate, slider);
+
+    sliderClaw_controller sliderClawController = new sliderClaw_controller(slider_claw);
+    slider_controller sliderController = new slider_controller(slider);
 
     /** CHAMBER */
 
     public void placeOnHighChamber(){
         if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
-            servoLinkageAction.plaseInSlider();
+            LinkageAction.placeInSlider();
             timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
 
         if(Constants.currentSliderActionPos == Constants.SliderActionPos.PLACE_ON_CHAMBER || Constants.currentSliderActionPos == Constants.SliderActionPos.INIT){
-            servoSliderAction.takeFromLinkage();
+            SliderAction.takeFromLinkage();
             timer = new Timing.Timer(WAIT_FOR_SLIDER_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
 
-        sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER);
-        servoSliderAction.placeOnHighChamber();
+        SliderAction.placeOnHighChamber();
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
-        sliderController.setTargetPosition(Constants.SLIDER_PLACE_ON_CHAMBER);
-        sliderController.update();
-        timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
-
-        sliderClawController.setPos(Constants.OPEN_CLAW);
-
-        Constants.currentScorePos = Constants.ScorePos.PLACE_ON_HIGH_CHAMBER;
+        Constants.currentScorePos = Constants.ScorePos.CHAMBER;
     }
 
     public void placeOnLowChamber(){
         if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
-            servoLinkageAction.plaseInSlider();
+            LinkageAction.placeInSlider();
             timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
 
         if(Constants.currentSliderActionPos == Constants.SliderActionPos.PLACE_ON_CHAMBER || Constants.currentSliderActionPos == Constants.SliderActionPos.INIT){
-            servoSliderAction.takeFromLinkage();
+            SliderAction.takeFromLinkage();
             timer = new Timing.Timer(WAIT_FOR_SLIDER_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
 
@@ -69,7 +77,7 @@ public class score_action {
         sliderController.setTargetPosition(Constants.SLIDER_PLACE_ON_CHAMBER);
         sliderClawController.setPos(Constants.OPEN_CLAW);
 
-        Constants.currentScorePos = Constants.ScorePos.PLACE_ON_LOW_CHAMBER;
+        Constants.currentScorePos = Constants.ScorePos.CHAMBER;
     }
 
 
@@ -77,25 +85,34 @@ public class score_action {
 
     public void placeInHighBusket(){
         if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
-            servoLinkageAction.plaseInSlider();
+            LinkageAction.placeInSlider();
             timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
-        //add slider servo
-        sliderController.setTargetPosition(Constants.SLIDER_HIGH_BUSKET);
+        SliderAction.placeOnHighBusket();
 
-        Constants.currentScorePos = Constants.ScorePos.PLACE_ON_HIGH_BUSKET;
+        Constants.currentScorePos = Constants.ScorePos.BUSKET;
     }
 
 
 
     public void placeInLowBusket(){
         if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
-            servoLinkageAction.plaseInSlider();
+            LinkageAction.placeInSlider();
             timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
         //add slider servo
         sliderController.setTargetPosition(Constants.SLIDER_LOW_BUSKET);
 
-        Constants.currentScorePos = Constants.ScorePos.PLACE_ON_LOW_BUSKET;
+        Constants.currentScorePos = Constants.ScorePos.BUSKET;
     }
+
+    public void score(){
+        if(Constants.currentScorePos == Constants.ScorePos.CHAMBER){
+            sliderController.setTargetPosition(Constants.SLIDER_PLACE_ON_CHAMBER);
+            timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
+
+            sliderClawController.setPos(Constants.OPEN_CLAW);
+        }
+    }
+
 }

@@ -45,10 +45,8 @@ public class Constants {
 
     public enum ScorePos{
         TAKE,
-        PLACE_ON_HIGH_CHAMBER,
-        PLACE_ON_HIGH_BUSKET,
-        PLACE_ON_LOW_CHAMBER,
-        PLACE_ON_LOW_BUSKET,
+        CHAMBER,
+        BUSKET,
         INIT
     }
 

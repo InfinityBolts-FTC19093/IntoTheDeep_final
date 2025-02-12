@@ -1,14 +1,10 @@
 package org.firstinspires.ftc.teamcode.actions;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
-import org.firstinspires.ftc.teamcode.constants.RobotMap;
 import org.firstinspires.ftc.teamcode.systems.autoClaw_controller;
-import org.firstinspires.ftc.teamcode.systems.claw_controller;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,7 +37,7 @@ public class servo_linkage_action {
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.TAKE;
     }
 
-    public void plaseInSlider(){
+    public void placeInSlider(){
         if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
             claw.setPosition(Constants.CLOSE_CLAW);
             timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
@@ -65,7 +61,7 @@ public class servo_linkage_action {
         if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.PLACE_IN_SLIDER){
             takePos();
         }else if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE){
-            plaseInSlider();
+            placeInSlider();
         }
     }
 }

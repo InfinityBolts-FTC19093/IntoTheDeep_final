@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.actions;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 import com.arcrobotics.ftclib.util.Timing;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
@@ -13,38 +15,43 @@ import java.util.concurrent.TimeUnit;
 public class servo_slider_action {
     Timing.Timer timer;
 
-    RobotMap robot = new RobotMap(hardwareMap);
+    private Servo claw, tilt, rotate;
+    private DcMotorEx slider;
 
-    slider_controller sliderController = new slider_controller(robot.slider);
+    public servo_slider_action(Servo claw, Servo tilt, Servo rotate, DcMotorEx slider){
+        this.claw = claw;
+        this.tilt = tilt;
+        this.rotate = rotate;
+        this.slider = slider;
+    }
 
-    public servo_slider_action(){}
-
+    slider_controller sliderController = new slider_controller(slider);
     public void takeFromLinkage(){
         if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
-            robot.slider_claw.setPosition(Constants.SLIDER_OPEN);
+            claw.setPosition(Constants.SLIDER_OPEN);
             timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
 
-        robot.slider_claw_rotate.setPosition(Constants.SLIDER_ROTATE_TAKE_FROM_LINKAGE);
+        rotate.setPosition(Constants.SLIDER_ROTATE_TAKE_FROM_LINKAGE);
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
-        robot.slider_claw_tilt.setPosition(Constants.SLIDER_TILT_TAKE_FROM_LINKAGE);
+        tilt.setPosition(Constants.SLIDER_TILT_TAKE_FROM_LINKAGE);
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
         sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();};timer.pause();
 
-        robot.slider_claw.setPosition(Constants.SLIDER_CLOSE);
+        claw.setPosition(Constants.SLIDER_CLOSE);
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
         Constants.currentSliderActionPos = Constants.SliderActionPos.TAKE_FOR_LINKAGE;
     }
 
     public void placeOnHighChamber(){
-        robot.slider_claw_tilt.setPosition(Constants.SLIDER_TILT_PLACE_ON_HIGH_CHAMBER);
+        tilt.setPosition(Constants.SLIDER_TILT_PLACE_ON_HIGH_CHAMBER);
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
-        robot.slider_claw_rotate.setPosition(Constants.SLIDER_ROTATE_PLACE);
+        rotate.setPosition(Constants.SLIDER_ROTATE_PLACE);
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
         sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER);
@@ -60,8 +67,11 @@ public class servo_slider_action {
     }
 
     public void placeOnHighBusket(){
+        sliderController.setTargetPosition(Constants.SLIDER_HIGH_BUSKET);
+        timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
 
-
+        tilt.setPosition(Constants.SLIDER_TILT_PLACE_IN_BUSKET);
+        rotate.setPosition(Constants.SLIDER_ROTATE_PLACE);
 
         Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_IN_BUSKET;
     }

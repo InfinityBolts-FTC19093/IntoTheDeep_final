@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.actions;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 import com.arcrobotics.ftclib.util.Timing;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
@@ -13,12 +14,13 @@ import java.util.concurrent.TimeUnit;
 public class G2_Action {
 
     Timing.Timer timer;
+    RobotMap robot;
 
-    RobotMap robot = new RobotMap(hardwareMap);
+    public G2_Action(HardwareMap hardwareMap){
+        robot = new RobotMap(hardwareMap);
+    }
 
     slider_controller sliderController = new slider_controller(robot.slider);
-
-    public G2_Action(){}
 
     public void zeroPos(){
         robot.claw.setPosition(Constants.OPEN_CLAW);
