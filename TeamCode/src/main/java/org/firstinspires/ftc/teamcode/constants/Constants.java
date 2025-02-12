@@ -33,6 +33,7 @@ public class Constants {
     public enum LinkageActionPos {
         TAKE,
         PLACE_IN_SLIDER,
+        THROW,
         INIT
     }
 
@@ -66,6 +67,7 @@ public class Constants {
     public static SliderPos currentSliderPos = SliderPos.SLIDER_DOWN;
     public static LinkageActionPos currentLinkageActionPos = LinkageActionPos.INIT;
     public static SliderActionPos currentSliderActionPos = SliderActionPos.INIT;
+    public static SliderActionPos previousSliderActionPos = SliderActionPos.INIT;
     public static ScorePos currentScorePos = ScorePos.INIT;
     public static SliderClawPos currentSliderClawPos = SliderClawPos.CLOSE_CLAW;
     public static UnghiRobotPos currentUnghiRobotPos = UnghiRobotPos.SUS;
@@ -83,6 +85,7 @@ public class Constants {
     public static int SLIDER_HIGH_BUSKET = 0;
 
     public static int SLIDER_ASCEND = 0;
+    public static int SLIDER_LEV2_ASCEND = 0;
 
     public static double Slider_kP = 0.1;
     public static double Slider_kI = 0.0004;
@@ -106,6 +109,7 @@ public class Constants {
     public static double TILT_INIT = 0;
     public static double TILT_TAKE = 0;
     public static double TILT_PLACE_IN_SLIDER = 0;
+    public static double TILT_THROW = 0;
 
     /** Servo ROTATE */
     public static double ROTATE_INIT = 0;

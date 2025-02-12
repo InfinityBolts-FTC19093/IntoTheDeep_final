@@ -68,17 +68,15 @@ public class Teleop extends LinearOpMode {
 
             if (gamepad1.dpad_down) {sliderController.setTargetPosition(Constants.SLIDER_DOWN);}
 
-            if (gamepad1.left_bumper) {LinkageAction.switchServoAction();}
+            if (gamepad1.left_bumper) {LinkageAction.switchServoAction_TakeSlider();}
 
-            if(gamepad1.right_bumper){scoreAction.score();}
+            if(gamepad1.right_bumper){LinkageAction.switch_TakeThrow();}
 
             if (gamepad1.a) {scoreAction.placeOnHighChamber();}
 
-            if (gamepad1.y) {scoreAction.placeOnLowChamber();}
+            if(gamepad1.b){scoreAction.placeInHighBusket();}
 
-            if (gamepad1.x) {scoreAction.placeInHighBusket();}
-
-            if (gamepad1.b) {scoreAction.placeInLowBusket();}
+            if (gamepad1.x) {SliderAction.takeFromHuman();}
 
             if (gamepad2.right_stick_button && gamepad2.left_stick_button){g2Action.lev2Asent();}
 

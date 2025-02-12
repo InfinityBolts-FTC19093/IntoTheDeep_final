@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 public class G2_Action {
 
     Timing.Timer timer;
+
+
     RobotMap robot;
 
     public G2_Action(HardwareMap hardwareMap){
@@ -44,9 +46,9 @@ public class G2_Action {
 
     public void lev2Asent(){
         sliderController.setTargetPosition(Constants.SLIDER_ASCEND);
-        timer = new Timing.Timer(100,TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+        timer = new Timing.Timer(100,TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
         robot.unghi_robot.setPosition(Constants.UNGHI_ROBOT_JOS);
-        timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while(!timer.done());timer.pause();
-        sliderController.setTargetPosition(Constants.SLIDER_DOWN);
+        timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){sliderController.update();}timer.pause();
+        sliderController.setTargetPosition(Constants.SLIDER_LEV2_ASCEND);
     }
 }

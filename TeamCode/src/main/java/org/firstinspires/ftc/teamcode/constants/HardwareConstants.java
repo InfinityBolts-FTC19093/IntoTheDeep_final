@@ -22,4 +22,5 @@ public class HardwareConstants {
     public static final String ID_SLIDER_CLAW_TILT = "SCT";
 
     public static final String ID_MODIFICA_UNGHI_ROBOT = "MUR";
+
 }

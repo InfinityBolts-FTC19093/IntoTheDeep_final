@@ -47,6 +47,19 @@ public class servo_slider_action {
         Constants.currentSliderActionPos = Constants.SliderActionPos.TAKE_FOR_LINKAGE;
     }
 
+    public void takeFromHuman(){
+        if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
+            claw.setPosition(Constants.SLIDER_OPEN);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+        }
+
+        rotate.setPosition(Constants.SLIDER_ROTATE_TAKE_HUMAN);
+        tilt.setPosition(Constants.SLIDER_TILT_TAKE_FORM_HUMAN);
+
+        sliderController.setTargetPosition(Constants.SLIDER_DOWN);
+
+    }
+
     public void placeOnHighChamber(){
         tilt.setPosition(Constants.SLIDER_TILT_PLACE_ON_HIGH_CHAMBER);
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
@@ -59,6 +72,7 @@ public class servo_slider_action {
 
         sliderController.setTargetPosition(Constants.SLIDER_PLACE_ON_CHAMBER);
 
+        Constants.previousSliderActionPos = Constants.currentSliderActionPos;
         Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_ON_CHAMBER;
     }
 

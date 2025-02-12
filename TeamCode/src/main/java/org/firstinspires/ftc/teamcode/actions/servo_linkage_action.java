@@ -57,8 +57,28 @@ public class servo_linkage_action {
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.PLACE_IN_SLIDER;
     }
 
-    public void switchServoAction(){
-        if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.PLACE_IN_SLIDER){
+    public void placeInObservation(){
+        if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
+            claw.setPosition(Constants.CLOSE_CLAW);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+        }
+
+        tilt.setPosition(Constants.TILT_THROW);
+        rotate_assembly.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
+        Constants.currentLinkageActionPos = Constants.LinkageActionPos.INIT;
+    }
+
+    public void switch_TakeThrow(){
+        if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.PLACE_IN_SLIDER || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
+            takePos();
+        }else if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE){
+            placeInObservation();
+        }
+
+    }
+
+    public void switchServoAction_TakeSlider(){
+        if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.PLACE_IN_SLIDER || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
             takePos();
         }else if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE){
             placeInSlider();
