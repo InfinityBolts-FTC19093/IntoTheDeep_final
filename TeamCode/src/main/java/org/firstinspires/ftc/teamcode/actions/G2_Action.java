@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.actions;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -14,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 public class G2_Action {
 
     Timing.Timer timer;
-
 
     RobotMap robot;
 
@@ -31,7 +28,7 @@ public class G2_Action {
         robot.claw_tilt.setPosition(Constants.TILT_INIT);
         robot.claw_rotate.setPosition(Constants.ROTATE_INIT);
 
-        robot.rotate_claw_assembly.setPosition(Constants.CLAW_ASSEMBLY_INIT);
+        robot.turret.setPosition(Constants.CLAW_ASSEMBLY_INIT);
 
         robot.linkage.setPosition(Constants.LINKAGE_INIT_POS);
 

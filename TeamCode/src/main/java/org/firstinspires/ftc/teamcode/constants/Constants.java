@@ -33,7 +33,7 @@ public class Constants {
     public enum LinkageActionPos {
         TAKE,
         PLACE_IN_SLIDER,
-        THROW,
+        OSERVATION,
         INIT
     }
 

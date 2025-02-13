@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.constants;
 
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class RobotMap {
@@ -19,7 +17,7 @@ public class RobotMap {
 
 
     public Servo linkage;
-    public Servo rotate_claw_assembly;
+    public Servo turret;
     public Servo claw_tilt;
     public Servo claw_rotate;
     public Servo claw;
@@ -40,7 +38,7 @@ public class RobotMap {
         linkage = hardwareMap.get(Servo.class, HardwareConstants.ID_LINKAGE_SERVO);
         claw_rotate = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW_ROTATE);
         claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW_TILT);
-        rotate_claw_assembly = hardwareMap.get(Servo.class, HardwareConstants.ID_ROTATE_CLAW_ASSEMBLY);
+        turret = hardwareMap.get(Servo.class, HardwareConstants.ID_ROTATE_CLAW_ASSEMBLY);
 
         slider_claw = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW);
         slider_claw_rotate = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_ROTATE);

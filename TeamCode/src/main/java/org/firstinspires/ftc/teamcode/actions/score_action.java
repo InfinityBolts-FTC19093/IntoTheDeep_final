@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.actions;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.teamcode.constants.Constants.WAIT_FOR_LINKAGE_ACTION;
 import static org.firstinspires.ftc.teamcode.constants.Constants.WAIT_FOR_SLIDER_ACTION;
 
@@ -9,7 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
-import org.firstinspires.ftc.teamcode.constants.RobotMap;
 import org.firstinspires.ftc.teamcode.systems.sliderClaw_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
@@ -18,24 +16,23 @@ import java.util.concurrent.TimeUnit;
 public class score_action {
 
     Timing.Timer timer;
-    RobotMap robot = new RobotMap(hardwareMap);
 
-    Servo claw, claw_tilt, linkage, claw_rotate, rotate_claw_assembly, slider_claw, slider_claw_tilt, slider_claw_rotate;
+    Servo claw, claw_tilt, linkage, claw_rotate, turret, slider_claw, slider_claw_tilt, slider_claw_rotate;
     DcMotorEx slider;
 
-    public score_action(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo rotate_claw_assembly, Servo slider_claw, Servo slider_claw_tilt, Servo slider_claw_rotate, DcMotorEx slider) {
+    public score_action(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo turret, Servo slider_claw, Servo slider_claw_tilt, Servo slider_claw_rotate, DcMotorEx slider) {
         this.claw = claw;
         this.claw_tilt = claw_tilt;
         this.linkage = linkage;
         this.claw_rotate = claw_rotate;
-        this.rotate_claw_assembly = rotate_claw_assembly;
+        this.turret = turret;
         this.slider_claw = slider_claw;
         this.slider_claw_tilt = slider_claw_tilt;
         this.slider_claw_rotate = slider_claw_rotate;
         this.slider = slider;
     }
 
-    servo_linkage_action LinkageAction = new servo_linkage_action(claw ,claw_tilt, linkage, claw_rotate, rotate_claw_assembly);
+    servo_linkage_action LinkageAction = new servo_linkage_action(claw ,claw_tilt, linkage, claw_rotate, turret);
     servo_slider_action SliderAction =new servo_slider_action(slider_claw, slider_claw_tilt, slider_claw_rotate, slider);
 
     sliderClaw_controller sliderClawController = new sliderClaw_controller(slider_claw);
