@@ -5,8 +5,10 @@ import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.actions.G2_Action;
+import org.firstinspires.ftc.teamcode.actions.robot_drive;
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
 import org.firstinspires.ftc.teamcode.systems.manualSlider_controller;
@@ -15,56 +17,26 @@ import org.firstinspires.ftc.teamcode.systems.slider_controller;
 import java.util.concurrent.TimeUnit;
 
 @Config
-@TeleOp(name = "ManualTeleOp")
+@TeleOp(name = "ManualTeleOp", group = "TEST")
 public class ManualTeleOp extends LinearOpMode {
-
-    public void robotCentricDrive(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim) {
-        Constants.currentRobotDriveStatus = Constants.RobotDriveStatus.ROBOT_CENTRIC;
-        double y = -gamepad1.left_stick_y;
-        double x =  gamepad1.left_stick_x* 1;
-        double rx = gamepad1.right_stick_x*1;
-
-        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-
-        double frontLeftPower = (y + x + rx) / denominator;
-        double backLeftPower = (y - x + rx) / denominator;
-        double frontRightPower = (y - x - rx) / denominator;
-        double backRightPower = (y + x - rx) / denominator;
-
-        frontLeftPower = Clip(frontLeftPower,lim);
-        backLeftPower = Clip(backLeftPower,lim);
-        frontRightPower = Clip(frontRightPower,lim);
-        backRightPower = Clip(backRightPower,lim);
-
-        leftFront.setPower(frontLeftPower);
-        leftBack.setPower(backLeftPower);
-        rightFront.setPower(frontRightPower);
-        rightBack.setPower(backRightPower);
-    }
-
-    double Clip(double Speed,double lim) {return Math.max(Math.min(Speed,lim),-lim);}
-
-
     Timing.Timer timer;
 
     int SliderPos = 0;
     public double Linkage = 0, SliderClawRotate = 0.5, Claw = 0, SliderClaw = 0, SliderClawTilt = 0.5, ClawRotate=0, ClawTilt = 0, UnghiRobot = 0, clawAssembly = 0;
     public static int Wait = 200;
 
-    RobotMap robot = new RobotMap(hardwareMap);
-
-    slider_controller sliderController = new slider_controller(robot.slider);
-    manualSlider_controller manualSliderController = new manualSlider_controller(robot.slider);
-    G2_Action g2Action = new G2_Action(hardwareMap);
-
 
     @Override
     public void runOpMode() throws InterruptedException {
+        RobotMap robot = new RobotMap(hardwareMap);
+        slider_controller sliderController = new slider_controller(robot.slider);
+        manualSlider_controller manualSliderController = new manualSlider_controller(robot.slider);
+        G2_Action g2Action = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.turret, robot.linkage, robot.slider_claw_rotate, robot.slider);
+        robot_drive drive = new robot_drive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
+
         waitForStart();
         while(opModeIsActive() && !isStopRequested()){
-            robotCentricDrive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1);
-
-
+            drive.robotCentricDrive();
             //Slider
 //            if (gamepad1.left_trigger >= 0.005 || gamepad1.right_trigger >= 0.005) {
 //                if (gamepad1.left_trigger >= 0.01) {
@@ -132,10 +104,10 @@ public class ManualTeleOp extends LinearOpMode {
 
 
             //Slider Claw Tilt
-            if(gamepad1.right_stick_y >0.2 || gamepad1.right_stick_y < -0.2 ){
-                SliderClawTilt = gamepad1.right_stick_y;
-                timer = new Timing.Timer(Wait, TimeUnit.MILLISECONDS); while (!timer.done()); timer.pause();
-            }
+//            if(gamepad1.right_stick_y >0.2 || gamepad1.right_stick_y < -0.2 ){
+//                SliderClawTilt = gamepad1.right_stick_y;
+//                timer = new Timing.Timer(Wait, TimeUnit.MILLISECONDS); while (!timer.done()); timer.pause();
+//            }
 
             //Claw Rotate
             if(gamepad1.left_bumper){

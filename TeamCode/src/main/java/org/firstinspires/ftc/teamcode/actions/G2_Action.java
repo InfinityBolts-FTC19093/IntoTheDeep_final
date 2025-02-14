@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.actions;
 
 import com.arcrobotics.ftclib.util.Timing;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
@@ -12,14 +14,22 @@ import java.util.concurrent.TimeUnit;
 public class G2_Action {
 
     Timing.Timer timer;
-
+    Servo claw, slider_claw, claw_tilt, claw_rotate, turret, linkage, slider_claw_rotate;
+    DcMotorEx slider;
     RobotMap robot;
+    slider_controller sliderController;
 
-    public G2_Action(HardwareMap hardwareMap){
-        robot = new RobotMap(hardwareMap);
+    public G2_Action(Servo claw, Servo slider_claw, Servo claw_tilt, Servo claw_rotate, Servo turret, Servo linkage, Servo slider_claw_rotate, DcMotorEx slider) {
+        this.claw = claw;
+        this.slider_claw = slider_claw;
+        this.claw_tilt = claw_tilt;
+        this.claw_rotate = claw_rotate;
+        this.turret = turret;
+        this.linkage = linkage;
+        this.slider_claw_rotate = slider_claw_rotate;
+        this.slider = slider;
+        this.sliderController = new slider_controller(this.slider);
     }
-
-    slider_controller sliderController = new slider_controller(robot.slider);
 
     public void zeroPos(){
         robot.claw.setPosition(Constants.OPEN_CLAW);

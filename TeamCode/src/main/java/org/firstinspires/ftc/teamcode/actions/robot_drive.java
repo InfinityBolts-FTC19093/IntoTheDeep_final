@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gam
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad2;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -12,24 +13,24 @@ import org.firstinspires.ftc.teamcode.constants.Constants;
 public class robot_drive {
     DcMotorEx leftFront, leftBack, rightFront, rightBack;
     double lim;
+    Gamepad gamepad1;
     IMU imu;
 
     //    double  PrecisionDenominator=1, PrecisionDenominator2=1;
 
-    public robot_drive(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim , IMU imu){
+    public robot_drive(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim, Gamepad gamepad1){
         this.leftFront = leftFront;
         this.leftBack = leftBack;
         this.rightFront = rightFront;
         this.rightBack = rightBack;
         this.lim = lim;
-        this.imu = imu;
+        this.gamepad1 = gamepad1;
     }
 
     public void robotCentricDrive() {
-        Constants.currentRobotDriveStatus = Constants.RobotDriveStatus.ROBOT_CENTRIC;
         double y = -gamepad1.left_stick_y;
-        double x =  gamepad1.left_stick_x;
-        double rx = gamepad1.right_stick_x;
+        double x =  gamepad1.left_stick_x* 1;
+        double rx = gamepad1.right_stick_x*1;
 
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
 

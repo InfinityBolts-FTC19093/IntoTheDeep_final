@@ -12,17 +12,19 @@ import java.util.concurrent.TimeUnit;
 public class Prepare {
     Timing.Timer timer;
 
-    private Servo claw, tilt, rotate;
+    private final Servo claw, tilt, rotate;
     private DcMotorEx slider;
+    private final slider_controller sliderController;
 
     public Prepare(Servo claw, Servo tilt, Servo rotate, DcMotorEx slider){
         this.claw = claw;
         this.tilt = tilt;
         this.rotate = rotate;
         this.slider = slider;
+        this.sliderController = new slider_controller(this.slider);
     }
 
-    slider_controller sliderController = new slider_controller(slider);
+    //slider_controller sliderController = new slider_controller(slider);
     public void takeFromLinkage(){
         if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
             claw.setPosition(Constants.SLIDER_OPEN);

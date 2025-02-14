@@ -7,10 +7,13 @@ import org.firstinspires.ftc.teamcode.constants.Constants;
 public class manualSlider_controller {
     private DcMotorEx slider;
     private int SliderPos=0;
+    private slider_controller sliderController;
 
-    public manualSlider_controller(DcMotorEx slider){this.slider = slider;}
+    public manualSlider_controller(DcMotorEx slider){
+        this.slider = slider;
+        this.sliderController = new slider_controller(this.slider);
+    }
 
-    slider_controller sliderController = new slider_controller(slider);
 
     public void control(double leftTrigger, double rightTrigger){
         if (leftTrigger>= 0.01) {

@@ -10,7 +10,7 @@ public class slider_controller {
 
     private final DcMotorEx slider;
 
-    int targetPosition;
+    private double targetPosition;
     double integral = 0;
     double previousError = 0;
 
@@ -22,13 +22,13 @@ public class slider_controller {
         this.targetPosition = pos();
     }
 
-    public void setTargetPosition(int targetPosition){
+    public void setTargetPosition(double targetPosition){
         this.targetPosition = targetPosition;
         this.integral = 0;
         this.previousError = 0;
     }
 
-    public int pos(){
+    public double pos(){
         return slider.getCurrentPosition();
     }
 

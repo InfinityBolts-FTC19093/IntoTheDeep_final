@@ -9,28 +9,28 @@ import org.firstinspires.ftc.teamcode.systems.autoClaw_controller;
 import java.util.concurrent.TimeUnit;
 
 public class Collect {
-    private Servo tilt, linkage, claw_rotate, claw, rotate_assembly;
+    private final Servo tilt, linkage, claw_rotate, claw, turret;
     Timing.Timer timer;
-    autoClaw_controller autoClawController = new autoClaw_controller();
+    //autoClaw_controller autoClawController = new autoClaw_controller();
 
-    public Collect(Servo claw, Servo tilt, Servo linkage, Servo claw_rotate, Servo rotate_assembly){
+    public Collect(Servo claw, Servo tilt, Servo linkage, Servo claw_rotate, Servo turret){
         this.tilt = tilt;
         this.linkage = linkage;
         this.claw_rotate = claw_rotate;
         this.claw = claw;
-        this.rotate_assembly = rotate_assembly;
+        this.turret = turret;
     }
 
     public void takePos(){
         linkage.setPosition(Constants.LINKAGE_TAKE_POS);
 
         claw.setPosition(Constants.OPEN_CLAW);
-        rotate_assembly.setPosition(Constants.CLAW_ASSEMBLY_TAKE);
+        turret.setPosition(Constants.CLAW_ASSEMBLY_TAKE);
         tilt.setPosition(Constants.TILT_TAKE);
 
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
-        autoClawController.take();
+        //autoClawController.take();
 
         timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
@@ -46,7 +46,7 @@ public class Collect {
         claw_rotate.setPosition(Constants.ROTATE_PLACE_IN_SLIDER);
 
         tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
-        rotate_assembly.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
+        turret.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
 
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
@@ -64,7 +64,7 @@ public class Collect {
         }
 
         tilt.setPosition(Constants.TILT_THROW);
-        rotate_assembly.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
+        turret.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.INIT;
     }
 

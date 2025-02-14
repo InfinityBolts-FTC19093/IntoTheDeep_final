@@ -88,16 +88,6 @@ public class actions {
             slider_controller sliderController;
 
             public Score(HardwareMap hardwareMap) {
-                this.claw = claw;
-                this.claw_tilt = claw_tilt;
-                this.linkage = linkage;
-                this.claw_rotate = claw_rotate;
-                this.rotate_claw_assembly = rotate_claw_assembly;
-                this.slider_claw = slider_claw;
-                this.slider_claw_tilt = slider_claw_tilt;
-                this.slider_claw_rotate = slider_claw_rotate;
-                this.slider = slider;
-
                 Collect LinkageAction = new Collect(claw ,claw_tilt, linkage, claw_rotate, rotate_claw_assembly);
                 Prepare SliderAction  = new Prepare(slider_claw, slider_claw_tilt, slider_claw_rotate, slider);
 
