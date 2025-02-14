@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+
 import org.firstinspires.ftc.teamcode.actions.G2_Action;
 import org.firstinspires.ftc.teamcode.actions.Score;
 import org.firstinspires.ftc.teamcode.actions.Collect;
@@ -16,6 +18,31 @@ import org.firstinspires.ftc.teamcode.systems.slider_controller;
 @TeleOp(name = "TeleOp", group = "#")
 public class Teleop extends LinearOpMode {
 
+    public void robotCentricDrive(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim) {
+        double y = -gamepad1.left_stick_y;
+        double x =  gamepad1.left_stick_x* 1;
+        double rx = gamepad1.right_stick_x*1;
+
+        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+
+        double frontLeftPower = (y + x + rx) / denominator;
+        double backLeftPower = (y - x + rx) / denominator;
+        double frontRightPower = (y - x - rx) / denominator;
+        double backRightPower = (y + x - rx) / denominator;
+
+        frontLeftPower = Clip(frontLeftPower,lim);
+        backLeftPower = Clip(backLeftPower,lim);
+        frontRightPower = Clip(frontRightPower,lim);
+        backRightPower = Clip(backRightPower,lim);
+
+        leftFront.setPower(frontLeftPower);
+        leftBack.setPower(backLeftPower);
+        rightFront.setPower(frontRightPower);
+        rightBack.setPower(backRightPower);
+    }
+
+    double Clip(double Speed,double lim) {return Math.max(Math.min(Speed,lim),-lim);}
+
     @Override
     public void runOpMode() {
         RobotMap robot = new RobotMap(hardwareMap);
@@ -30,14 +57,13 @@ public class Teleop extends LinearOpMode {
 
         manualSlider_controller manualSliderController = new manualSlider_controller(robot.slider);
         G2_Action g2Action = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.turret, robot.linkage, robot.slider_claw_rotate, robot.slider);
-        robot_drive drive = new robot_drive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
 
         telemetry.addData("Data", "merge");
         telemetry.update();
         waitForStart();
 
         while (opModeIsActive() && !isStopRequested()) {
-            drive.robotCentricDrive();
+            robotCentricDrive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1);
 
             if (gamepad1.dpad_right) {clawController.open_close();}
 

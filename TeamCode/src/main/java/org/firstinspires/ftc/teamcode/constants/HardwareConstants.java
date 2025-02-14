@@ -34,6 +34,7 @@ public class HardwareConstants {
 
     public static final String ID_SLIDER = "slider";
 
+    //Servo
 
     public static final String ID_LINKAGE_SERVO = "linkage";
 
