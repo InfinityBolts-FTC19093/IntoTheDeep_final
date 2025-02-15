@@ -136,7 +136,7 @@ public class actions {
                 @Override
                 public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                     if(Constants.currentScorePos == Constants.ScorePos.CHAMBER){
-                        sliderController.setTargetPosition(Constants.SLIDER_PLACE_ON_CHAMBER);
+                        sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER-200);
                         timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
                         sliderClawController.setPos(Constants.OPEN_CLAW);
                 }

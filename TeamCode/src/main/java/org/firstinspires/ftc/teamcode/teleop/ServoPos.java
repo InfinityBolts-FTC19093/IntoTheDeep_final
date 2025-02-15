@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+
 import org.firstinspires.ftc.teamcode.constants.HardwareConstants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
 
@@ -18,6 +20,9 @@ public class ServoPos extends OpMode {
     public static double ClawPos=0,LinkagePos=0,RotateClawPos=0,ClawTiltPos=0,SliderClawPos=0,SliderClawRotatePos=0,SliderClawTiltPos=0,ModificaUnghiPos=0,RotateAssemplyPos=0;
     private Servo claw, linkage, claw_rotate, claw_tilt, turret, slider_claw, slider_claw_rotate, slider_claw_tilt, unghi_robot;
     private DcMotorEx slider;
+
+    private FtcDashboard dashboard;
+
     @Override
     public void init() {
         slider = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_SLIDER);
@@ -33,6 +38,11 @@ public class ServoPos extends OpMode {
         slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
         unghi_robot = hardwareMap.get(Servo.class, HardwareConstants.ID_MODIFICA_UNGHI_ROBOT);
+
+        dashboard = FtcDashboard.getInstance();
+        telemetry = dashboard.getTelemetry();
+        telemetry.addData("Dashboard", "Connected");
+        telemetry.update();
     }
 
     @Override
@@ -46,5 +56,10 @@ public class ServoPos extends OpMode {
         slider_claw_tilt.setPosition(SliderClawTiltPos);
         unghi_robot.setPosition(ModificaUnghiPos);
         turret.setPosition(RotateAssemplyPos);
+
+        telemetry.addData("slider:", slider.getCurrentPosition());
+
+        telemetry.addData("Loop", "Running");
+        telemetry.update();
     }
 }

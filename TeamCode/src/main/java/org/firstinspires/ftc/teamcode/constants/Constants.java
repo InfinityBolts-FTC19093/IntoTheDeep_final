@@ -11,8 +11,6 @@ public class Constants {
     public static final int WAIT_FOR_LINKAGE_ACTION = 300;
     public static final int WAIT_FOR_SLIDER_ACTION = 350;
 
-    static RobotMap robot = new RobotMap(hardwareMap);
-
     public enum RobotDriveStatus{
         ROBOT_CENTRIC,
         FIELD_CENTRIC
@@ -90,8 +88,6 @@ public class Constants {
     public static double Slider_kP = 0.1;
     public static double Slider_kI = 0.0004;
     public static double Slider_kD = 0;
-
-    public static int SLIDER_PLACE_ON_CHAMBER = robot.slider.getCurrentPosition()-100;
 
 
     /** CLAW*/

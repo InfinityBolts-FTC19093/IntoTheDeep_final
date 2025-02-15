@@ -72,7 +72,7 @@ public class Score {
         sliderController.setTargetPosition(Constants.SLIDER_LOW_CHAMBER);
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
-        sliderController.setTargetPosition(Constants.SLIDER_PLACE_ON_CHAMBER);
+        sliderController.setTargetPosition(Constants.SLIDER_LOW_CHAMBER-200);
         sliderClawController.setPos(Constants.OPEN_CLAW);
 
         Constants.currentScorePos = Constants.ScorePos.CHAMBER;
@@ -106,7 +106,7 @@ public class Score {
 
     public void placeSample(){
         if(Constants.currentScorePos == Constants.ScorePos.CHAMBER){
-            sliderController.setTargetPosition(Constants.SLIDER_PLACE_ON_CHAMBER);
+            sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER-200);
             timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
 
             sliderClawController.setPos(Constants.OPEN_CLAW);

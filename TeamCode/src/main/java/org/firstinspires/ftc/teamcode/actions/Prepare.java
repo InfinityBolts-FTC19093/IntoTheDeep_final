@@ -69,7 +69,7 @@ public class Prepare {
         sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER);
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
 
-        sliderController.setTargetPosition(Constants.SLIDER_PLACE_ON_CHAMBER);
+        sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER-200);
 
         Constants.previousSliderActionPos = Constants.currentSliderActionPos;
         Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_ON_CHAMBER;
