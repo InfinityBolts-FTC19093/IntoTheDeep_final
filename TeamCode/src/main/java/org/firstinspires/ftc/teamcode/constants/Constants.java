@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.constants;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.acmerobotics.dashboard.config.Config;
 
 
@@ -95,10 +93,10 @@ public class Constants {
     public static double CLOSE_CLAW = 0;
 
     /** Servo LINKAGE */
-    public static double LINKAGE_INIT_POS = 0;
+    public static double LINKAGE_INIT_POS = 0.03;
     public static double LINKAGE_MAX_POS = 0;
-    public static double LINKAGE_TAKE_POS = 0;
-    public static double LINKAGE_PLACE_IN_SLIDER = 0;
+    public static double LINKAGE_TAKE_POS = 0.66;
+    public static double LINKAGE_PLACE_IN_SLIDER = 0.1;
     public static double LINKAGE_INTERMEDIARY_POS = 0;
 
     /** Servo TILT */
@@ -119,15 +117,15 @@ public class Constants {
 
     /** Servo Claw ASSEMBLY*/
     public static double CLAW_ASSEMBLY_INIT = 0;
-    public static double CLAW_ASSEMBLY_PLACE_IN_SLIDER = 0;
+    public static double CLAW_ASSEMBLY_PLACE_IN_SLIDER = .5;
     public static double CLAW_ASSEMBLY_TAKE = 0;
 
 
-    /** Servo Slider Claw Rotate */
-    public static double SLIDER_ROTATE_INIT = 0;
-    public static double SLIDER_ROTATE_TAKE_HUMAN = 0;
-    public static double SLIDER_ROTATE_TAKE_FROM_LINKAGE = 0;
-    public static double SLIDER_ROTATE_PLACE = 0;
+    /** Servo TURRET */
+    public static double TURRET_INIT = 0;
+    public static double TURRET_TAKE_HUMAN = 0;
+    public static double TURRET_TAKE_FROM_LINKAGE = 0;
+    public static double TURRET_PLACE = 0;
 
     /** Servo Slider Claw Tilt */
     public static double SLIDER_TILT_INIT = 0;

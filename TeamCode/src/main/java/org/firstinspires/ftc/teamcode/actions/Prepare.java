@@ -31,7 +31,7 @@ public class Prepare {
             timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
 
-        rotate.setPosition(Constants.SLIDER_ROTATE_TAKE_FROM_LINKAGE);
+        rotate.setPosition(Constants.TURRET_TAKE_FROM_LINKAGE);
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
         tilt.setPosition(Constants.SLIDER_TILT_TAKE_FROM_LINKAGE);
@@ -52,7 +52,7 @@ public class Prepare {
             timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
 
-        rotate.setPosition(Constants.SLIDER_ROTATE_TAKE_HUMAN);
+        rotate.setPosition(Constants.TURRET_TAKE_HUMAN);
         tilt.setPosition(Constants.SLIDER_TILT_TAKE_FORM_HUMAN);
 
         sliderController.setTargetPosition(Constants.SLIDER_DOWN);
@@ -63,7 +63,7 @@ public class Prepare {
         tilt.setPosition(Constants.SLIDER_TILT_PLACE_ON_HIGH_CHAMBER);
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
-        rotate.setPosition(Constants.SLIDER_ROTATE_PLACE);
+        rotate.setPosition(Constants.TURRET_PLACE);
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
         sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER);
@@ -84,7 +84,7 @@ public class Prepare {
         timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
 
         tilt.setPosition(Constants.SLIDER_TILT_PLACE_IN_BUSKET);
-        rotate.setPosition(Constants.SLIDER_ROTATE_PLACE);
+        rotate.setPosition(Constants.TURRET_PLACE);
 
         Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_IN_BUSKET;
     }

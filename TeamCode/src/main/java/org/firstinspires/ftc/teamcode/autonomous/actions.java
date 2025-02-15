@@ -153,7 +153,7 @@ public class actions {
                     timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
                 }
 
-                claw_rotate.setPosition(Constants.SLIDER_ROTATE_TAKE_HUMAN);
+                claw_rotate.setPosition(Constants.TURRET_TAKE_HUMAN);
                 slider_claw_tilt.setPosition(Constants.SLIDER_TILT_TAKE_FORM_HUMAN);
 
                 sliderController.setTargetPosition(Constants.SLIDER_DOWN);

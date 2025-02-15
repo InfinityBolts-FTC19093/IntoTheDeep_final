@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.actions;
 
 import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
@@ -45,7 +44,7 @@ public class G2_Action {
         sliderController.setTargetPosition(Constants.SLIDER_DOWN);
         timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done());timer.pause();
 
-        robot.slider_claw_rotate.setPosition(Constants.SLIDER_ROTATE_INIT);
+        robot.slider_claw_rotate.setPosition(Constants.TURRET_INIT);
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done());timer.pause();
 
         robot.claw_tilt.setPosition(Constants.TILT_INIT);
