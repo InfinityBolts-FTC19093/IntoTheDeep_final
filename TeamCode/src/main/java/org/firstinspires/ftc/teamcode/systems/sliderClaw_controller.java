@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.systems;
 
+import static android.os.SystemClock.sleep;
+
 import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -24,14 +26,17 @@ public class sliderClaw_controller {
     }
 
     public void open_close(){
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+        //timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+        sleep(50);
         if(Constants.currentClawPos == Constants.ClawPos.CLOSE_CLAW){
             setPos(Constants.OPEN_CLAW);
-            timer = new Timing.Timer(50,TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+            //timer = new Timing.Timer(50,TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+            sleep(50);
             Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
         } else {
             setPos(Constants.CLOSE_CLAW);
-            timer = new Timing.Timer(50,TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+            //timer = new Timing.Timer(50,TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+            sleep(50);
             Constants.currentClawPos = Constants.ClawPos.CLOSE_CLAW;
         }
     }

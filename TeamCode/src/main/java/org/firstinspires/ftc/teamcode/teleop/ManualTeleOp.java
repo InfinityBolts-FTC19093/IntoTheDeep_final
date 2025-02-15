@@ -57,7 +57,7 @@ public class ManualTeleOp extends LinearOpMode {
         RobotMap robot = new RobotMap(hardwareMap);
         slider_controller sliderController = new slider_controller(robot.slider);
         manualSlider_controller manualSliderController = new manualSlider_controller(robot.slider);
-        G2_Action g2Action = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.turret, robot.linkage, robot.slider_claw_rotate, robot.slider);
+        G2_Action g2Action = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.turret, robot.linkage, robot.slider_claw_rotate, robot.slider, robot.unghi_robot);
 
         waitForStart();
         while(opModeIsActive() && !isStopRequested()){

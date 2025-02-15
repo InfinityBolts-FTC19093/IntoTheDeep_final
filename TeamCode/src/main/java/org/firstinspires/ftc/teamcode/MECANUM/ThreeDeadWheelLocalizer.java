@@ -19,9 +19,9 @@ import org.firstinspires.ftc.teamcode.messages.ThreeDeadWheelInputsMessage;
 
 public final class ThreeDeadWheelLocalizer implements Localizer {
     public static class Params {
-        public double par0YTicks = -3284.2210547376144; // y position of the first parallel encoder (in tick units)
-        public double par1YTicks = 3042.153053690352; // y position of the second parallel encoder (in tick units)
-        public double perpXTicks = -996.2357813548145; // x position of the perpendicular encoder (in tick units)
+        public double par0YTicks = -2869.879500068787; // y position of the first parallel encoder (in tick units)
+        public double par1YTicks = 2202.539859834705; // y position of the second parallel encoder (in tick units)
+        public double perpXTicks = -2898.6390899290527; // x position of the perpendicular encoder (in tick units)
     }
 
     public static Params PARAMS = new Params();
@@ -37,15 +37,9 @@ public final class ThreeDeadWheelLocalizer implements Localizer {
         // TODO: make sure your config has **motors** with these names (or change them)
         //   the encoders should be plugged into the slot matching the named motor
         //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html
-        par0 = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_LEFT_FRONT)));
-        par1 = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_LEFT_BACK)));
-        perp = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_RIGHT_BACK)));
-
-        // TODO: reverse encoder directions if needed
-           par0.setDirection(DcMotorSimple.Direction.REVERSE);
-           par1.setDirection(DcMotorSimple.Direction.REVERSE);
-           //perp.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        par0 = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_ODO_STANGA)));
+        par1 = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_ODO_DREAPTA)));
+        perp = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_ODO_MIJLOC)));
 
         this.inPerTick = inPerTick;
 

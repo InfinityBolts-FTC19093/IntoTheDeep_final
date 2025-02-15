@@ -49,4 +49,10 @@ public class HardwareConstants {
 
     public static final String ID_MODIFICA_UNGHI_ROBOT = "MUR";
 
+    public static final String ID_ODO_STANGA =  ID_RIGHT_FRONT;
+    public static final String ID_ODO_DREAPTA = ID_LEFT_FRONT;
+    public static final String ID_ODO_MIJLOC =  ID_LEFT_BACK;
+
+
+
 }

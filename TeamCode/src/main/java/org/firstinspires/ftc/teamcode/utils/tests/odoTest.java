@@ -15,9 +15,9 @@ public class odoTest extends OpMode {
 
     @Override
     public void loop() {
-        telemetry.addData("odo DR: ", robot.leftBack.getCurrentPosition());
-        telemetry.addData("odo ST: ", robot.leftFront.getCurrentPosition());
-        telemetry.addData("odo MIJ: ", robot.rightBack.getCurrentPosition());
+        telemetry.addData("odo DR: ", robot.leftFront.getCurrentPosition());
+        telemetry.addData("odo ST: ", robot.rightFront.getCurrentPosition());
+        telemetry.addData("odo MIJ: ", robot.leftBack.getCurrentPosition());
         telemetry.update();
     }
 }

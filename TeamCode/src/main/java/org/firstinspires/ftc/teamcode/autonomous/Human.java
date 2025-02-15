@@ -11,7 +11,6 @@ import org.firstinspires.ftc.teamcode.MECANUM.MecanumDrive;
 
 public class Human extends LinearOpMode {
 
-
     @Override
     public void runOpMode() throws InterruptedException {
         Pose2d startPose = new Pose2d(0, 0, 0);

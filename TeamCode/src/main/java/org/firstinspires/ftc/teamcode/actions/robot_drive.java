@@ -14,9 +14,6 @@ public class robot_drive {
     DcMotorEx leftFront, leftBack, rightFront, rightBack;
     double lim;
     Gamepad gamepad1;
-    IMU imu;
-
-    //    double  PrecisionDenominator=1, PrecisionDenominator2=1;
 
     public robot_drive(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim, Gamepad gamepad1){
         this.leftFront = leftFront;
@@ -27,7 +24,7 @@ public class robot_drive {
         this.gamepad1 = gamepad1;
     }
 
-    public void robotCentricDrive() {
+    public void robotCentricDrive(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim, Gamepad gamepad1) {
         double y = -gamepad1.left_stick_y;
         double x =  gamepad1.left_stick_x* 1;
         double rx = gamepad1.right_stick_x*1;
@@ -51,51 +48,5 @@ public class robot_drive {
     }
 
     double Clip(double Speed,double lim) {return Math.max(Math.min(Speed,lim),-lim);}
-
-    public void FieldCentricDrive(){
-        Constants.currentRobotDriveStatus = Constants.RobotDriveStatus.FIELD_CENTRIC;
-        // Adjust the orientation parameters to match your robot
-
-        double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
-        double x = gamepad1.left_stick_x;
-        double rx = gamepad1.right_stick_x;
-
-        // This button choice was made so that it is hard to hit on accident,
-        // it can be freely changed based on preference.
-        // The equivalent button is start on Xbox-style controllers.
-        if (gamepad1.options && gamepad2.options) {
-            imu.resetYaw();
-        }
-
-        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-
-        // Rotate the movement direction counter to the bot's rotation
-        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
-        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
-
-        rotX = rotX * 1.1;  // Counteract imperfect strafing
-
-        // Denominator is the largest motor power (absolute value) or 1
-        // This ensures all the powers maintain the same ratio,
-        // but only if at least one is out of the range [-1, 1]
-        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        double frontLeftPower = (rotY + rotX + rx) / denominator;
-        double backLeftPower = (rotY - rotX + rx) / denominator;
-        double frontRightPower = (rotY - rotX - rx) / denominator;
-        double backRightPower = (rotY + rotX - rx) / denominator;
-
-        leftFront.setPower(frontLeftPower);
-        leftBack.setPower(backLeftPower);
-        rightFront.setPower(frontRightPower);
-        rightBack.setPower(backRightPower);
-    }
-
-    public void switchDrive(){
-        if(Constants.currentRobotDriveStatus == Constants.RobotDriveStatus.ROBOT_CENTRIC){
-            FieldCentricDrive();
-        }else if (Constants.currentRobotDriveStatus == Constants.RobotDriveStatus.FIELD_CENTRIC){
-            robotCentricDrive();
-        }
-    }
 }
 

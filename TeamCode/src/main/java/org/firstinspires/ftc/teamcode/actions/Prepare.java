@@ -12,9 +12,9 @@ import java.util.concurrent.TimeUnit;
 public class Prepare {
     Timing.Timer timer;
 
-    private final Servo claw, tilt, rotate;
-    private DcMotorEx slider;
-    private final slider_controller sliderController;
+    Servo claw, tilt, rotate;
+    DcMotorEx slider;
+    slider_controller sliderController;
 
     public Prepare(Servo claw, Servo tilt, Servo rotate, DcMotorEx slider){
         this.claw = claw;
@@ -27,7 +27,7 @@ public class Prepare {
     //slider_controller sliderController = new slider_controller(slider);
     public void takeFromLinkage(){
         if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
-            claw.setPosition(Constants.SLIDER_OPEN);
+            claw.setPosition(Constants.OPEN_CLAW);
             timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
 
@@ -40,7 +40,7 @@ public class Prepare {
         sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();};timer.pause();
 
-        claw.setPosition(Constants.SLIDER_CLOSE);
+        claw.setPosition(Constants.CLOSE_CLAW);
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
         Constants.currentSliderActionPos = Constants.SliderActionPos.TAKE_FOR_LINKAGE;
@@ -48,7 +48,7 @@ public class Prepare {
 
     public void takeFromHuman(){
         if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
-            claw.setPosition(Constants.SLIDER_OPEN);
+            claw.setPosition(Constants.OPEN_CLAW);
             timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
 
@@ -95,8 +95,10 @@ public class Prepare {
 
     public void switchSliderAction(){
         if(Constants.currentSliderActionPos == Constants.SliderActionPos.PLACE_IN_BUSKET){
+            timer = new Timing.Timer(300, TimeUnit.MILLISECONDS); while (!timer.done()); timer.pause();
             takeFromLinkage();
         } else if (Constants.currentSliderActionPos == Constants.SliderActionPos.TAKE_FOR_LINKAGE) {
+            timer = new Timing.Timer(300, TimeUnit.MILLISECONDS); while (!timer.done()); timer.pause();
             placeOnHighChamber();
         }
     }

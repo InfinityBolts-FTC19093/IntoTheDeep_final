@@ -13,12 +13,11 @@ import java.util.concurrent.TimeUnit;
 public class G2_Action {
 
     Timing.Timer timer;
-    Servo claw, slider_claw, claw_tilt, claw_rotate, turret, linkage, slider_claw_rotate;
+    Servo claw, slider_claw, claw_tilt, claw_rotate, turret, linkage, slider_claw_rotate, unghi_robot;
     DcMotorEx slider;
-    RobotMap robot;
     slider_controller sliderController;
 
-    public G2_Action(Servo claw, Servo slider_claw, Servo claw_tilt, Servo claw_rotate, Servo turret, Servo linkage, Servo slider_claw_rotate, DcMotorEx slider) {
+    public G2_Action(Servo claw, Servo slider_claw, Servo claw_tilt, Servo claw_rotate, Servo turret, Servo linkage, Servo slider_claw_rotate, DcMotorEx slider, Servo unghi_robot) {
         this.claw = claw;
         this.slider_claw = slider_claw;
         this.claw_tilt = claw_tilt;
@@ -28,32 +27,33 @@ public class G2_Action {
         this.slider_claw_rotate = slider_claw_rotate;
         this.slider = slider;
         this.sliderController = new slider_controller(this.slider);
+        this.unghi_robot = unghi_robot;
     }
 
     public void zeroPos(){
-        robot.claw.setPosition(Constants.OPEN_CLAW);
-        robot.slider_claw.setPosition(Constants.SLIDER_OPEN);
+        claw.setPosition(Constants.OPEN_CLAW);
+        slider_claw.setPosition(Constants.OPEN_CLAW);
 
-        robot.claw_tilt.setPosition(Constants.TILT_INIT);
-        robot.claw_rotate.setPosition(Constants.ROTATE_INIT);
+        claw_tilt.setPosition(Constants.TILT_INIT);
+        claw_rotate.setPosition(Constants.ROTATE_INIT);
 
-        robot.turret.setPosition(Constants.CLAW_ASSEMBLY_INIT);
+        turret.setPosition(Constants.CLAW_ASSEMBLY_INIT);
 
-        robot.linkage.setPosition(Constants.LINKAGE_INIT_POS);
+        linkage.setPosition(Constants.LINKAGE_INIT_POS);
 
         sliderController.setTargetPosition(Constants.SLIDER_DOWN);
         timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done());timer.pause();
 
-        robot.slider_claw_rotate.setPosition(Constants.TURRET_INIT);
+        slider_claw_rotate.setPosition(Constants.TURRET_INIT);
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done());timer.pause();
 
-        robot.claw_tilt.setPosition(Constants.TILT_INIT);
+        claw_tilt.setPosition(Constants.TILT_INIT);
     }
 
     public void lev2Asent(){
         sliderController.setTargetPosition(Constants.SLIDER_ASCEND);
         timer = new Timing.Timer(100,TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
-        robot.unghi_robot.setPosition(Constants.UNGHI_ROBOT_JOS);
+        unghi_robot.setPosition(Constants.UNGHI_ROBOT_JOS);
         timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){sliderController.update();}timer.pause();
         sliderController.setTargetPosition(Constants.SLIDER_LEV2_ASCEND);
     }

@@ -9,9 +9,8 @@ import org.firstinspires.ftc.teamcode.systems.autoClaw_controller;
 import java.util.concurrent.TimeUnit;
 
 public class Collect {
-    private final Servo tilt, linkage, claw_rotate, claw, turret;
+    Servo tilt, linkage, claw_rotate, claw, turret;
     Timing.Timer timer;
-    //autoClaw_controller autoClawController = new autoClaw_controller();
 
     public Collect(Servo claw, Servo tilt, Servo linkage, Servo claw_rotate, Servo turret){
         this.tilt = tilt;
@@ -26,7 +25,7 @@ public class Collect {
 
         claw.setPosition(Constants.OPEN_CLAW);
         turret.setPosition(Constants.CLAW_ASSEMBLY_TAKE);
-        tilt.setPosition(Constants.TILT_TAKE);
+        tilt.setPosition(Constants.TILT_BEFORE_TAKE);
 
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
 
@@ -38,6 +37,9 @@ public class Collect {
     }
 
     public void placeInSlider(){
+        tilt.setPosition(Constants.TILT_TAKE);
+        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+
         if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
             claw.setPosition(Constants.CLOSE_CLAW);
             timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
@@ -70,8 +72,10 @@ public class Collect {
 
     public void switch_TakeThrow(){
         if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.PLACE_IN_SLIDER || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
+            timer = new Timing.Timer(150, TimeUnit.MILLISECONDS); while (!timer.done()); timer.pause();
             takePos();
         }else if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE){
+            timer = new Timing.Timer(150, TimeUnit.MILLISECONDS); while (!timer.done()); timer.pause();
             placeInObservation();
         }
 
@@ -79,8 +83,10 @@ public class Collect {
 
     public void switchServoAction_TakeSlider(){
         if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.PLACE_IN_SLIDER || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
+            timer = new Timing.Timer(150, TimeUnit.MILLISECONDS); while (!timer.done()); timer.pause();
             takePos();
         }else if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE){
+            timer = new Timing.Timer(150, TimeUnit.MILLISECONDS); while (!timer.done()); timer.pause();
             placeInSlider();
         }
     }

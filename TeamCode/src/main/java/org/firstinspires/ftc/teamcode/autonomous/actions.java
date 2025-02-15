@@ -149,7 +149,7 @@ public class actions {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
-                    claw.setPosition(Constants.SLIDER_OPEN);
+                    claw.setPosition(Constants.OPEN_CLAW);
                     timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
                 }
 

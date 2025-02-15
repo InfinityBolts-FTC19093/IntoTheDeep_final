@@ -15,13 +15,13 @@ import java.util.concurrent.TimeUnit;
 
 public class Score {
 
-    private Timing.Timer timer;
-    private final Servo claw, claw_tilt, linkage, claw_rotate, turret, slider_claw, slider_claw_tilt, slider_claw_rotate;
-    private final DcMotorEx slider;
-    private final Collect LinkageAction;
-    private final Prepare SliderAction;
-    private final slider_controller sliderController;
-    private final sliderClaw_controller sliderClawController;
+     Timing.Timer timer;
+     Servo claw, claw_tilt, linkage, claw_rotate, turret, slider_claw, slider_claw_tilt, slider_claw_rotate;
+     DcMotorEx slider;
+     Collect LinkageAction;
+     Prepare SliderAction;
+     slider_controller sliderController;
+     sliderClaw_controller sliderClawController;
 
     public Score(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo turret, Servo slider_claw, Servo slider_claw_tilt, Servo slider_claw_rotate, DcMotorEx slider) {
         this.claw = claw;

@@ -9,11 +9,6 @@ public class Constants {
     public static final int WAIT_FOR_LINKAGE_ACTION = 300;
     public static final int WAIT_FOR_SLIDER_ACTION = 350;
 
-    public enum RobotDriveStatus{
-        ROBOT_CENTRIC,
-        FIELD_CENTRIC
-    }
-
     public enum ClawPos{
         OPEN_CLAW,
         CLOSE_CLAW
@@ -58,7 +53,10 @@ public class Constants {
         JOS
     }
 
-    public static RobotDriveStatus currentRobotDriveStatus = RobotDriveStatus.ROBOT_CENTRIC;
+    public enum ClawRotatePos{
+        HORIZONTAL,
+        VERTICAL
+    }
     public static ClawPos currentClawPos = ClawPos.OPEN_CLAW;
     public static SliderPos currentSliderPos = SliderPos.SLIDER_DOWN;
     public static LinkageActionPos currentLinkageActionPos = LinkageActionPos.INIT;
@@ -67,73 +65,71 @@ public class Constants {
     public static ScorePos currentScorePos = ScorePos.INIT;
     public static SliderClawPos currentSliderClawPos = SliderClawPos.CLOSE_CLAW;
     public static UnghiRobotPos currentUnghiRobotPos = UnghiRobotPos.SUS;
+    public static ClawRotatePos currentClawRotatePos = ClawRotatePos.HORIZONTAL;
 
 
     /** SLIDER*/
     public static final int SLIDER_DOWN = 0;
 
-    public static int SLIDER_TAKE_FORM_LINKAGE = 0;
+    public static int SLIDER_TAKE_FORM_LINKAGE = 240;
 
     public static int SLIDER_LOW_CHAMBER = 0;
     public static int SLIDER_HIGH_CHAMBER = 0;
 
     public static int SLIDER_LOW_BUSKET = 0;
-    public static int SLIDER_HIGH_BUSKET = 0;
+    public static int SLIDER_HIGH_BUSKET = 1500;
 
     public static int SLIDER_ASCEND = 0;
     public static int SLIDER_LEV2_ASCEND = 0;
 
-    public static double Slider_kP = 0.1;
-    public static double Slider_kI = 0.0004;
+    public static double Slider_kP = 0.03;
+    public static double Slider_kI = 0.0001;
     public static double Slider_kD = 0;
 
 
     /** CLAW*/
     public static double OPEN_CLAW = 0;
-    public static double CLOSE_CLAW = 0;
+    public static double CLOSE_CLAW = 1;
 
     /** Servo LINKAGE */
     public static double LINKAGE_INIT_POS = 0.03;
-    public static double LINKAGE_MAX_POS = 0;
+    public static double LINKAGE_MAX_POS = 0.69;
     public static double LINKAGE_TAKE_POS = 0.66;
     public static double LINKAGE_PLACE_IN_SLIDER = 0.1;
     public static double LINKAGE_INTERMEDIARY_POS = 0;
 
     /** Servo TILT */
     public static double TILT_INIT = 0;
-    public static double TILT_TAKE = 0;
-    public static double TILT_PLACE_IN_SLIDER = 0;
-    public static double TILT_THROW = 0;
+    public static double TILT_TAKE = 0.8;
+    public static double TILT_BEFORE_TAKE = 0.7;
+    public static double TILT_PLACE_IN_SLIDER = 0.05;
+    public static double TILT_THROW = 0.3;
 
     /** Servo ROTATE */
     public static double ROTATE_INIT = 0;
-    public static double ROTATE_TAKE = 0;
+    public static double ROTATE_TAKE_HORIONTAL = 0;
+    public static double ROTATE_TAKE_VERTICAL = .5;
     public static double ROTATE_PLACE_IN_SLIDER = 0;
-
-
-    /** Servo Slider Claw */
-    public static double SLIDER_OPEN = 0;
-    public static double SLIDER_CLOSE = 0;
 
     /** Servo Claw ASSEMBLY*/
     public static double CLAW_ASSEMBLY_INIT = 0;
-    public static double CLAW_ASSEMBLY_PLACE_IN_SLIDER = .5;
+    public static double CLAW_ASSEMBLY_PLACE_IN_SLIDER = 0;
     public static double CLAW_ASSEMBLY_TAKE = 0;
 
 
     /** Servo TURRET */
     public static double TURRET_INIT = 0;
-    public static double TURRET_TAKE_HUMAN = 0;
-    public static double TURRET_TAKE_FROM_LINKAGE = 0;
+    public static double TURRET_TAKE_HUMAN = 0.4;
+    public static double TURRET_TAKE_FROM_LINKAGE = 0.025;
     public static double TURRET_PLACE = 0;
 
     /** Servo Slider Claw Tilt */
     public static double SLIDER_TILT_INIT = 0;
-    public static double SLIDER_TILT_TAKE_FROM_LINKAGE = 0;
-    public static double SLIDER_TILT_PLACE_IN_BUSKET = 0;
-    public static double SLIDER_TILT_PLACE_ON_HIGH_CHAMBER = 0;
+    public static double SLIDER_TILT_TAKE_FROM_LINKAGE = 0.85;
+    public static double SLIDER_TILT_PLACE_IN_BUSKET = 0.3;
+    public static double SLIDER_TILT_PLACE_ON_HIGH_CHAMBER = 0.55;
     public static double SLIDER_TILT_PLACE_ON_LOW_CHAMBER = 0;
-    public static double SLIDER_TILT_TAKE_FORM_HUMAN = 0;
+    public static double SLIDER_TILT_TAKE_FORM_HUMAN = 0.1;
 
 
 
