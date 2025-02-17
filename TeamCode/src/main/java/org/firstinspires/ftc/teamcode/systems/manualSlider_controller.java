@@ -23,11 +23,13 @@ public class manualSlider_controller {
             if (sliderController.pos() <= 0) {
                 sliderController.setTargetPosition(Constants.SLIDER_DOWN);
             }
+            sliderController.update();
         }
         if (rightTrigger >= 0.01) {
             slider.setPower(rightTrigger);
             SliderPos = slider.getCurrentPosition();
             sliderController.setTargetPosition(SliderPos);
+            sliderController.update();
         }
     }
 }

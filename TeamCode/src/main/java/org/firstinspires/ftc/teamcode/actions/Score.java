@@ -23,7 +23,7 @@ public class Score {
      slider_controller sliderController;
      sliderClaw_controller sliderClawController;
 
-    public Score(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo turret, Servo slider_claw, Servo slider_claw_tilt, Servo slider_claw_rotate, DcMotorEx slider) {
+    public Score(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo turret, Servo slider_claw, Servo slider_claw_tilt, Servo slider_claw_rotate, DcMotorEx slider, Collect LinkageAction, Prepare SliderAction) {
         this.claw = claw;
         this.claw_tilt = claw_tilt;
         this.linkage = linkage;
@@ -33,8 +33,8 @@ public class Score {
         this.slider_claw_tilt = slider_claw_tilt;
         this.slider_claw_rotate = slider_claw_rotate;
         this.slider = slider;
-        this.LinkageAction = new Collect(this.claw, this.claw_tilt, this.linkage, this.claw_rotate, this.turret);
-        this.SliderAction = new Prepare(this.slider_claw, this.slider_claw_tilt, this.slider_claw_rotate, this.slider);
+        this.LinkageAction = LinkageAction;
+        this.SliderAction = SliderAction;
         this.sliderClawController = new sliderClaw_controller(this.slider_claw);
         this.sliderController = new slider_controller(this.slider);
     }
@@ -102,6 +102,18 @@ public class Score {
         sliderController.setTargetPosition(Constants.SLIDER_LOW_BUSKET);
 
         Constants.currentScorePos = Constants.ScorePos.BUSKET;
+    }
+
+    public void take () {
+        LinkageAction.switchServoAction_TakeSlider();
+    }
+
+    public void throwS () {
+        LinkageAction.switch_TakeThrow();
+    }
+
+    public void rotate () {
+        LinkageAction.RotateClaw();
     }
 
     public void placeSample(){

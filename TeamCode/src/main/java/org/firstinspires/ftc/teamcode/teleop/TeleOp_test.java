@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.utils.tests;
+package org.firstinspires.ftc.teamcode.teleop;
 
 import static org.firstinspires.ftc.teamcode.constants.Constants.WAIT_FOR_LINKAGE_ACTION;
 import static org.firstinspires.ftc.teamcode.constants.Constants.WAIT_FOR_SLIDER_ACTION;
@@ -101,8 +101,9 @@ public class TeleOp_test extends LinearOpMode {
             timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileTimerNotDone();}timer.pause();
             placeInObservation();
         }
-
     }
+
+
 
     public void robotCentricDrive(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim) {
         double y = -gamepad1.left_stick_y;
@@ -201,7 +202,7 @@ public class TeleOp_test extends LinearOpMode {
     }
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         robot = new RobotMap(hardwareMap);
         sliderController = new slider_controller(robot.slider);
         sliderClawController = new sliderClaw_controller(robot.slider_claw);
@@ -213,7 +214,7 @@ public class TeleOp_test extends LinearOpMode {
             if(gamepad1.left_bumper){
                 switchServoAction_TakeSlider();
             }
-            if(gamepad1.left_bumper){
+            if(gamepad1.right_bumper){
                 switch_TakeThrow();
             }
             if(gamepad1.dpad_down){
@@ -232,6 +233,7 @@ public class TeleOp_test extends LinearOpMode {
             }
 
             sliderController.update();
+            sliderClawController.update();
 
             telemetry.addData("slider", robot.slider.getCurrentPosition());
             telemetry.update();

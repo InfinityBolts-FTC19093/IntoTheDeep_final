@@ -94,7 +94,7 @@ public class Constants {
     /** Servo LINKAGE */
     public static double LINKAGE_INIT_POS = 0.03;
     public static double LINKAGE_MAX_POS = 0.69;
-    public static double LINKAGE_TAKE_POS = 0.66;
+    public static double LINKAGE_TAKE_POS = 0.80;
     public static double LINKAGE_PLACE_IN_SLIDER = 0.1;
     public static double LINKAGE_INTERMEDIARY_POS = 0;
 
@@ -119,7 +119,7 @@ public class Constants {
 
     /** Servo TURRET */
     public static double TURRET_INIT = 0;
-    public static double TURRET_TAKE_HUMAN = 0.4;
+    public static double TURRET_TAKE_HUMAN = 0.025;
     public static double TURRET_TAKE_FROM_LINKAGE = 0.025;
     public static double TURRET_PLACE = 0;
 

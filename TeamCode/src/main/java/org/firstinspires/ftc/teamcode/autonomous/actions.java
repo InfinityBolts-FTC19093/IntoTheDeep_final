@@ -88,7 +88,7 @@ public class actions {
             slider_controller sliderController;
 
             public Score(HardwareMap hardwareMap) {
-                Collect LinkageAction = new Collect(claw ,claw_tilt, linkage, claw_rotate, rotate_claw_assembly);
+                Collect LinkageAction = new Collect(claw ,claw_tilt, linkage, claw_rotate, rotate_claw_assembly, timer);
                 Prepare SliderAction  = new Prepare(slider_claw, slider_claw_tilt, slider_claw_rotate, slider);
 
                 sliderClaw_controller sliderClawController = new sliderClaw_controller(slider_claw);
