@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
+import android.transition.Slide;
+
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -44,7 +46,7 @@ public class Basket extends LinearOpMode {
         ScoreAction      = new Score(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction, SliderAction, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
 
         actions.Update updateAuto   = new actions.Update(hardwareMap);
-        actions.scoreAuto scoreAuto = new actions.scoreAuto(robot. claw, robot. claw_tilt, robot. linkage, robot. claw_rotate, robot. claw_pivot, robot. slider_claw, robot. slider_claw_tilt, robot. turret, robot. slider, LinkageAction, SliderAction, robot. leftFront, robot. leftBack, robot. rightFront, robot.rightBack,1, gamepad1);
+        actions.scoreAuto scoreAuto = new actions.scoreAuto(SliderAction, LinkageAction, ScoreAction);
 
         TrajectoryActionBuilder safePose = drive.actionBuilder(startPose)
                 .strafeTo(new Vector2d(-33.1, -61.5));

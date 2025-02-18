@@ -175,7 +175,7 @@ public class TeleOp_test extends LinearOpMode {
         sliderController.setTargetPosition(Constants.SLIDER_HIGH_BUSKET);
         timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileTimerNotDone();}timer.pause();
 
-        robot.slider_claw_tilt.setPosition(Constants.SLIDER_TILT_PLACE_IN_BUSKET);
+        robot.slider_claw_tilt.setPosition(Constants.SLIDER_TILT_PLACE_IN_HIGH_BUSKET);
         robot.turret.setPosition(Constants.TURRET_PLACE);
 
         Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_IN_BUSKET;
