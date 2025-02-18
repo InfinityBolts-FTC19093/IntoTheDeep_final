@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
-import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.actions.G2_Action;
+import org.firstinspires.ftc.teamcode.actions.InTimer;
 import org.firstinspires.ftc.teamcode.actions.Score;
 import org.firstinspires.ftc.teamcode.actions.Collect;
 import org.firstinspires.ftc.teamcode.actions.Prepare;
@@ -32,7 +32,6 @@ public class Teleop extends LinearOpMode {
     Score scoreAction;
     robot_drive drive;
     G2_Action g2Action;
-    int sliderPos;
 
     @Override
     public void runOpMode() {
@@ -45,15 +44,19 @@ public class Teleop extends LinearOpMode {
         clawRotateController     = new clawRotate_controller(robot.claw_rotate);
         linkageController        = new linkage_controller(robot.linkage);
 
-        SliderAction     = new Prepare(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1, sliderPos);
+        SliderAction     = new Prepare(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
         LinkageAction    = new Collect(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
         scoreAction      = new Score(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction, SliderAction, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
 
         drive            = new robot_drive(robot.leftFront, robot.leftBack,robot.rightFront,robot.rightBack, 1,  robot.gamepad1);
         g2Action         = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.claw_pivot, robot.linkage, robot.turret, robot.slider, robot.base_tilt, robot.slider_claw_tilt);
 
-        waitForStart();
+        Prepare.setSliderController(sliderController);
+        Score.setSliderController(sliderController);
+        InTimer.setRobotDrive(drive);
+        G2_Action.setSliderController(sliderController);
 
+        waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
             drive.robotCentricDrive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, gamepad1);
 
@@ -65,23 +68,23 @@ public class Teleop extends LinearOpMode {
 
             if(gamepad1.dpad_down) {sliderController.setTargetPosition(Constants.SLIDER_DOWN);}
 
-            if(gamepad1.right_bumper) {SliderAction.beforeTakeFromLinkage(); sliderController.setTargetPosition(SliderAction.SliderPos());}
+            if(gamepad1.right_bumper) {SliderAction.beforeTakeFromLinkage();}
 
             if(gamepad1.left_bumper){scoreAction.take();}
 
-            if(gamepad1.a) {scoreAction.placeOnHighChamber();sliderController.setTargetPosition(SliderAction.SliderPos());}
+            if(gamepad1.a) {scoreAction.placeOnHighChamber();}
 
-            if(gamepad1.b) {scoreAction.placeInBasket();sliderController.setTargetPosition(SliderAction.SliderPos());}
+            if(gamepad1.b) {scoreAction.placeInBasket();}
 
-            if(gamepad1.x) {SliderAction.takeFromHuman();sliderController.setTargetPosition(SliderAction.SliderPos());}
+            if(gamepad1.x) {SliderAction.takeFromHuman();}
 
-            if(gamepad1.y){SliderAction.takeFromLinkage();sliderController.setTargetPosition(SliderAction.SliderPos());}
+            if(gamepad1.y){SliderAction.takeFromLinkage();}
 
-            if(gamepad1.right_stick_button){scoreAction.score();sliderController.setTargetPosition(scoreAction.SliderPos());}
+            if(gamepad1.right_stick_button){scoreAction.score();}
 
             if(gamepad2.right_stick_button && gamepad2.left_stick_button){g2Action.lev2Asent();}
 
-            if(gamepad2.ps){g2Action.zeroPos(); sliderController.setTargetPosition(g2Action.SliderPos());}
+            if(gamepad2.ps){g2Action.zeroPos();}
 
             if(gamepad2.y){g2Action.switchBasketPos();}
 
@@ -91,9 +94,6 @@ public class Teleop extends LinearOpMode {
             sliderController.update();
             clawController.update();
             linkageController.update();
-
-            telemetry.addData("slider:", sliderController.pos());
-            telemetry.update();
         }
     }
 }

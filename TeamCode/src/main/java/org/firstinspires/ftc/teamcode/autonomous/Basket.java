@@ -41,7 +41,7 @@ public class Basket extends LinearOpMode {
 
         sliderController = new slider_controller(robot.slider);
 
-        SliderAction     = new Prepare(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1, sliderPos);
+        SliderAction     = new Prepare(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
         LinkageAction    = new Collect(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
         ScoreAction      = new Score(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction, SliderAction, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
 

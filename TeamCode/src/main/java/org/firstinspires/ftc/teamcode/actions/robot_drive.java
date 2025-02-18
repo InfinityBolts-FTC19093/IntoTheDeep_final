@@ -1,14 +1,8 @@
 package org.firstinspires.ftc.teamcode.actions;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad2;
-
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.IMU;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.constants.Constants;
 
 public class robot_drive {
     DcMotorEx leftFront, leftBack, rightFront, rightBack;

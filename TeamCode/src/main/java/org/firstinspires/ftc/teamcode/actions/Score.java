@@ -24,9 +24,8 @@ public class Score {
      double lim;
      Collect LinkageAction;
      Prepare SliderAction;
-     slider_controller sliderController;
+     static slider_controller sliderController;
      sliderClaw_controller sliderClawController;
-     int sliderPos;
      InTimer inTimer;
 
     public Score(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot, Servo slider_claw, Servo slider_claw_tilt, Servo turret, DcMotorEx slider, Collect LinkageAction, Prepare SliderAction, DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim, Gamepad gamepad1) {
@@ -42,7 +41,6 @@ public class Score {
         this.LinkageAction = LinkageAction;
         this.SliderAction = SliderAction;
         this.sliderClawController = new sliderClaw_controller(this.slider_claw);
-        this.sliderController = new slider_controller(this.slider);
 
         this.leftFront = leftFront;
         this.leftBack = leftBack;
@@ -54,12 +52,13 @@ public class Score {
 
     }
 
-    public int SliderPos(){
-        return sliderPos;
-    }
 
     public void whileInTimer(){
         inTimer.whileInTimer();
+    }
+
+    public static void setSliderController(slider_controller controller){
+        sliderController = controller;
     }
 
     /** CHAMBER */
@@ -146,14 +145,12 @@ public class Score {
     public void score(){
         if(Constants.currentScorePos == Constants.ScorePos.CHAMBER){
             sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER+500);
-            sliderPos = Constants.SLIDER_HIGH_CHAMBER+500;
             timer = new Timing.Timer(350, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();sliderController.update();}timer.pause();
 
             sliderClawController.setPos(Constants.OPEN_CLAW);
             Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
 
             SliderAction.takeFromHuman();
-            sliderPos = SliderAction.SliderPos();
         }
 
         if(Constants.currentScorePos == Constants.ScorePos.BUSKET){
@@ -168,7 +165,6 @@ public class Score {
 
 
             sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
-            sliderPos = Constants.SLIDER_TAKE_FORM_LINKAGE;
         }
     }
 

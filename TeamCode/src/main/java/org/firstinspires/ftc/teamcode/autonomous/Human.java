@@ -27,7 +27,7 @@ public class Human extends LinearOpMode {
         Pose2d startPose = new Pose2d(9, -61.5, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
 
-        Prepare SliderAction        = new Prepare(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1, sliderPos);
+        Prepare SliderAction        = new Prepare(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
         Collect LinkageAction       = new Collect(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
         Score ScoreAction           = new Score(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction, SliderAction, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
 

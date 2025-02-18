@@ -14,8 +14,8 @@ public class G2_Action {
     Timing.Timer timer;
     Servo claw, slider_claw, claw_tilt, claw_rotate, claw_pivot, linkage, turret, base_tilt, slider_tilt;
     DcMotorEx slider;
-    slider_controller sliderController;
-    int sliderPos;
+    static slider_controller sliderController;
+    InTimer inTimer;
 
     public G2_Action(Servo claw, Servo slider_claw, Servo claw_tilt, Servo claw_rotate, Servo claw_pivot, Servo linkage, Servo turret, DcMotorEx slider, Servo base_tilt, Servo slider_tilt) {
         this.claw = claw;
@@ -26,13 +26,16 @@ public class G2_Action {
         this.linkage = linkage;
         this.turret = turret;
         this.slider = slider;
-        this.sliderController = new slider_controller(this.slider);
         this.base_tilt = base_tilt;
         this.slider_tilt = slider_tilt;
     }
 
-    public int SliderPos(){
-        return sliderPos;
+//    public int SliderPos(){
+//        return sliderPos;
+//    }
+
+    public static void setSliderController(slider_controller controller){
+        sliderController = controller;
     }
 
     public void zeroPos(){
@@ -51,30 +54,29 @@ public class G2_Action {
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.INIT;
 
         sliderController.setTargetPosition(Constants.SLIDER_DOWN);
-        sliderPos = Constants.SLIDER_DOWN;
-        timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done());timer.pause();
+        timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){inTimer.whileInTimer();}timer.pause();
 
         turret.setPosition(Constants.TURRET_INIT);
-        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done());timer.pause();
+        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){inTimer.whileInTimer();}timer.pause();
 
         slider_tilt.setPosition(Constants.SLIDER_TILT_INIT);
     }
 
     public void lev2Asent(){
         sliderController.setTargetPosition(Constants.SLIDER_ASCEND);
-        timer = new Timing.Timer(100,TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
+        timer = new Timing.Timer(100,TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer(); sliderController.update();}timer.pause();
         base_tilt.setPosition(Constants.UNGHI_ROBOT_JOS);
-        timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){sliderController.update();}timer.pause();
+        timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){inTimer.whileInTimer(); sliderController.update();}timer.pause();
         sliderController.setTargetPosition(Constants.SLIDER_LEV2_ASCEND);
     }
 
     public void switchBasketPos(){
         if(Constants.currentBasketPos == Constants.BasketPos.HIGH_BASKET){
             Constants.currentBasketPos = Constants.BasketPos.LOW_BASKET;
-            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){sliderController.update();}timer.pause();
+            timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){inTimer.whileInTimer(); sliderController.update();}timer.pause();
         }else{
             Constants.currentBasketPos = Constants.BasketPos.HIGH_BASKET;
-            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){sliderController.update();}timer.pause();
+            timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){inTimer.whileInTimer(); sliderController.update();}timer.pause();
         }
     }
 }

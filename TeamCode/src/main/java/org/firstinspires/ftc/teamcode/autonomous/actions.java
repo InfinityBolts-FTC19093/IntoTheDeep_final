@@ -67,7 +67,7 @@ public class actions {
             slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
 
-            prepare = new Prepare(slider_claw, slider_claw_tilt, turret, slider, claw, leftFront, leftBack, rightFront, rightBack, 1, gamepad1, sliderPos);
+            prepare = new Prepare(slider_claw, slider_claw_tilt, turret, slider, claw, leftFront, leftBack, rightFront, rightBack, 1, gamepad1);
             collect = new Collect(claw, claw_tilt, linkage, claw_rotate, claw_pivot, leftFront, leftBack, rightFront, rightBack, 1, gamepad1);
             score = new Score(claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret, slider, collect, prepare, leftFront, leftBack, rightFront, rightBack, 1, gamepad1);
 
