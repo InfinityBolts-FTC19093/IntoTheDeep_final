@@ -9,6 +9,11 @@ public class Constants {
     public static int WAIT_FOR_LINKAGE_ACTION = 300;
     public static int WAIT_FOR_SLIDER_ACTION = 350;
 
+    public enum BasketPos{
+        HIGH_BASKET,
+        LOW_BASKET
+    }
+
     public enum ClawPos {
         OPEN_CLAW,
         CLOSE_CLAW
@@ -67,18 +72,20 @@ public class Constants {
     public static SliderClawPos currentSliderClawPos = SliderClawPos.OPEN_CLAW;
     public static UnghiRobotPos currentUnghiRobotPos = UnghiRobotPos.SUS;
     public static ClawRotatePos currentClawRotatePos = ClawRotatePos.HORIZONTAL;
+    public static BasketPos currentBasketPos = BasketPos.HIGH_BASKET;
 
 
     /** SLIDER*/
     public static final int SLIDER_DOWN = 0;
 
     public static int SLIDER_TAKE_FORM_LINKAGE = 220;
+    public static int SLIDER_BEFORE_TAKE_FORM_LINKAGE = 250;
 
     public static int SLIDER_LOW_CHAMBER = 0;
-    public static int SLIDER_HIGH_CHAMBER = 240;
+    public static int SLIDER_HIGH_CHAMBER = 245;
 
-    public static int SLIDER_LOW_BUSKET = 0;
-    public static int SLIDER_HIGH_BUSKET = 1750;
+    public static int SLIDER_LOW_BUSKET = 800;
+    public static int SLIDER_HIGH_BUSKET = 2000;
 
     public static int SLIDER_ASCEND = 0;
     public static int SLIDER_LEV2_ASCEND = 0;
@@ -86,6 +93,7 @@ public class Constants {
     public static double Slider_kP = 0.03;
     public static double Slider_kI = 0.0001;
     public static double Slider_kD = 0;
+
 
 
     /** CLAW*/
@@ -102,14 +110,14 @@ public class Constants {
     /** Servo TILT */
     public static double TILT_INIT = 0;
     public static double TILT_TAKE = 0.8;
-    public static double TILT_BEFORE_TAKE = 0.75;
+    public static double TILT_BEFORE_TAKE = 0.73;
     public static double TILT_PLACE_IN_SLIDER = 0.05;
     public static double TILT_THROW = 0.3;
 
     /** Servo ROTATE */
     public static double ROTATE_INIT = 0;
     public static double ROTATE_TAKE_HORIONTAL = 0;
-    public static double ROTATE_TAKE_VERTICAL = .5;
+    public static double ROTATE_TAKE_VERTICAL = .55;
     public static double ROTATE_PLACE_IN_SLIDER = 0;
 
     /** Servo Claw ASSEMBLY*/
@@ -127,11 +135,13 @@ public class Constants {
     /** Servo Slider Claw Tilt */
     public static double SLIDER_TILT_INIT = 0;
     public static double SLIDER_TILT_TAKE_FROM_LINKAGE = 0.85;
-    public static double SLIDER_TILT_PLACE_IN_BUSKET = 0.25;
+    public static double SLIDER_TILT_PLACE_IN_HIGH_BUSKET = 0.2;
+    public static double SLIDER_TILT_PLACE_IN_LOW_BUSKET = 0.2;
     public static double SLIDER_TILT_PLACE_ON_HIGH_CHAMBER = 0.55;
     public static double SLIDER_TILT_PLACE_ON_LOW_CHAMBER = 0;
     public static double SLIDER_TILT_TAKE_FORM_HUMAN = 0.075;
     public static double SLIDER_TILT_BEFORE_TAKE_FROM_LINKAGE = 0.78;
+    public static double SLIDER_TILT_BEFORE_TAKE_FORM_HUMAN = 0.2;
 
 
 

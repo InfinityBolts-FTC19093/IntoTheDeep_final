@@ -41,10 +41,10 @@ public class RobotMap {
         linkage = hardwareMap.get(Servo.class, HardwareConstants.ID_LINKAGE_SERVO);
         claw_rotate = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW_ROTATE);
         claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW_TILT);
-        claw_pivot = hardwareMap.get(Servo.class, HardwareConstants.ID_ROTATE_CLAW_ASSEMBLY);
+        claw_pivot = hardwareMap.get(Servo.class, HardwareConstants.ID_PIVOT);
 
         slider_claw = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW);
-        turret = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_ROTATE);
+        turret = hardwareMap.get(Servo.class, HardwareConstants.ID_TURRET);
         slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
         base_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_MODIFICA_UNGHI_ROBOT);

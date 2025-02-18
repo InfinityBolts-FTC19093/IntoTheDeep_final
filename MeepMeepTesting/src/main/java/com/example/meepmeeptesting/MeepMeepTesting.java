@@ -15,7 +15,7 @@ public class MeepMeepTesting {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(70, 70, Math.toRadians(180), Math.toRadians(180), 15)
+                .setConstraints(70, 70, Math.toRadians(180), Math.toRadians(180), 9.5)
                 .build();
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(9, -61.5, Math.toRadians(90)))

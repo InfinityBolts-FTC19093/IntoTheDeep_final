@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -12,7 +9,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.acmerobotics.dashboard.FtcDashboard;
 
 import org.firstinspires.ftc.teamcode.constants.HardwareConstants;
-import org.firstinspires.ftc.teamcode.constants.RobotMap;
 
 @Config
 @TeleOp(name="ServoPos")
@@ -32,10 +28,10 @@ public class ServoPos extends OpMode {
         linkage = hardwareMap.get(Servo.class, HardwareConstants.ID_LINKAGE_SERVO);
         claw_rotate = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW_ROTATE);
         claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW_TILT);
-        turret = hardwareMap.get(Servo.class, HardwareConstants.ID_ROTATE_CLAW_ASSEMBLY);
+        turret = hardwareMap.get(Servo.class, HardwareConstants.ID_PIVOT);
 
         slider_claw = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW);
-        slider_claw_rotate = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_ROTATE);
+        slider_claw_rotate = hardwareMap.get(Servo.class, HardwareConstants.ID_TURRET);
         slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
         unghi_robot = hardwareMap.get(Servo.class, HardwareConstants.ID_MODIFICA_UNGHI_ROBOT);

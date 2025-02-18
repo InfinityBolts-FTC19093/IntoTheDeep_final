@@ -67,4 +67,14 @@ public class G2_Action {
         timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){sliderController.update();}timer.pause();
         sliderController.setTargetPosition(Constants.SLIDER_LEV2_ASCEND);
     }
+
+    public void switchBasketPos(){
+        if(Constants.currentBasketPos == Constants.BasketPos.HIGH_BASKET){
+            Constants.currentBasketPos = Constants.BasketPos.LOW_BASKET;
+            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){sliderController.update();}timer.pause();
+        }else{
+            Constants.currentBasketPos = Constants.BasketPos.HIGH_BASKET;
+            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){sliderController.update();}timer.pause();
+        }
+    }
 }

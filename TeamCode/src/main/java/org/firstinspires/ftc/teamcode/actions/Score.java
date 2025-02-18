@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.systems.sliderClaw_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
-import org.firstinspires.ftc.teamcode.teleop.Teleop;
 
 import java.util.concurrent.TimeUnit;
 
@@ -45,11 +44,19 @@ public class Score {
         return sliderPos;
     }
 
+    public void whileInTimer(){
+        LinkageAction.whileInTimer();
+    }
+
     /** CHAMBER */
 
     public void placeOnHighChamber(){
+        if(Constants.currentSliderActionPos == Constants.SliderActionPos.BEFORE_TAKE_FROM_LINKAGE){
+            SliderAction.takeFromLinkage();
+            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){LinkageAction.whileInTimer();}timer.pause();
+        }
+
         SliderAction.placeOnHighChamber();
-        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
 
         Constants.currentScorePos = Constants.ScorePos.CHAMBER;
     }
@@ -57,16 +64,11 @@ public class Score {
     public void placeOnLowChamber(){
         if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
             LinkageAction.placeInSlider();
-            timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
-        }
-
-        if(Constants.currentSliderActionPos == Constants.SliderActionPos.PLACE_ON_CHAMBER || Constants.currentSliderActionPos == Constants.SliderActionPos.INIT){
-            SliderAction.takeFromLinkage();
-            timer = new Timing.Timer(WAIT_FOR_SLIDER_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+            timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){LinkageAction.whileInTimer();}timer.pause();
         }
 
         sliderController.setTargetPosition(Constants.SLIDER_LOW_CHAMBER);
-        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){LinkageAction.whileInTimer();}timer.pause();
 
         sliderController.setTargetPosition(Constants.SLIDER_LOW_CHAMBER-200);
         sliderClawController.setPos(Constants.OPEN_CLAW);
@@ -80,7 +82,12 @@ public class Score {
     public void placeInHighBasket(){
         if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
             LinkageAction.placeInSlider();
-            timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+            timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){LinkageAction.whileInTimer();}timer.pause();
+        }
+
+        if(Constants.currentSliderActionPos == Constants.SliderActionPos.BEFORE_TAKE_FROM_LINKAGE){
+            SliderAction.takeFromLinkage();
+            timer = new Timing.Timer(WAIT_FOR_SLIDER_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){LinkageAction.whileInTimer();}timer.pause();
         }
 
         SliderAction.placeOnHighBusket();
@@ -93,10 +100,15 @@ public class Score {
     public void placeInLowBusket(){
         if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
             LinkageAction.placeInSlider();
-            timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+            timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){LinkageAction.whileInTimer();}timer.pause();
         }
-        //add slider servo
-        sliderController.setTargetPosition(Constants.SLIDER_LOW_BUSKET);
+
+        if(Constants.currentSliderActionPos == Constants.SliderActionPos.PLACE_ON_CHAMBER || Constants.currentSliderActionPos == Constants.SliderActionPos.INIT){
+            SliderAction.takeFromLinkage();
+            timer = new Timing.Timer(WAIT_FOR_SLIDER_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){LinkageAction.whileInTimer();}timer.pause();
+        }
+
+        SliderAction.placeOnLowBusket();
 
         Constants.currentScorePos = Constants.ScorePos.BUSKET;
     }
@@ -105,16 +117,19 @@ public class Score {
         LinkageAction.switchServoAction_TakeSlider();
     }
 
-    public void throwS () {
-        LinkageAction.switch_TakeThrow();
+    public void placeInBasket(){
+        if(Constants.currentBasketPos == Constants.BasketPos.HIGH_BASKET){
+            placeInHighBasket();
+        }else{
+            placeInLowBusket();
+        }
     }
 
-
-    public void placeSample(){
+    public void score(){
         if(Constants.currentScorePos == Constants.ScorePos.CHAMBER){
             sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER+500);
             sliderPos = Constants.SLIDER_HIGH_CHAMBER+500;
-            timer = new Timing.Timer(350, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
+            timer = new Timing.Timer(350, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){LinkageAction.whileInTimer();sliderController.update();}timer.pause();
 
             sliderClawController.setPos(Constants.OPEN_CLAW);
             Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
@@ -127,10 +142,12 @@ public class Score {
             if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
                 slider_claw.setPosition(Constants.OPEN_CLAW);
                 Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
-                timer = new Timing.Timer(350, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
+                timer = new Timing.Timer(350, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){LinkageAction.whileInTimer();}timer.pause();
             }
 
             slider_claw_tilt.setPosition(Constants.SLIDER_TILT_BEFORE_TAKE_FROM_LINKAGE);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+
 
             sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
             sliderPos = Constants.SLIDER_TAKE_FORM_LINKAGE;
