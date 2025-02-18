@@ -122,7 +122,7 @@ public class actions {
         public class HighChamber implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
+                ScoreAction.placeOnHighChamber();
                 return false;
             }
         }
@@ -136,10 +136,9 @@ public class actions {
         }
 
         public class BasketPreload implements Action {
-
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
+                ScoreAction.BasketPreload();
                 return false;
             }
         }
@@ -147,6 +146,7 @@ public class actions {
         public class Place implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                ScoreAction.score();
                 return false;
             }
         }
@@ -156,7 +156,7 @@ public class actions {
 
                 @Override
                 public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
+                    SliderAction.takeFromHuman();
                     return false;
                 }
             }
@@ -165,6 +165,7 @@ public class actions {
 
                 @Override
                 public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                    LinkageAction.takePos();
                     return false;
                 }
             }

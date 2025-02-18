@@ -75,6 +75,10 @@ public class Score {
         Constants.currentScorePos = Constants.ScorePos.CHAMBER;
     }
 
+    public void BasketPreload () {
+        SliderAction.placeOnHighBusketLinkage();
+    }
+
     public void placeOnLowChamber(){
         if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
             LinkageAction.placeInSlider();

@@ -124,7 +124,6 @@ public class Prepare {
     }
 
     public void placeOnHighBusketLinkage(){
-
         slider_claw.setPosition(Constants.CLOSE_CLAW);
         Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
