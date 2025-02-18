@@ -6,10 +6,15 @@ import com.acmerobotics.dashboard.config.Config;
 @Config
 public class Constants {
 
-    public static final int WAIT_FOR_LINKAGE_ACTION = 300;
-    public static final int WAIT_FOR_SLIDER_ACTION = 350;
+    public static int WAIT_FOR_LINKAGE_ACTION = 300;
+    public static int WAIT_FOR_SLIDER_ACTION = 350;
 
-    public enum ClawPos{
+    public enum ClawPos {
+        OPEN_CLAW,
+        CLOSE_CLAW
+    }
+
+    public enum SliderClawPos{
         OPEN_CLAW,
         CLOSE_CLAW
     }
@@ -32,6 +37,7 @@ public class Constants {
         TAKE_FOR_LINKAGE,
         PLACE_ON_CHAMBER,
         PLACE_IN_BUSKET,
+        BEFORE_TAKE_FROM_LINKAGE,
         INIT
     }
 
@@ -40,11 +46,6 @@ public class Constants {
         CHAMBER,
         BUSKET,
         INIT
-    }
-
-    public enum SliderClawPos{
-        OPEN_CLAW,
-        CLOSE_CLAW
     }
 
     public enum UnghiRobotPos{
@@ -63,7 +64,7 @@ public class Constants {
     public static SliderActionPos currentSliderActionPos = SliderActionPos.INIT;
     public static SliderActionPos previousSliderActionPos = SliderActionPos.INIT;
     public static ScorePos currentScorePos = ScorePos.INIT;
-    public static SliderClawPos currentSliderClawPos = SliderClawPos.CLOSE_CLAW;
+    public static SliderClawPos currentSliderClawPos = SliderClawPos.OPEN_CLAW;
     public static UnghiRobotPos currentUnghiRobotPos = UnghiRobotPos.SUS;
     public static ClawRotatePos currentClawRotatePos = ClawRotatePos.HORIZONTAL;
 
@@ -71,13 +72,13 @@ public class Constants {
     /** SLIDER*/
     public static final int SLIDER_DOWN = 0;
 
-    public static int SLIDER_TAKE_FORM_LINKAGE = 240;
+    public static int SLIDER_TAKE_FORM_LINKAGE = 220;
 
     public static int SLIDER_LOW_CHAMBER = 0;
-    public static int SLIDER_HIGH_CHAMBER = 0;
+    public static int SLIDER_HIGH_CHAMBER = 240;
 
     public static int SLIDER_LOW_BUSKET = 0;
-    public static int SLIDER_HIGH_BUSKET = 1500;
+    public static int SLIDER_HIGH_BUSKET = 1750;
 
     public static int SLIDER_ASCEND = 0;
     public static int SLIDER_LEV2_ASCEND = 0;
@@ -89,7 +90,7 @@ public class Constants {
 
     /** CLAW*/
     public static double OPEN_CLAW = 0;
-    public static double CLOSE_CLAW = 1;
+    public static double CLOSE_CLAW = .9;
 
     /** Servo LINKAGE */
     public static double LINKAGE_INIT_POS = 0.03;
@@ -101,7 +102,7 @@ public class Constants {
     /** Servo TILT */
     public static double TILT_INIT = 0;
     public static double TILT_TAKE = 0.8;
-    public static double TILT_BEFORE_TAKE = 0.7;
+    public static double TILT_BEFORE_TAKE = 0.75;
     public static double TILT_PLACE_IN_SLIDER = 0.05;
     public static double TILT_THROW = 0.3;
 
@@ -118,7 +119,7 @@ public class Constants {
 
 
     /** Servo TURRET */
-    public static double TURRET_INIT = 0;
+    public static double TURRET_INIT = 0.42;
     public static double TURRET_TAKE_HUMAN = 0.025;
     public static double TURRET_TAKE_FROM_LINKAGE = 0.025;
     public static double TURRET_PLACE = 0;
@@ -126,10 +127,11 @@ public class Constants {
     /** Servo Slider Claw Tilt */
     public static double SLIDER_TILT_INIT = 0;
     public static double SLIDER_TILT_TAKE_FROM_LINKAGE = 0.85;
-    public static double SLIDER_TILT_PLACE_IN_BUSKET = 0.3;
+    public static double SLIDER_TILT_PLACE_IN_BUSKET = 0.25;
     public static double SLIDER_TILT_PLACE_ON_HIGH_CHAMBER = 0.55;
     public static double SLIDER_TILT_PLACE_ON_LOW_CHAMBER = 0;
-    public static double SLIDER_TILT_TAKE_FORM_HUMAN = 0.1;
+    public static double SLIDER_TILT_TAKE_FORM_HUMAN = 0.075;
+    public static double SLIDER_TILT_BEFORE_TAKE_FROM_LINKAGE = 0.78;
 
 
 

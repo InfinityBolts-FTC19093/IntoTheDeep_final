@@ -2,20 +2,19 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.util.Timing;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.actions.G2_Action;
-import org.firstinspires.ftc.teamcode.actions.robot_drive;
-import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
 import org.firstinspires.ftc.teamcode.systems.manualSlider_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
 import java.util.concurrent.TimeUnit;
 
+@Disabled
 @Config
 @TeleOp(name = "ManualTeleOp", group = "TEST")
 public class ManualTeleOp extends LinearOpMode {
@@ -57,7 +56,7 @@ public class ManualTeleOp extends LinearOpMode {
         RobotMap robot = new RobotMap(hardwareMap);
         slider_controller sliderController = new slider_controller(robot.slider);
         manualSlider_controller manualSliderController = new manualSlider_controller(robot.slider);
-        G2_Action g2Action = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.turret, robot.linkage, robot.slider_claw_rotate, robot.slider, robot.unghi_robot);
+        G2_Action g2Action = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.claw_pivot, robot.linkage, robot.turret, robot.slider, robot.base_tilt, robot.slider_claw_tilt);
 
         waitForStart();
         while(opModeIsActive() && !isStopRequested()){
@@ -194,13 +193,13 @@ public class ManualTeleOp extends LinearOpMode {
 
             //slider Servos
             robot.slider_claw.setPosition(SliderClaw);
-            robot.slider_claw_rotate.setPosition(SliderClawRotate);
+            robot.turret.setPosition(SliderClawRotate);
             robot.slider_claw_tilt.setPosition(SliderClawTilt);
 
             //unghi robot
-            robot.unghi_robot.setPosition(UnghiRobot);
+            robot.base_tilt.setPosition(UnghiRobot);
 
-            robot.turret.setPosition(clawAssembly);
+            robot.claw_pivot.setPosition(clawAssembly);
 
 
             manualSliderController.control(gamepad1.left_trigger, gamepad1.right_trigger);

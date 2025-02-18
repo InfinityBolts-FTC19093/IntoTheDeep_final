@@ -19,24 +19,30 @@ public class claw_controller{
         this.claw = claw;
     }
 
-    public void setPos(double targetPosition){
-        this.targetPosition = targetPosition;
+    public void setPos(double targetPosition){this.targetPosition = targetPosition;}
+
+    public void setTargetPosition(double targetPosition) {
+        claw.setPosition(targetPosition);
     }
 
     public void open_close(){
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         if(Constants.currentClawPos == Constants.ClawPos.CLOSE_CLAW){
-            setPos(Constants.OPEN_CLAW);
-            timer = new Timing.Timer(50,TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
             Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
+            timer = new Timing.Timer(75,TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         } else {
-            setPos(Constants.CLOSE_CLAW);
-            timer = new Timing.Timer(50,TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
             Constants.currentClawPos = Constants.ClawPos.CLOSE_CLAW;
+            timer = new Timing.Timer(75,TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
     }
 
     public void update(){
-        claw.setPosition(targetPosition);
+        if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
+            claw.setPosition(Constants.OPEN_CLAW);
+        }
+
+        if(Constants.currentClawPos == Constants.ClawPos.CLOSE_CLAW){
+            claw.setPosition(Constants.CLOSE_CLAW);
+        }
     }
 }

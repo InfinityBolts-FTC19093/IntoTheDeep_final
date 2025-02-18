@@ -14,22 +14,24 @@ public class manualSlider_controller {
         this.sliderController = new slider_controller(this.slider);
     }
 
+    public int SliderPos(){
+        return SliderPos;
+    }
+
 
     public void control(double leftTrigger, double rightTrigger){
-        if (leftTrigger>= 0.01) {
+        if (leftTrigger>= 0.05) {
             slider.setPower(-leftTrigger);
             SliderPos = slider.getCurrentPosition();
             sliderController.setTargetPosition(SliderPos);
             if (sliderController.pos() <= 0) {
                 sliderController.setTargetPosition(Constants.SLIDER_DOWN);
             }
-            sliderController.update();
         }
-        if (rightTrigger >= 0.01) {
+        if (rightTrigger >= 0.05) {
             slider.setPower(rightTrigger);
             SliderPos = slider.getCurrentPosition();
             sliderController.setTargetPosition(SliderPos);
-            sliderController.update();
         }
     }
 }

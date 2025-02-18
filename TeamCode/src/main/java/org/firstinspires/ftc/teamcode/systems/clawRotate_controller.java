@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.systems;
 
-
 import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -8,7 +7,7 @@ import org.firstinspires.ftc.teamcode.constants.Constants;
 
 import java.util.concurrent.TimeUnit;
 
-public class sliderClaw_controller {
+public class clawRotate_controller {
 
     Timing.Timer timer;
 
@@ -16,7 +15,7 @@ public class sliderClaw_controller {
 
     private final Servo claw;
 
-    public sliderClaw_controller(Servo claw) {
+    public clawRotate_controller(Servo claw) {
         this.claw = claw;
     }
 
@@ -24,25 +23,25 @@ public class sliderClaw_controller {
         this.targetPosition = targetPosition;
     }
 
-    public void open_close(){
+    public void V_H(){
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
-        if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
-            Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
+        if(Constants.currentClawRotatePos == Constants.ClawRotatePos.HORIZONTAL){
+            Constants.currentClawRotatePos = Constants.ClawRotatePos.VERTICAL;
             timer = new Timing.Timer(75,TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         } else {
-            Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
-            timer = new Timing.Timer(75,TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
-
+            Constants.currentClawRotatePos = Constants.ClawRotatePos.HORIZONTAL;
+            timer = new Timing.Timer(75, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }
     }
 
     public void update(){
-        if(Constants.currentSliderClawPos == Constants.SliderClawPos.OPEN_CLAW){
-            claw.setPosition(Constants.OPEN_CLAW);
+        if(Constants.currentClawRotatePos == Constants.ClawRotatePos.HORIZONTAL){
+            claw.setPosition(Constants.ROTATE_TAKE_HORIONTAL);
         }
 
-        if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
-            claw.setPosition(Constants.CLOSE_CLAW);
+        if(Constants.currentClawRotatePos == Constants.ClawRotatePos.VERTICAL){
+            claw.setPosition(Constants.ROTATE_TAKE_VERTICAL);
+
         }
     }
 }

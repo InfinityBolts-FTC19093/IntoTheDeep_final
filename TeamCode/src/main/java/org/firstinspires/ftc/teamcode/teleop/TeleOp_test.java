@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.teamcode.constants.Constants.WAIT_FOR_SLIDER
 
 
 import com.arcrobotics.ftclib.util.Timing;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -19,7 +20,7 @@ import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
 import java.util.concurrent.TimeUnit;
 
-
+@Disabled
 @TeleOp(name = "TeleOp-Test", group = "#")
 public class TeleOp_test extends LinearOpMode {
 
@@ -35,7 +36,7 @@ public class TeleOp_test extends LinearOpMode {
         robot.linkage.setPosition(Constants.LINKAGE_TAKE_POS);
 
         robot.claw.setPosition(Constants.OPEN_CLAW);
-        robot.turret.setPosition(Constants.CLAW_ASSEMBLY_TAKE);
+        robot.claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_TAKE);
         robot.claw_tilt.setPosition(Constants.TILT_BEFORE_TAKE);
 
         //timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileTimerNotDone();}timer.pause();
@@ -61,7 +62,7 @@ public class TeleOp_test extends LinearOpMode {
         robot.claw_rotate.setPosition(Constants.ROTATE_PLACE_IN_SLIDER);
 
         robot.claw_tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
-        robot.turret.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
+        robot.claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
 
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileTimerNotDone();}timer.pause();
 
@@ -79,7 +80,7 @@ public class TeleOp_test extends LinearOpMode {
         }
 
         robot.claw_tilt.setPosition(Constants.TILT_THROW);
-        robot.turret.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
+        robot.claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.TAKE;
     }
 
@@ -136,7 +137,7 @@ public class TeleOp_test extends LinearOpMode {
             timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileTimerNotDone();}timer.pause();
         }
 
-        robot.slider_claw_rotate.setPosition(Constants.TURRET_TAKE_FROM_LINKAGE);
+        robot.turret.setPosition(Constants.TURRET_TAKE_FROM_LINKAGE);
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileTimerNotDone();}timer.pause();
 
         robot.slider_claw_tilt.setPosition(Constants.SLIDER_TILT_TAKE_FROM_LINKAGE);
@@ -146,6 +147,7 @@ public class TeleOp_test extends LinearOpMode {
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileTimerNotDone();}timer.pause();
 
         robot.slider_claw.setPosition(Constants.CLOSE_CLAW);
+        Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileTimerNotDone();}timer.pause();
 
         Constants.currentSliderActionPos = Constants.SliderActionPos.TAKE_FOR_LINKAGE;
@@ -174,7 +176,7 @@ public class TeleOp_test extends LinearOpMode {
         timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileTimerNotDone();}timer.pause();
 
         robot.slider_claw_tilt.setPosition(Constants.SLIDER_TILT_PLACE_IN_BUSKET);
-        robot.slider_claw_rotate.setPosition(Constants.TURRET_PLACE);
+        robot.turret.setPosition(Constants.TURRET_PLACE);
 
         Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_IN_BUSKET;
     }
