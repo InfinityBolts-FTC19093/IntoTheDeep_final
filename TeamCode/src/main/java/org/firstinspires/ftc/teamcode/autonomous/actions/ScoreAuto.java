@@ -16,31 +16,34 @@ import java.util.concurrent.TimeUnit;
 public class ScoreAuto {
 
     Timing.Timer timer;
-    Servo claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret;
+    static Servo claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret;
     DcMotorEx slider;
     CollectAuto LinkageAction;
     PrepareAuto SliderAction;
     static slider_controller sliderController;
-    sliderClaw_controller sliderClawController;
+    static sliderClaw_controller sliderClawController;
 
 
     public ScoreAuto(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot, Servo slider_claw, Servo slider_claw_tilt, Servo turret, DcMotorEx slider, CollectAuto LinkageAction, PrepareAuto SliderAction) {
-        this.claw = claw;
-        this.claw_tilt = claw_tilt;
-        this.linkage = linkage;
-        this.claw_rotate = claw_rotate;
-        this.claw_pivot = claw_pivot;
-        this.slider_claw = slider_claw;
-        this.slider_claw_tilt = slider_claw_tilt;
-        this.turret = turret;
+        ScoreAuto.claw = claw;
+        ScoreAuto.claw_tilt = claw_tilt;
+        ScoreAuto.linkage = linkage;
+        ScoreAuto.claw_rotate = claw_rotate;
+        ScoreAuto.claw_pivot = claw_pivot;
+        ScoreAuto.slider_claw = slider_claw;
+        ScoreAuto.slider_claw_tilt = slider_claw_tilt;
+        ScoreAuto.turret = turret;
         this.slider = slider;
         this.LinkageAction = LinkageAction;
         this.SliderAction = SliderAction;
-        this.sliderClawController = new sliderClaw_controller(this.slider_claw);
     }
 
     public static void setSliderController(slider_controller controller){
         sliderController = controller;
+    }
+
+    public static void setsliderClawController(sliderClaw_controller controller){
+        sliderClawController = controller;
     }
 
     /** CHAMBER */

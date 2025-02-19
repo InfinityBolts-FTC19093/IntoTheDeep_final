@@ -12,17 +12,17 @@ import java.util.concurrent.TimeUnit;
 public class PrepareAuto {
     Timing.Timer timer;
 
-    Servo slider_claw, tilt, rotate,claw;
-    DcMotorEx slider;
+    static Servo slider_claw, tilt, rotate,claw;
+    static DcMotorEx slider;
     static slider_controller sliderController;
 
 
     public PrepareAuto(Servo slider_claw, Servo tilt, Servo rotate, DcMotorEx slider, Servo claw){
-        this.slider_claw = slider_claw;
-        this.tilt = tilt;
-        this.rotate = rotate;
-        this.slider = slider;
-        this.claw = claw;
+        PrepareAuto.slider_claw = slider_claw;
+        PrepareAuto.tilt = tilt;
+        PrepareAuto.rotate = rotate;
+        PrepareAuto.slider = slider;
+        PrepareAuto.claw = claw;
     }
 
     public static void setSliderController(slider_controller controller){
