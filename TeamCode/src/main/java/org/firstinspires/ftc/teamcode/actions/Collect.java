@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.systems.claw_controller;
+import org.firstinspires.ftc.teamcode.systems.linkage_controller;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,7 @@ public class Collect {
     Gamepad gamepad1;
     double lim;
     claw_controller clawController;
+    static linkage_controller linkageController;
     InTimer inTimer;
 
 
@@ -38,8 +40,13 @@ public class Collect {
         this.inTimer = new InTimer(leftFront, leftBack, rightFront, rightBack, 1, gamepad1);
     }
 
+    public static void setLinkageController(linkage_controller controller){
+        linkageController = controller;
+    }
+
     public void takePos(){
         linkage.setPosition(Constants.LINKAGE_TAKE_POS);
+        linkageController.getlinkagePos(linkage.getPosition());
 
         claw.setPosition(Constants.OPEN_CLAW);
         Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
@@ -54,6 +61,7 @@ public class Collect {
 
     public void takeForThrow(){
         linkage.setPosition(Constants.LINKAGE_TAKE_POS);
+        linkageController.getlinkagePos(linkage.getPosition());
 
         claw.setPosition(Constants.OPEN_CLAW);
         Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
@@ -86,6 +94,7 @@ public class Collect {
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
 
         linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
+        linkageController.getlinkagePos(linkage.getPosition());
 
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
 
@@ -105,6 +114,7 @@ public class Collect {
         tilt.setPosition(Constants.TILT_THROW);
         claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
         linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
+        linkageController.getlinkagePos(linkage.getPosition());
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.INIT;
     }
 
