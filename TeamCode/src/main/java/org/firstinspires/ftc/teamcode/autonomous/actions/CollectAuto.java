@@ -11,16 +11,14 @@ import java.util.concurrent.TimeUnit;
 public class CollectAuto {
     Timing.Timer timer;
 
-    Servo tilt, linkage, claw_rotate, claw, claw_pivot;
-    claw_controller clawController;
+    static Servo tilt, linkage, claw_rotate, claw, claw_pivot;
 
     public CollectAuto(Servo claw, Servo tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot){
-        this.tilt = tilt;
-        this.linkage = linkage;
-        this.claw_rotate = claw_rotate;
-        this.claw = claw;
-        this.claw_pivot = claw_pivot;
-        this.clawController = new claw_controller(this.claw);
+        CollectAuto.tilt = tilt;
+        CollectAuto.linkage = linkage;
+        CollectAuto.claw_rotate = claw_rotate;
+        CollectAuto.claw = claw;
+        CollectAuto.claw_pivot = claw_pivot;
     }
 
     public void takePos(){
