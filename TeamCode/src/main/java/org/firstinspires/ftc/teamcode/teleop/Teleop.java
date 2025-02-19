@@ -14,7 +14,6 @@ import org.firstinspires.ftc.teamcode.constants.RobotMap;
 import org.firstinspires.ftc.teamcode.systems.clawRotate_controller;
 import org.firstinspires.ftc.teamcode.systems.claw_controller;
 import org.firstinspires.ftc.teamcode.systems.linkage_controller;
-import org.firstinspires.ftc.teamcode.systems.manualSlider_controller;
 import org.firstinspires.ftc.teamcode.systems.sliderClaw_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
@@ -24,7 +23,6 @@ public class Teleop extends LinearOpMode {
     slider_controller sliderController;
     claw_controller clawController;
     sliderClaw_controller sliderClawController;
-    manualSlider_controller manualSliderController;
     clawRotate_controller clawRotateController;
     linkage_controller linkageController;
     Collect LinkageAction;
@@ -40,7 +38,6 @@ public class Teleop extends LinearOpMode {
         sliderController         = new slider_controller(robot.slider);
         clawController           = new claw_controller(robot.claw);
         sliderClawController     = new sliderClaw_controller(robot.slider_claw);
-        manualSliderController   = new manualSlider_controller(robot.slider);
         clawRotateController     = new clawRotate_controller(robot.claw_rotate);
         linkageController        = new linkage_controller(robot.linkage);
 
@@ -55,6 +52,7 @@ public class Teleop extends LinearOpMode {
         Score.setSliderController(sliderController);
         InTimer.setRobotDrive(drive);
         G2_Action.setSliderController(sliderController);
+        Collect.setLinkageController(linkageController);
 
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
@@ -88,12 +86,11 @@ public class Teleop extends LinearOpMode {
 
             if(gamepad2.y){g2Action.switchBasketPos();}
 
-            if(gamepad1.left_trigger>=0.01 || gamepad1.right_trigger>=0.01){manualSliderController.control(gamepad1.left_trigger, gamepad1.right_trigger); sliderController.setTargetPosition(manualSliderController.SliderPos());}
+            linkageController.manualControl(gamepad1.left_trigger, gamepad1.right_trigger);
+            sliderController.control(gamepad2.left_trigger, gamepad2.right_trigger);
             clawRotateController.update();
             sliderClawController.update();
             sliderController.update();
             clawController.update();
             linkageController.update();
-        }
-    }
-}
+        }}}

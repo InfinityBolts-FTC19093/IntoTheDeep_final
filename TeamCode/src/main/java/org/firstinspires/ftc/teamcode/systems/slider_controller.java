@@ -13,6 +13,7 @@ public class slider_controller {
     private double targetPosition;
     double integral = 0;
     double previousError = 0;
+    int pos;
 
     ElapsedTime timer;
 
@@ -63,6 +64,22 @@ public class slider_controller {
 
             timer.reset();
             previousError = error;
+        }
+    }
+
+    public void control(double leftTrigger, double rightTrigger){
+        if (leftTrigger>= 0.05) {
+            slider.setPower(-leftTrigger);
+            pos = slider.getCurrentPosition();
+            setTargetPosition(pos);
+            if (pos() <= 0) {
+                setTargetPosition(Constants.SLIDER_DOWN);
+            }
+        }
+        if (rightTrigger >= 0.05) {
+            slider.setPower(rightTrigger);
+            pos = slider.getCurrentPosition();
+            setTargetPosition(pos);
         }
     }
 }

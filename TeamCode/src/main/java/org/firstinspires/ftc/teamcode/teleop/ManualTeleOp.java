@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.actions.G2_Action;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
-import org.firstinspires.ftc.teamcode.systems.manualSlider_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
 import java.util.concurrent.TimeUnit;
@@ -55,7 +54,6 @@ public class ManualTeleOp extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         RobotMap robot = new RobotMap(hardwareMap);
         slider_controller sliderController = new slider_controller(robot.slider);
-        manualSlider_controller manualSliderController = new manualSlider_controller(robot.slider);
         G2_Action g2Action = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.claw_pivot, robot.linkage, robot.turret, robot.slider, robot.base_tilt, robot.slider_claw_tilt);
 
         waitForStart();
@@ -200,9 +198,6 @@ public class ManualTeleOp extends LinearOpMode {
             robot.base_tilt.setPosition(UnghiRobot);
 
             robot.claw_pivot.setPosition(clawAssembly);
-
-
-            manualSliderController.control(gamepad1.left_trigger, gamepad1.right_trigger);
 
             sliderController.update();
 

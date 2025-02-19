@@ -63,6 +63,13 @@ public class Constants {
         HORIZONTAL,
         VERTICAL
     }
+
+    public enum LinkagePos{
+        INIT,
+        AUTO,
+        MANUAL
+    }
+
     public static ClawPos currentClawPos = ClawPos.OPEN_CLAW;
     public static SliderPos currentSliderPos = SliderPos.SLIDER_DOWN;
     public static LinkageActionPos currentLinkageActionPos = LinkageActionPos.INIT;
@@ -73,6 +80,7 @@ public class Constants {
     public static UnghiRobotPos currentUnghiRobotPos = UnghiRobotPos.SUS;
     public static ClawRotatePos currentClawRotatePos = ClawRotatePos.HORIZONTAL;
     public static BasketPos currentBasketPos = BasketPos.HIGH_BASKET;
+    public static LinkagePos currentLinkagePos = LinkagePos.INIT;
 
 
     /** SLIDER*/

@@ -13,9 +13,14 @@ public class linkage_controller {
     double targetPosition;
 
     private Servo linkage;
+    private double pos, manualPos = 0.5;
 
     public linkage_controller(Servo linkage){
         this.linkage = linkage;
+    }
+
+    public void getlinkagePos(double Pos){
+        pos = Pos;
     }
 
     public void setPos(double targetPosition){this.targetPosition = targetPosition;}
@@ -25,16 +30,29 @@ public class linkage_controller {
     }
 
     public void update(){
-        if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE){
-            linkage.setPosition(Constants.LINKAGE_TAKE_POS);
+        if(Constants.currentLinkagePos == Constants.LinkagePos.AUTO){
+            linkage.setPosition(pos);
         }
 
-        if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.PLACE_IN_SLIDER){
-            linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
+        if(Constants.currentLinkagePos == Constants.LinkagePos.MANUAL){
+            linkage.setPosition(manualPos);
         }
+    }
 
-        if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT || Constants.currentLinkageActionPos == Constants.LinkageActionPos.OSERVATION){
-            linkage.setPosition(Constants.LINKAGE_INIT_POS);
+    public void manualControl(double leftTrigger, double rightTrigger){
+        if(leftTrigger >=0.01 || rightTrigger >=0.01){
+            if (leftTrigger>= 0.05) {
+                manualPos -=0.05;
+                linkage.setPosition(manualPos);
+                Constants.currentLinkagePos = Constants.LinkagePos.MANUAL;
+            }
+            if (rightTrigger >= 0.05) {
+                manualPos += 0.05;
+                linkage.setPosition(manualPos);
+                Constants.currentLinkagePos = Constants.LinkagePos.MANUAL;
+            }
+        }else{
+            Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
         }
     }
 }
