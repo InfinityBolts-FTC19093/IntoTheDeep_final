@@ -32,26 +32,38 @@ public class autotest extends LinearOpMode {
         actionsManual.Turret turret = new actionsManual.Turret(hardwareMap);
         actionsManual.ClawTilt clawTilt = new actionsManual.ClawTilt(hardwareMap);
         actionsManual.Pivot pivot = new actionsManual.Pivot(hardwareMap);
+        actionsManual.Update updateAuto = new actionsManual.Update(hardwareMap);
         
 
         Action TakeFromGround = new SequentialAction(
-                linkage.take(), claw.open(), clawTilt.beforeTake(), pivot.init()
+                linkage.take(), claw.open(), clawTilt.beforeTake()
         );
-        Action PlaceFromGround = new SequentialAction(
-                clawTilt.take(), claw.close(), clawRotate.horizontal(), clawTilt.place(), linkage.place()
+        Action PlaceInSlider = new SequentialAction(
+                clawTilt.take(), claw.close(), new SleepAction(.2), clawRotate.horizontal(), clawTilt.place(), linkage.place()
+        );
+        Action TakeFromLinkage = new SequentialAction(
+                claw.open(), sliderClaw.open(), turret.take(), sliderTilt.take(), lift.takeFromLinkage()
+        );
+        Action PlaceOnBasket = new SequentialAction(
+                sliderClaw.close(), lift.liftBasket(), new SleepAction(.2), sliderTilt.basket() ,turret.place()
         );
         
         
         Action autoSequence = new SequentialAction(
                 TakeFromGround,
                 new SleepAction(2),
-                PlaceFromGround
+                PlaceInSlider,
+                new SleepAction(1),
+                TakeFromLinkage,
+                new SleepAction(1)
                 );
 
         Action pid = new ParallelAction(
                 lift.update()
         );
 
+
+        updateAuto.initAll();
         waitForStart();
         Actions.runBlocking(
                 new ParallelAction(
