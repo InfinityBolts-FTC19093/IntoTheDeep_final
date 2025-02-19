@@ -42,20 +42,26 @@ public class autotest extends LinearOpMode {
                 clawTilt.take(), claw.close(), new SleepAction(.2), clawRotate.horizontal(), clawTilt.place(), linkage.place()
         );
         Action TakeFromLinkage = new SequentialAction(
-                claw.open(), sliderClaw.open(), turret.take(), sliderTilt.take(), lift.takeFromLinkage()
+                 sliderClaw.open(), turret.take(), sliderTilt.take(), lift.takeFromLinkage(), claw.open()
         );
         Action PlaceOnBasket = new SequentialAction(
                 sliderClaw.close(), lift.liftBasket(), new SleepAction(.2), sliderTilt.basket() ,turret.place()
         );
+        Action PlacePreload = new SequentialAction(
+            sliderClaw.close(), lift.liftBasket(), new SleepAction(.2), sliderTilt.chamber(), turret.place()
+        );
         
         
         Action autoSequence = new SequentialAction(
+                PlacePreload,
+                new SleepAction(2),
                 TakeFromGround,
                 new SleepAction(2),
                 PlaceInSlider,
                 new SleepAction(1),
                 TakeFromLinkage,
-                new SleepAction(1)
+                new SleepAction(1),
+                PlaceOnBasket
                 );
 
         Action pid = new ParallelAction(

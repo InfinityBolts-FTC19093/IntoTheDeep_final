@@ -78,6 +78,10 @@ public class actionsManual {
         public Action takeFromLinkage (){
             return new MoveSlides(Constants.SLIDER_TAKE_FORM_LINKAGE);
         }
+
+        public Action beforeLinkage () {
+            return new MoveSlides(Constants.SLIDER_BEFORE_TAKE_FORM_LINKAGE);
+        }
     }
 
     public static class SliderClaw {
