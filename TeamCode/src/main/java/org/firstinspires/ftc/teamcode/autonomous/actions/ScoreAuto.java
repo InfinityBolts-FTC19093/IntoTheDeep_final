@@ -17,25 +17,21 @@ public class ScoreAuto {
 
     Timing.Timer timer;
     static Servo claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret;
-    DcMotorEx slider;
-    CollectAuto LinkageAction;
-    PrepareAuto SliderAction;
+    static CollectAuto LinkageAction;
+    static PrepareAuto SliderAction;
     static slider_controller sliderController;
     static sliderClaw_controller sliderClawController;
 
 
-    public ScoreAuto(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot, Servo slider_claw, Servo slider_claw_tilt, Servo turret, DcMotorEx slider, CollectAuto LinkageAction, PrepareAuto SliderAction) {
-        ScoreAuto.claw = claw;
-        ScoreAuto.claw_tilt = claw_tilt;
-        ScoreAuto.linkage = linkage;
-        ScoreAuto.claw_rotate = claw_rotate;
-        ScoreAuto.claw_pivot = claw_pivot;
-        ScoreAuto.slider_claw = slider_claw;
-        ScoreAuto.slider_claw_tilt = slider_claw_tilt;
-        ScoreAuto.turret = turret;
-        this.slider = slider;
-        this.LinkageAction = LinkageAction;
-        this.SliderAction = SliderAction;
+    public ScoreAuto(Servo claw1, Servo claw_tilt1, Servo linkage1, Servo claw_rotate1, Servo claw_pivot1, Servo slider_claw1, Servo slider_claw_tilt1, Servo turret1) {
+        claw = claw1;
+        claw_tilt = claw_tilt1;
+        linkage = linkage1;
+        claw_rotate = claw_rotate1;
+        claw_pivot = claw_pivot1;
+        slider_claw = slider_claw1;
+        slider_claw_tilt = slider_claw_tilt1;
+        turret = turret1;
     }
 
     public static void setSliderController(slider_controller controller){
@@ -44,6 +40,14 @@ public class ScoreAuto {
 
     public static void setsliderClawController(sliderClaw_controller controller){
         sliderClawController = controller;
+    }
+
+    public static void setLinkageAction(CollectAuto collectAuto){
+        LinkageAction = collectAuto;
+    }
+
+    public static void setSliderAction(PrepareAuto prepareAuto){
+        SliderAction = prepareAuto;
     }
 
     /** CHAMBER */

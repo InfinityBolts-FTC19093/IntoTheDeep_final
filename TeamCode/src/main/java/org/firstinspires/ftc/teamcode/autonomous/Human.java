@@ -17,13 +17,11 @@ import org.firstinspires.ftc.teamcode.autonomous.actions.CollectAuto;
 import org.firstinspires.ftc.teamcode.autonomous.actions.PrepareAuto;
 import org.firstinspires.ftc.teamcode.autonomous.actions.ScoreAuto;
 import org.firstinspires.ftc.teamcode.autonomous.actions.actions;
+import org.firstinspires.ftc.teamcode.autonomous.actions.actionsManual;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
 
 @Autonomous (name = "Human", group = "#")
 public class Human extends LinearOpMode {
-    CollectAuto LinkageAction;
-    PrepareAuto SliderAction;
-    ScoreAuto ScoreAction;
     int sliderPos;
     @Override
     public void runOpMode() {
@@ -31,12 +29,44 @@ public class Human extends LinearOpMode {
         Pose2d startPose    = new Pose2d(9, -61.5, Math.toRadians(90));
         MecanumDrive drive  = new MecanumDrive(hardwareMap, startPose);
 
-        SliderAction     = new PrepareAuto(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw);
-        LinkageAction    = new CollectAuto(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot);
-        ScoreAction      = new ScoreAuto(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction, SliderAction);
+        actionsManual.Lift lift = new actionsManual.Lift(hardwareMap);
+        actionsManual.SliderClaw sliderClaw = new actionsManual.SliderClaw(hardwareMap);
+        actionsManual.Linkage linkage = new actionsManual.Linkage(hardwareMap);
+        actionsManual.Claw claw = new actionsManual.Claw(hardwareMap);
+        actionsManual.ClawRotate clawRotate = new actionsManual.ClawRotate(hardwareMap);
+        actionsManual.SliderTilt sliderTilt = new actionsManual.SliderTilt(hardwareMap);
+        actionsManual.Turret turret = new actionsManual.Turret(hardwareMap);
+        actionsManual.ClawTilt clawTilt = new actionsManual.ClawTilt(hardwareMap);
+        actionsManual.Pivot pivot = new actionsManual.Pivot(hardwareMap);
+        actionsManual.Update updateAuto = new actionsManual.Update(hardwareMap);
 
-        actions.Update updateAuto   = new actions.Update(hardwareMap);
-        actions.scoreAuto scoreAuto = new actions.scoreAuto(SliderAction, LinkageAction, ScoreAction, robot.slider);
+        Action PreLoad = new SequentialAction(
+                lift.liftChamber(), sliderTilt.chamber()
+        );
+
+        Action Place= new SequentialAction(
+                lift.liftPlace(), new SleepAction(.3), sliderClaw.open()
+        );
+
+        Action Human = new SequentialAction(
+                sliderTilt.human(), sliderClaw.open(), lift.liftDown()
+        );
+
+        Action BeforeTakeFromGround = new SequentialAction(
+                claw.open(), linkage.take(), clawTilt.beforeTake()
+        );
+
+        Action TakeFromGround = new SequentialAction(
+                clawTilt.take(), new SleepAction(.2), claw.close(), new SleepAction(.1), clawTilt.place(), linkage.place()
+        );
+
+        Action ThrowHuman = new SequentialAction(
+                linkage.take(), clawTilt.place(), new SleepAction(.1), claw.open(), new SleepAction(.05), linkage.place(), clawTilt.beforeTake()
+        );
+
+        Action TakeFromHuman = new SequentialAction(
+                sliderClaw.close(), new SleepAction(.1), lift.liftChamber(), sliderTilt.chamber()
+        );
 
         TrajectoryActionBuilder safePose = drive.actionBuilder(startPose)
                 .strafeTo(new Vector2d(9, -61.4 ));
@@ -100,42 +130,26 @@ public class Human extends LinearOpMode {
 
         Action autoSequence = new SequentialAction(
             safepose,
-            scoreAuto.Chamber(),
             preloadAction,
             new SleepAction(1),
-            scoreAuto.Place(),
             humanAction,
             GTS1Action,
-            scoreAuto.TakeFromHuman(),
             new SleepAction(.3),
-            scoreAuto.Chamber(),
             chamber1,
             new SleepAction(.3),
-            scoreAuto.Place(),
             new SleepAction(.3),
             GTS2Action,
-            scoreAuto.TakeFromHuman(),
             new SleepAction(.3),
-            scoreAuto.Chamber(),
             chamber2,
             new SleepAction(.3),
-            scoreAuto.Place(),
-            GTS3Action,
-            scoreAuto.TakeFromHuman()
-
+            GTS3Action
         );
-
-        Action pid = new ParallelAction(
-                updateAuto.updateAll()
-        );
-
-
 
         waitForStart();
 
         Actions.runBlocking(
                 new ParallelAction(
-                        autoSequence, pid
+                        autoSequence
                 )
         );
     }
