@@ -127,10 +127,10 @@ public class Constants {
 
 
     /** Servo TURRET */
-    public static double TURRET_INIT = 0.42;
-    public static double TURRET_TAKE_HUMAN = 0.025;
-    public static double TURRET_TAKE_FROM_LINKAGE = 0.025;
-    public static double TURRET_PLACE = 0;
+    public static double TURRET_INIT = .84;
+    public static double TURRET_TAKE_HUMAN = 0.45;
+    public static double TURRET_TAKE_FROM_LINKAGE = 0.45;
+    public static double TURRET_PLACE = 0.45;
 
     /** Servo Slider Claw Tilt */
     public static double SLIDER_TILT_INIT = 0;

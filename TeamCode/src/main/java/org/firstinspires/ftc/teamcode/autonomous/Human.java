@@ -13,26 +13,30 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MECANUM.MecanumDrive;
-import org.firstinspires.ftc.teamcode.actions.Collect;
-import org.firstinspires.ftc.teamcode.actions.Prepare;
-import org.firstinspires.ftc.teamcode.actions.Score;
+import org.firstinspires.ftc.teamcode.autonomous.actions.CollectAuto;
+import org.firstinspires.ftc.teamcode.autonomous.actions.PrepareAuto;
+import org.firstinspires.ftc.teamcode.autonomous.actions.ScoreAuto;
+import org.firstinspires.ftc.teamcode.autonomous.actions.actions;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
 
 @Autonomous (name = "Human", group = "#")
 public class Human extends LinearOpMode {
+    CollectAuto LinkageAction;
+    PrepareAuto SliderAction;
+    ScoreAuto ScoreAction;
     int sliderPos;
     @Override
     public void runOpMode() {
-        RobotMap robot = new RobotMap(hardwareMap);
-        Pose2d startPose = new Pose2d(9, -61.5, Math.toRadians(90));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
+        RobotMap robot      = new RobotMap(hardwareMap);
+        Pose2d startPose    = new Pose2d(9, -61.5, Math.toRadians(90));
+        MecanumDrive drive  = new MecanumDrive(hardwareMap, startPose);
 
-        Prepare SliderAction        = new Prepare(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
-        Collect LinkageAction       = new Collect(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
-        Score ScoreAction           = new Score(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction, SliderAction, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
+        SliderAction     = new PrepareAuto(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw);
+        LinkageAction    = new CollectAuto(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot);
+        ScoreAction      = new ScoreAuto(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction, SliderAction);
 
         actions.Update updateAuto   = new actions.Update(hardwareMap);
-        actions.scoreAuto scoreAuto = new actions.scoreAuto(SliderAction, LinkageAction, ScoreAction);
+        actions.scoreAuto scoreAuto = new actions.scoreAuto(SliderAction, LinkageAction, ScoreAction, robot.slider);
 
         TrajectoryActionBuilder safePose = drive.actionBuilder(startPose)
                 .strafeTo(new Vector2d(9, -61.4 ));

@@ -1,23 +1,16 @@
-package org.firstinspires.ftc.teamcode.autonomous;
-
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
-import static org.firstinspires.ftc.teamcode.constants.Constants.WAIT_FOR_LINKAGE_ACTION;
-import static org.firstinspires.ftc.teamcode.constants.Constants.WAIT_FOR_SLIDER_ACTION;
-
-import android.annotation.SuppressLint;
+package org.firstinspires.ftc.teamcode.autonomous.actions;
 
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
-import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.actions.Collect;
+import org.firstinspires.ftc.teamcode.actions.G2_Action;
 import org.firstinspires.ftc.teamcode.actions.InTimer;
 import org.firstinspires.ftc.teamcode.actions.Prepare;
 import org.firstinspires.ftc.teamcode.actions.Score;
@@ -29,33 +22,21 @@ import org.firstinspires.ftc.teamcode.systems.linkage_controller;
 import org.firstinspires.ftc.teamcode.systems.sliderClaw_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
-import java.util.concurrent.TimeUnit;
-
 public class actions {
     public static class Update {
-        private final Servo claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret;
-        private final DcMotorEx slider, leftFront, leftBack, rightFront, rightBack;
-        private final slider_controller sliderController;
-        private final claw_controller clawController;
-        private final sliderClaw_controller sliderClawController;
-        private final clawRotate_controller clawRotateController;
-        private final linkage_controller linkageController;
-        Score score;
-        Prepare prepare;
-        Collect collect;
-        Gamepad gamepad1;
-        int sliderPos;
+         Servo claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret;
+         DcMotorEx slider;
+         slider_controller sliderController;
+         claw_controller clawController;
+         sliderClaw_controller sliderClawController;
+         clawRotate_controller clawRotateController;
+         linkage_controller linkageController;
 
         public Update(HardwareMap hardwareMap) {
             slider = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_SLIDER);
             slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             slider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-            leftFront = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_LEFT_FRONT);
-            leftBack = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_LEFT_BACK);
-            rightFront = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_RIGHT_FRONT);
-            rightBack = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_RIGHT_BACK);
 
             claw = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW);
             slider_claw = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW);
@@ -66,10 +47,6 @@ public class actions {
             turret = hardwareMap.get(Servo.class, HardwareConstants.ID_TURRET);
             slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
-
-            prepare = new Prepare(slider_claw, slider_claw_tilt, turret, slider, claw, leftFront, leftBack, rightFront, rightBack, 1, gamepad1);
-            collect = new Collect(claw, claw_tilt, linkage, claw_rotate, claw_pivot, leftFront, leftBack, rightFront, rightBack, 1, gamepad1);
-            score = new Score(claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret, slider, collect, prepare, leftFront, leftBack, rightFront, rightBack, 1, gamepad1);
 
             sliderController = new slider_controller(slider);
             clawController = new claw_controller(claw);
@@ -86,6 +63,7 @@ public class actions {
                 clawController.update();
                 clawRotateController.update();
                 sliderClawController.update();
+                linkageController.update();
                 return true;
             }
         }
@@ -108,21 +86,33 @@ public class actions {
 
 
     public static class scoreAuto {
-        Prepare SliderAction;
-        Collect LinkageAction;
-        Score ScoreAction;
+        PrepareAuto SliderAction;
+        CollectAuto LinkageAction;
+        ScoreAuto scoreAction;
+        DcMotorEx slider;
+        slider_controller sliderController;
 
-        public scoreAuto(Prepare SliderAction, Collect LinkageAction, Score ScoreAction) {
-            this.ScoreAction = ScoreAction;
+        public scoreAuto(PrepareAuto SliderAction, CollectAuto LinkageAction, ScoreAuto ScoreAction, DcMotorEx slider) {
+            this.scoreAction = ScoreAction;
             this.LinkageAction = LinkageAction;
             this.SliderAction = SliderAction;
+            this.slider = slider;
+            this.sliderController = new slider_controller(slider);
         }
 
+        public class UpdateSlider implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                sliderController.update();
+                return true;
+            }
+        }
 
         public class HighChamber implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                ScoreAction.placeOnHighChamber();
+                scoreAction.placeOnHighChamber();
                 return false;
             }
         }
@@ -130,7 +120,7 @@ public class actions {
         public class HighBasket implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                ScoreAction.placeInHighBasket();
+                scoreAction.placeInHighBasket();
                 return false;
             }
         }
@@ -138,7 +128,7 @@ public class actions {
         public class BasketPreload implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                ScoreAction.BasketPreload();
+                scoreAction.BasketPreload();
                 return false;
             }
         }
@@ -146,7 +136,7 @@ public class actions {
         public class Place implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                ScoreAction.score();
+                scoreAction.score();
                 return false;
             }
         }
@@ -165,7 +155,7 @@ public class actions {
 
                 @Override
                 public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                    LinkageAction.takePos();
+                    scoreAction.take();
                     return false;
                 }
             }
