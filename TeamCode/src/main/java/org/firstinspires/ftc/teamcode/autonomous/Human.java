@@ -19,15 +19,20 @@ import org.firstinspires.ftc.teamcode.autonomous.actions.ScoreAuto;
 import org.firstinspires.ftc.teamcode.autonomous.actions.actions;
 import org.firstinspires.ftc.teamcode.autonomous.actions.actionsManual;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
+import org.firstinspires.ftc.teamcode.systems.slider_controller;
+import org.opencv.core.Mat;
 
 @Autonomous (name = "Human", group = "#")
 public class Human extends LinearOpMode {
-    int sliderPos;
+    RobotMap robot;
+    slider_controller sliderController;
     @Override
     public void runOpMode() {
         RobotMap robot      = new RobotMap(hardwareMap);
         Pose2d startPose    = new Pose2d(9, -61.5, Math.toRadians(90));
         MecanumDrive drive  = new MecanumDrive(hardwareMap, startPose);
+
+        sliderController = new slider_controller(robot.slider);
 
         actionsManual.Lift lift = new actionsManual.Lift(hardwareMap);
         actionsManual.SliderClaw sliderClaw = new actionsManual.SliderClaw(hardwareMap);
@@ -40,51 +45,31 @@ public class Human extends LinearOpMode {
         actionsManual.Pivot pivot = new actionsManual.Pivot(hardwareMap);
         actionsManual.Update updateAuto = new actionsManual.Update(hardwareMap);
 
-        Action PreLoad = new SequentialAction(
-                lift.liftChamber(), sliderTilt.chamber()
-        );
-
-        Action Place= new SequentialAction(
-                lift.liftPlace(), new SleepAction(.3), sliderClaw.open()
-        );
-
-        Action Human = new SequentialAction(
-                sliderTilt.human(), sliderClaw.open(), lift.liftDown()
-        );
-
-        Action BeforeTakeFromGround = new SequentialAction(
-                claw.open(), linkage.take(), clawTilt.beforeTake()
-        );
-
-        Action TakeFromGround = new SequentialAction(
-                clawTilt.take(), new SleepAction(.2), claw.close(), new SleepAction(.1), clawTilt.place(), linkage.place()
-        );
-
-        Action ThrowHuman = new SequentialAction(
-                linkage.take(), clawTilt.place(), new SleepAction(.1), claw.open(), new SleepAction(.05), linkage.place(), clawTilt.beforeTake()
-        );
-
-        Action TakeFromHuman = new SequentialAction(
-                sliderClaw.close(), new SleepAction(.1), lift.liftChamber(), sliderTilt.chamber()
-        );
-
         TrajectoryActionBuilder safePose = drive.actionBuilder(startPose)
                 .strafeTo(new Vector2d(9, -61.4 ));
 
         TrajectoryActionBuilder PRELOAD = safePose.endTrajectory().fresh()
                 .strafeTo(new Vector2d(8, -33), null, new ProfileAccelConstraint(-70, 70));
 
-        TrajectoryActionBuilder HUMAN = PRELOAD.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(34, -34), Math.toRadians(45))
-                .turn(Math.toRadians(-100))
-                .turn(Math.toRadians(100))
-                .strafeToLinearHeading(new Vector2d(40, -34), Math.toRadians(45))
-                .turn(Math.toRadians(-100))
-                .turn(Math.toRadians(100))
-                .strafeToLinearHeading(new Vector2d(46, -34) ,Math.toRadians(45))
-                .turn(Math.toRadians(-100));
+        TrajectoryActionBuilder GROUND1 = PRELOAD.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(28.5, -34), Math.toRadians(27));
 
-        TrajectoryActionBuilder GTS1 = HUMAN.endTrajectory().fresh()
+        TrajectoryActionBuilder THROW1 = GROUND1.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(34, -37), Math.toRadians(310));
+
+        TrajectoryActionBuilder GROUND2 = THROW1.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(39, -34), Math.toRadians(39));
+
+        TrajectoryActionBuilder THROW2 = GROUND2.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d( 39, -37), Math.toRadians(310));
+
+        TrajectoryActionBuilder GROUND3 = THROW2.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(46, -34) ,Math.toRadians(45));
+
+        TrajectoryActionBuilder THROW3 = GROUND3.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(46, -35), Math.toRadians(145));
+
+        TrajectoryActionBuilder GTS1 = THROW3.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(50, -55), Math.toRadians(90));
 
         TrajectoryActionBuilder PLACE1 = GTS1.endTrajectory().fresh()
@@ -115,9 +100,56 @@ public class Human extends LinearOpMode {
                 .strafeToConstantHeading(new Vector2d(8, -35), null, new ProfileAccelConstraint(-120, 120))
                 .strafeTo(new Vector2d(8, -32));
 
+
+        Action PreLoad = new SequentialAction(
+                lift.liftChamber(), sliderTilt.chamber(), new SleepAction(.1), turret.place()
+        );
+
+        Action Place= new SequentialAction(
+                 lift.liftPlace(), new SleepAction(.2), sliderClaw.open()
+        );
+
+        Action Human = new SequentialAction(
+                sliderTilt.human(), new SleepAction(.2), lift.liftDown()
+        );
+
+        Action Chamber = new SequentialAction(
+                sliderClaw.close(), new SleepAction(.2), lift.liftChamber(), sliderTilt.chamber()
+        );
+
+        Action BeforeTakeFromLinkage = new SequentialAction(
+                lift.beforeLinkage(), new SleepAction(.05), sliderTilt.beforeLinkage()
+        );
+
+        Action TakeFromGround = new SequentialAction(
+                claw.open() ,linkage.take(), clawTilt.take(), pivot.take(), clawRotate.vertical(), new SleepAction(.5), claw.close(), new SleepAction(.2), clawTilt.beforeTake()
+        );
+
+        Action ThrowHuman = new SequentialAction(
+                linkage.take(), clawTilt.place(), new SleepAction(.1), claw.open(), new SleepAction(.05), linkage.place(), clawTilt.beforeTake()
+        );
+
+        Action retractLinkage = new SequentialAction(
+              claw.close(), clawTilt.place(), linkage.place(), clawRotate.horizontal(), pivot.init()
+        );
+
+        Action TakeFromGround2 = new SequentialAction(
+                claw.open() ,linkage.take(), clawTilt.take(), pivot.take(), clawRotate.vertical(), new SleepAction(.5), claw.close(), new SleepAction(.2), clawTilt.beforeTake()
+        );
+
+        Action TakeFromGround3 = new SequentialAction(
+                claw.open() ,linkage.take(), clawTilt.take(), pivot.take(), clawRotate.vertical(), new SleepAction(.5), claw.close(), new SleepAction(.2), clawTilt.beforeTake()
+        );
+
+
         Action safepose = safePose.build();
         Action preloadAction = PRELOAD.build();
-        Action humanAction = HUMAN.build();
+        Action g1 = GROUND1.build();
+        Action t1 = THROW1.build();
+        Action g2 = GROUND2.build();
+        Action t2 = THROW2.build();
+        Action g3 = GROUND3.build();
+        Action t3 = THROW3.build();
         Action GTS1Action = GTS1.build();
         Action chamber1 = PLACE1.build();
         Action GTS2Action = GTS2.build();
@@ -130,26 +162,38 @@ public class Human extends LinearOpMode {
 
         Action autoSequence = new SequentialAction(
             safepose,
+            PreLoad,
             preloadAction,
-            new SleepAction(1),
-            humanAction,
-            GTS1Action,
-            new SleepAction(.3),
-            chamber1,
-            new SleepAction(.3),
-            new SleepAction(.3),
-            GTS2Action,
-            new SleepAction(.3),
-            chamber2,
-            new SleepAction(.3),
-            GTS3Action
+            new SleepAction(.4),
+            Place,
+            new SleepAction(.2),
+            Human,
+            g1,
+            TakeFromGround,
+            new SleepAction(.7),
+            t1,
+            claw.open(),
+            clawTilt.beforeTake(),
+            g2,
+            TakeFromGround2,
+            t2,
+            claw.open(),
+            clawTilt.beforeTake()
         );
+
+        Action pid = new ParallelAction(
+          lift.update()
+        );
+
+        if (!isStarted()) {
+            updateAuto.initAll();
+        }
 
         waitForStart();
 
         Actions.runBlocking(
                 new ParallelAction(
-                        autoSequence
+                        autoSequence, pid
                 )
         );
     }

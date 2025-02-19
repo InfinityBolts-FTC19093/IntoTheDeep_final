@@ -110,7 +110,7 @@ public class Constants {
     /** Servo TILT */
     public static double TILT_INIT = 0;
     public static double TILT_TAKE = 0.8;
-    public static double TILT_BEFORE_TAKE = 0.72;
+    public static double TILT_BEFORE_TAKE = 0.70;
     public static double TILT_PLACE_IN_SLIDER = 0.05;
     public static double TILT_THROW = 0.3;
 
