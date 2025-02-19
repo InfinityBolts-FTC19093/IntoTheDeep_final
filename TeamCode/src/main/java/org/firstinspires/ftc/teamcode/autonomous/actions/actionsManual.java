@@ -78,6 +78,10 @@ public class actionsManual {
         public Action takeFromLinkage (){
             return new MoveSlides(Constants.SLIDER_TAKE_FORM_LINKAGE);
         }
+
+        public Action beforeLinkage () {
+            return new MoveSlides(Constants.SLIDER_BEFORE_TAKE_FORM_LINKAGE);
+        }
     }
 
     public static class SliderClaw {
@@ -240,7 +244,7 @@ public class actionsManual {
         public class Basket implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
-                slider_tilt.setPosition(Constants.SLIDER_TILT_PLACE_IN_HIGH_BUSKET);
+                slider_tilt.setPosition(.215);
                 return false;
             }
         }
@@ -269,6 +273,14 @@ public class actionsManual {
             }
         }
 
+        public class Park implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                slider_tilt.setPosition(Constants.SLIDER_TILT_PARK);
+                return false;
+            }
+        }
+
         public Action init() {
             return new Init();
         }
@@ -292,6 +304,8 @@ public class actionsManual {
         public Action beforeLinkage() {
             return new BeforeLinkage();
         }
+
+        public Action park() {return new Park();}
     }
 
     public static class Turret {
@@ -364,7 +378,16 @@ public class actionsManual {
             }
         }
 
+        public class TakeGround implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                pivot.setPosition(Constants.CLAW_PIVOT_TAKE);
+                return false;
+            }
+        }
+
         public Action init() {return new Init();}
+        public Action take() {return new TakeGround();}
     }
 
 

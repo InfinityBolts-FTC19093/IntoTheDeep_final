@@ -87,7 +87,7 @@ public class Constants {
     public static final int SLIDER_DOWN = 0;
 
     public static int SLIDER_TAKE_FORM_LINKAGE = 220;
-    public static int SLIDER_BEFORE_TAKE_FORM_LINKAGE = 250;
+    public static int SLIDER_BEFORE_TAKE_FORM_LINKAGE = 400;
 
     public static int SLIDER_LOW_CHAMBER = 0;
     public static int SLIDER_HIGH_CHAMBER = 245;
@@ -109,7 +109,7 @@ public class Constants {
     public static double CLOSE_CLAW = .9;
 
     /** Servo LINKAGE */
-    public static double LINKAGE_INIT_POS = 0.03;
+    public static double LINKAGE_INIT_POS = 0.1;
     public static double LINKAGE_MAX_POS = 0.69;
     public static double LINKAGE_TAKE_POS = 0.80;
     public static double LINKAGE_PLACE_IN_SLIDER = 0.1;
@@ -132,13 +132,15 @@ public class Constants {
     public static double CLAW_ASSEMBLY_INIT = 0;
     public static double CLAW_ASSEMBLY_PLACE_IN_SLIDER = 0;
     public static double CLAW_ASSEMBLY_TAKE = 0;
+    public static double CLAW_PIVOT_TAKE = 0.2;
 
 
     /** Servo TURRET */
-    public static double TURRET_INIT = .84;
-    public static double TURRET_TAKE_HUMAN = 0.45;
-    public static double TURRET_TAKE_FROM_LINKAGE = 0.45;
-    public static double TURRET_PLACE = 0.45;
+    public static double TURRET_INIT = .5;
+    public static double TURRET_TAKE_HUMAN = 0.11;
+    public static double TURRET_TAKE_FROM_LINKAGE = 0.11;
+    public static double TURRET_PLACE = 0.11;
+
 
     /** Servo Slider Claw Tilt */
     public static double SLIDER_TILT_INIT = 0;
@@ -150,6 +152,7 @@ public class Constants {
     public static double SLIDER_TILT_TAKE_FORM_HUMAN = 0.075;
     public static double SLIDER_TILT_BEFORE_TAKE_FROM_LINKAGE = 0.78;
     public static double SLIDER_TILT_BEFORE_TAKE_FORM_HUMAN = 0.2;
+    public static double SLIDER_TILT_PARK = 0.57;
 
 
 

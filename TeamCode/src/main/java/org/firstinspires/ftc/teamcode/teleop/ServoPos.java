@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.constants.HardwareConstants;
 @TeleOp(name="ServoPos")
 public class ServoPos extends OpMode {
 
-    public static double ClawPos=0,LinkagePos=0,RotateClawPos=0,ClawTiltPos=0,SliderClawPos=0,SliderClawRotatePos=0,SliderClawTiltPos=0,ModificaUnghiPos=0,RotateAssemplyPos=0;
+    public static double ClawPos=0,LinkagePos=0,RotateClawPos=0,ClawTiltPos=0,SliderClawPos=0,SliderClawRotatePos=.5,SliderClawTiltPos=0,ModificaUnghiPos=0,RotateAssemplyPos=0;
     private Servo claw, linkage, claw_rotate, claw_tilt, turret, slider_claw, slider_claw_rotate, slider_claw_tilt, unghi_robot;
     private DcMotorEx slider;
 
