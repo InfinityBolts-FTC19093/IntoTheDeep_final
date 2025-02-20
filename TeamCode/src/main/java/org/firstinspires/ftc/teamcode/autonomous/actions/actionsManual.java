@@ -425,7 +425,7 @@ public class actionsManual {
         public class BeforeTake implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
-                tilt.setPosition(Constants.TILT_BEFORE_TAKE);
+                tilt.setPosition(Constants.TILT_BEFORE_TAKE_AUTO);
                 return false;
             }
         }
