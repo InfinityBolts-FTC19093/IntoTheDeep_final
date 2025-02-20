@@ -49,27 +49,34 @@ public class Human extends LinearOpMode {
                 .strafeTo(new Vector2d(9, -61.4 ));
 
         TrajectoryActionBuilder PRELOAD = safePose.endTrajectory().fresh()
-                .strafeTo(new Vector2d(8, -33), null, new ProfileAccelConstraint(-70, 70));
+                .strafeTo(new Vector2d(8, -32), null, new ProfileAccelConstraint(-70, 70));
 
-        TrajectoryActionBuilder GROUND1 = PRELOAD.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(28, -34), Math.toRadians(26));
+        TrajectoryActionBuilder HUMAN = PRELOAD.endTrajectory().fresh()
+                .setTangent(Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(33, -37, Math.toRadians(270)), Math.toRadians(0),null, new ProfileAccelConstraint(-70, 70))
+                .splineToLinearHeading(new Pose2d(38, -10, Math.toRadians(270)), Math.toRadians(0),null, new ProfileAccelConstraint(-70, 70))
+                .splineToLinearHeading(new Pose2d(50, -10, Math.toRadians(270)), Math.toRadians(0),null, new ProfileAccelConstraint(-70, 70));
 
-        TrajectoryActionBuilder THROW1 = GROUND1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(34, -37), Math.toRadians(310));
 
-        TrajectoryActionBuilder GROUND2 = THROW1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(38.5, -34), Math.toRadians(37));
+//        TrajectoryActionBuilder GROUND1 = PRELOAD.endTrajectory().fresh()
+//                .strafeToLinearHeading(new Vector2d(27, -34), Math.toRadians(26));
+//
+//        TrajectoryActionBuilder THROW1 = GROUND1.endTrajectory().fresh()
+//                .strafeToLinearHeading(new Vector2d(34, -37), Math.toRadians(310));
+//
+//        TrajectoryActionBuilder GROUND2 = THROW1.endTrajectory().fresh()
+//                .strafeToLinearHeading(new Vector2d(37, -34), Math.toRadians(38));
+//
+//        TrajectoryActionBuilder THROW2 = GROUND2.endTrajectory().fresh()
+//                .strafeToLinearHeading(new Vector2d( 39, -37), Math.toRadians(310));
+//
+//        TrajectoryActionBuilder GROUND3 = THROW2.endTrajectory().fresh()
+//                .strafeToLinearHeading(new Vector2d(47, -34) ,Math.toRadians(37));
+//
+//        TrajectoryActionBuilder THROW3 = GROUND3.endTrajectory().fresh()
+//                .strafeToLinearHeading(new Vector2d(46, -35), Math.toRadians(300));
 
-        TrajectoryActionBuilder THROW2 = GROUND2.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d( 39, -37), Math.toRadians(310));
-
-        TrajectoryActionBuilder GROUND3 = THROW2.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(48, -34) ,Math.toRadians(36));
-
-        TrajectoryActionBuilder THROW3 = GROUND3.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(46, -35), Math.toRadians(300));
-
-        TrajectoryActionBuilder GTS1 = THROW3.endTrajectory().fresh()
+        TrajectoryActionBuilder GTS1 = HUMAN.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(50, -50), Math.toRadians(90))
                 .strafeTo(new Vector2d(50, -58));
 
@@ -78,24 +85,24 @@ public class Human extends LinearOpMode {
                 .strafeTo(new Vector2d(4, -32));
 
         TrajectoryActionBuilder GTS2 = PLACE1.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(50, -55), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(50, -58));
+                .strafeToConstantHeading(new Vector2d(50, -50), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(50, -56));
 
         TrajectoryActionBuilder PLACE2 = GTS2.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(6, -35), null, new ProfileAccelConstraint(-120, 120))
                 .strafeTo(new Vector2d(6, -32));
 
         TrajectoryActionBuilder GTS3 = PLACE2.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(50, -55), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(50, -58));
+                .strafeToConstantHeading(new Vector2d(50, -50), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(50, -56));
 
         TrajectoryActionBuilder PLACE3 = GTS3.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(8, -35), null, new ProfileAccelConstraint(-120, 120))
                 .strafeTo(new Vector2d(8, -32));
 
         TrajectoryActionBuilder GTS4 = PLACE3.endTrajectory().fresh()
-                .strafeToConstantHeading(new Vector2d(50, -55), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(50, -58));
+                .strafeToConstantHeading(new Vector2d(50, -50), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(50, -56));
 
         TrajectoryActionBuilder PLACE4 = GTS4.endTrajectory().fresh()
                 .strafeToConstantHeading(new Vector2d(10, -35), null, new ProfileAccelConstraint(-120, 120))
@@ -190,12 +197,13 @@ public class Human extends LinearOpMode {
 
         Action safepose = safePose.build();
         Action preloadAction = PRELOAD.build();
-        Action g1 = GROUND1.build();
-        Action t1 = THROW1.build();
-        Action g2 = GROUND2.build();
-        Action t2 = THROW2.build();
-        Action g3 = GROUND3.build();
-        Action t3 = THROW3.build();
+        Action humanAction = HUMAN.build();
+//        Action g1 = GROUND1.build();
+//        Action t1 = THROW1.build();
+//        Action g2 = GROUND2.build();
+//        Action t2 = THROW2.build();
+//        Action g3 = GROUND3.build();
+//        Action t3 = THROW3.build();
         Action GTS1Action = GTS1.build();
         Action chamber1 = PLACE1.build();
         Action GTS2Action = GTS2.build();
@@ -210,61 +218,63 @@ public class Human extends LinearOpMode {
             safepose,
             PreLoad,
             preloadAction,
-            new SleepAction(.4),
-            PlacePreload,
             new SleepAction(.2),
+            sliderClaw.open(),
             Human,
-            g1,
-            TakeFromGround,
-            new SleepAction(.3),
-            t1,
-            claw.open(),
-            clawTilt.beforeTake(),
-            g2,
-            TakeFromGround2,
-            new SleepAction(.3),
-            t2,
-            claw.open(),
-            clawTilt.beforeTake(),
-                g3,
-                TakeFromGround3,
-                new SleepAction(.3),
-                t3,
-                claw.open(),
-                new SleepAction(.2),
-                retractLinkage,
-                GTS1Action,
-                Chamber,
-                new SleepAction(.1),
-                chamber1,
-                new SleepAction(.1),
-                Place1,
-                new SleepAction(.1),
-                Human1,
-                GTS2Action,
-                Chamber2,
-                new SleepAction(.1),
-                chamber2,
-                new SleepAction(.1),
-                Place2,
-                new SleepAction(.1),
-                Human2,
-                GTS3Action,
-                Chamber3,
-                new SleepAction(.1),
-                chamber3,
-                new SleepAction(.1),
-                Place3,
-                new SleepAction(.1),
-                Human3,
-                GTS3Action,
-                Chamber4,
-                new SleepAction(.1),
-                chamber4,
-                new SleepAction(.1),
-                Place4,
-                new SleepAction(.1),
-                Human4
+//            g1,
+//            TakeFromGround,
+//            new SleepAction(.3),
+//            t1,
+//            claw.open(),
+//            clawTilt.beforeTake(),
+//            g2,
+//            TakeFromGround2,
+//            new SleepAction(.3),
+//            t2,
+//            claw.open(),
+//            clawTilt.beforeTake(),
+//                g3,
+//                TakeFromGround3,
+//                new SleepAction(.3),
+//                t3,
+//                claw.open(),
+//                new SleepAction(.2),
+//                retractLinkage,
+
+                humanAction,
+
+                GTS1Action
+//                Chamber,
+//                new SleepAction(.1),
+//                chamber1,
+//                new SleepAction(.1),
+//                Place1,
+//                new SleepAction(.1),
+//                Human1,
+//                GTS2Action,
+//                Chamber2,
+//                new SleepAction(.1),
+//                chamber2,
+//                new SleepAction(.1),
+//                Place2,
+//                new SleepAction(.1),
+//                Human2,
+//                GTS3Action,
+//                Chamber3,
+//                new SleepAction(.1),
+//                chamber3,
+//                new SleepAction(.1),
+//                Place3,
+//                new SleepAction(.1),
+//                Human3,
+//                GTS3Action,
+//                Chamber4,
+//                new SleepAction(.1),
+//                chamber4,
+//                new SleepAction(.1),
+//                Place4,
+//                new SleepAction(.1),
+//                Human4
 
         );
 
