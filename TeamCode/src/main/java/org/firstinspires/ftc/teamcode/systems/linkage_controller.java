@@ -31,6 +31,7 @@ public class linkage_controller {
 
     public void update(){
         if(Constants.currentLinkagePos == Constants.LinkagePos.AUTO){
+            linkage.scaleRange(0,1);
             linkage.setPosition(pos);
         }
 
@@ -39,16 +40,17 @@ public class linkage_controller {
         }
     }
 
-    public void manualControl(double rightTrigger){
-        if(rightTrigger >=0.05){
-            if (rightTrigger>= 0.1) {
-                if(rightTrigger>=0.8){
-                    manualPos = 0.8;
-                    linkage.setPosition(0.8);
-                }
+    public void manualControl(double leftTrigger,double rightTrigger){
+        if(rightTrigger >=0.05 || leftTrigger >=0.5){
+            linkage.scaleRange(0.1,0.79);
+            if (rightTrigger>= 0.1 && !(leftTrigger >=0.5)) {
                 linkage.setPosition(rightTrigger);
                 manualPos = rightTrigger;
                 Constants.currentLinkagePos = Constants.LinkagePos.MANUAL;
+            }
+
+            if(leftTrigger>0.5){
+                linkage.setPosition(manualPos);
             }
         }else{
             Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
