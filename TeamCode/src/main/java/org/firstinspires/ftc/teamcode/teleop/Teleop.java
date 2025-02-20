@@ -86,7 +86,7 @@ public class Teleop extends LinearOpMode {
 
             if(gamepad2.y){g2Action.switchBasketPos();}
 
-            linkageController.manualControl(gamepad1.right_trigger);
+            linkageController.manualControl(gamepad1.left_trigger, gamepad1.right_trigger);
             sliderController.control(gamepad2.left_trigger, gamepad2.right_trigger);
             clawRotateController.update();
             sliderClawController.update();
