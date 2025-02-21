@@ -90,10 +90,11 @@ public class Constants {
     public static int SLIDER_BEFORE_TAKE_FORM_LINKAGE = 400;
 
     public static int SLIDER_LOW_CHAMBER = 0;
-    public static int SLIDER_HIGH_CHAMBER = 290;
+    public static int SLIDER_HIGH_CHAMBER = 215;
 
     public static int SLIDER_LOW_BUSKET = 800;
     public static int SLIDER_HIGH_BUSKET = 2000;
+    public static int SLIDER_PLACE_PRELOAD_AUTO = 1650;
 
     public static int SLIDER_ASCEND = 0;
     public static int SLIDER_LEV2_ASCEND = 0;
@@ -106,7 +107,7 @@ public class Constants {
 
     /** CLAW*/
     public static double OPEN_CLAW = 0;
-    public static double CLOSE_CLAW = .9;
+    public static double CLOSE_CLAW = 1;
 
     /** Servo LINKAGE */
     public static double LINKAGE_INIT_POS = 0.1;
@@ -137,20 +138,22 @@ public class Constants {
 
 
     /** Servo TURRET */
-    public static double TURRET_INIT = .5;
-    public static double TURRET_TAKE_HUMAN = 0.10;
-    public static double TURRET_TAKE_FROM_LINKAGE = 0.10;
-    public static double TURRET_PLACE = 0.10;
+    public static double TURRET_INIT_AUTO = .5;
+    public static double TURRET_TAKE_HUMAN = 0.12;
+    public static double TURRET_TAKE_FROM_LINKAGE = 0.12;
+    public static double TURRET_PLACE = 0.12;
+    public static double TURRET_BASKET = 0;
 
 
     /** Servo Slider Claw Tilt */
     public static double SLIDER_TILT_INIT = 0;
     public static double SLIDER_TILT_TAKE_FROM_LINKAGE = 0.85;
     public static double SLIDER_TILT_PLACE_IN_HIGH_BUSKET = 0.2;
+    public static double SLIDER_TILT_BASKET_AUTO = 0.25;
     public static double SLIDER_TILT_PLACE_IN_LOW_BUSKET = 0.2;
     public static double SLIDER_TILT_PLACE_ON_HIGH_CHAMBER = 0.55;
     public static double SLIDER_TILT_PLACE_ON_LOW_CHAMBER = 0;
-    public static double SLIDER_TILT_TAKE_FORM_HUMAN = 0.075;
+    public static double SLIDER_TILT_TAKE_FORM_HUMAN = 0.070;
     public static double SLIDER_TILT_BEFORE_TAKE_FROM_LINKAGE = 0.78;
     public static double SLIDER_TILT_BEFORE_TAKE_FORM_HUMAN = 0.2;
     public static double SLIDER_TILT_PARK = 0.57;

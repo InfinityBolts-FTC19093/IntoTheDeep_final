@@ -45,6 +45,7 @@ public class Collect {
     }
 
     public void takePos(){
+        Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
         linkage.setPosition(Constants.LINKAGE_TAKE_POS);
         linkageController.getlinkagePos(linkage.getPosition());
 
@@ -60,6 +61,7 @@ public class Collect {
     }
 
     public void takeForThrow(){
+        Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
         linkage.setPosition(Constants.LINKAGE_TAKE_POS);
         linkageController.getlinkagePos(linkage.getPosition());
 
@@ -93,6 +95,7 @@ public class Collect {
 
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
 
+        Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
         linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
         linkageController.getlinkagePos(linkage.getPosition());
 
@@ -113,6 +116,7 @@ public class Collect {
 
         tilt.setPosition(Constants.TILT_THROW);
         claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
+        Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
         linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
         linkageController.getlinkagePos(linkage.getPosition());
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.INIT;

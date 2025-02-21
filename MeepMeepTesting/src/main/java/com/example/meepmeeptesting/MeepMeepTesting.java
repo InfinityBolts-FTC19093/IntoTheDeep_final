@@ -23,14 +23,20 @@ public class MeepMeepTesting {
                 .strafeTo(new Vector2d(8, -40))
 
                 //da elementele la human
-                                .strafeToLinearHeading(new Vector2d(34, -34), Math.toRadians(45))
-                                .turn(Math.toRadians(-100))
-                                .turn(Math.toRadians(100))
-                                .strafeToLinearHeading(new Vector2d(40, -34), Math.toRadians(45))
-                                .turn(Math.toRadians(-100))
-                                .turn(Math.toRadians(100))
-                                .strafeToLinearHeading(new Vector2d(46, -34) ,Math.toRadians(45))
-                                .turn(Math.toRadians(-100))
+                .setTangent(Math.toRadians(0))
+                .strafeToLinearHeading(new Vector2d(32, -40), Math.toRadians(90), null, new ProfileAccelConstraint(-60, 60))
+                .splineToLinearHeading(new Pose2d(32, -14, Math.toRadians(90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(50, -14, Math.toRadians(90)), Math.toRadians(90))
+
+                .strafeToLinearHeading(new Vector2d(50, -50), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
+
+                .splineToLinearHeading(new Pose2d(50, -16, Math.toRadians(90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(62, -16, Math.toRadians(90)), Math.toRadians(90))
+
+                .strafeToLinearHeading(new Vector2d(60, -50), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
+
+                .strafeToLinearHeading(new Vector2d(60, -16), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
+                .strafeToLinearHeading(new Vector2d(68, -16), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
 
 
                 /*
@@ -49,11 +55,15 @@ public class MeepMeepTesting {
 
 */
                 //merge la human
-                .strafeToLinearHeading(new Vector2d(50, -60), Math.toRadians(90))
+
+                // SCHIMBA DIN CONSTANT HEADING IN LINEAR
+
+
+                .strafeToLinearHeading(new Vector2d(63, -60), Math.toRadians(90))
 
                 //pune primu
-                .strafeToConstantHeading(new Vector2d(-4, -35), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(-4, -34))
+                .strafeToConstantHeading(new Vector2d(6, -35), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(6, -34))
 
 
                 //human
@@ -62,8 +72,8 @@ public class MeepMeepTesting {
 
 
                 //al doilea
-                .strafeToConstantHeading(new Vector2d(0, -35), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(0, -32))
+                .strafeToConstantHeading(new Vector2d(8, -35), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(8, -32))
 
 
                 //human
@@ -72,8 +82,8 @@ public class MeepMeepTesting {
 
 
                 //al treilea
-                .strafeToConstantHeading(new Vector2d(4, -35), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(4, -32))
+                .strafeToConstantHeading(new Vector2d(10, -35), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(10, -32))
 
 
                 //human
@@ -82,10 +92,13 @@ public class MeepMeepTesting {
 
 
                 //al patrulea
-                .strafeToConstantHeading(new Vector2d(8, -35), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(8, -32))
+                .strafeToConstantHeading(new Vector2d(12, -35), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(12, -32))
 
+//                        .strafeTo(new Vector2d(12, -40))
+//                        .strafeToLinearHeading(new Vector2d(40, -55), Math.toRadians(0))
 
+                .splineToLinearHeading(new Pose2d(40, -55, Math.toRadians(0)), Math.toRadians(0))
 
                 .build());
 

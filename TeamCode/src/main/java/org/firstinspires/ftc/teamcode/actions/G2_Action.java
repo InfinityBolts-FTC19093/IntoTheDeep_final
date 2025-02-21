@@ -56,7 +56,7 @@ public class G2_Action {
         sliderController.setTargetPosition(Constants.SLIDER_DOWN);
         timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){inTimer.whileInTimer();}timer.pause();
 
-        turret.setPosition(Constants.TURRET_INIT);
+        turret.setPosition(Constants.TURRET_INIT_AUTO);
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){inTimer.whileInTimer();}timer.pause();
 
         slider_tilt.setPosition(Constants.SLIDER_TILT_INIT);

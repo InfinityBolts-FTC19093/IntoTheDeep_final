@@ -36,24 +36,32 @@ public class linkage_controller {
         }
 
         if(Constants.currentLinkagePos == Constants.LinkagePos.MANUAL){
+            linkage.scaleRange(0.1,.79);
             linkage.setPosition(manualPos);
         }
     }
 
-    public void manualControl(double leftTrigger,double rightTrigger){
-        if(rightTrigger >=0.05 || leftTrigger >=0.5){
-            linkage.scaleRange(0.1,0.79);
-            if (rightTrigger>= 0.1 && !(leftTrigger >=0.5)) {
-                linkage.setPosition(rightTrigger);
-                manualPos = rightTrigger;
-                Constants.currentLinkagePos = Constants.LinkagePos.MANUAL;
-            }
+    public void manualControl(){
+        Constants.currentLinkagePos = Constants.LinkagePos.MANUAL;
+        linkage.scaleRange(0.1,.79);
 
-            if(leftTrigger>0.5){
-                linkage.setPosition(manualPos);
-            }
-        }else{
-            Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
+        if(manualPos == 1){
+            manualPos = 0.75;
+            linkage.setPosition(manualPos);
+        }else if(manualPos == .75){
+            manualPos = .5;
+            linkage.setPosition(manualPos);
+        }else if(manualPos == .5){
+            manualPos = .25;
+            linkage.setPosition(manualPos);
+        }else if(manualPos == .25){
+            manualPos = 0;
+            linkage.setPosition(manualPos);
+        }else if(manualPos == 0){
+            manualPos = 1;
+            linkage.setPosition(manualPos);
+
         }
+        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS); timer.start(); while (!timer.done()); timer.pause();
     }
 }

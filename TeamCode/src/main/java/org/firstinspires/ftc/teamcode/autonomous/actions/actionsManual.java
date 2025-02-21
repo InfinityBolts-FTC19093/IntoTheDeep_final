@@ -59,9 +59,7 @@ public class actionsManual {
             return new Update();
         }
 
-        public Action liftChamber() {
-            return new MoveSlides(Constants.SLIDER_HIGH_CHAMBER);
-        }
+        public Action liftChamber() {return new MoveSlides(Constants.SLIDER_HIGH_CHAMBER);}
 
         public Action liftPlace() {
             return new MoveSlides(Constants.SLIDER_HIGH_CHAMBER + 500);
@@ -78,6 +76,8 @@ public class actionsManual {
         public Action takeFromLinkage (){
             return new MoveSlides(Constants.SLIDER_TAKE_FORM_LINKAGE);
         }
+
+        public Action liftPreload() {return new MoveSlides(Constants.SLIDER_PLACE_PRELOAD_AUTO);}
 
         public Action beforeLinkage () {
             return new MoveSlides(Constants.SLIDER_BEFORE_TAKE_FORM_LINKAGE);
@@ -244,7 +244,7 @@ public class actionsManual {
         public class Basket implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
-                slider_tilt.setPosition(.215);
+                slider_tilt.setPosition(Constants.SLIDER_TILT_BASKET_AUTO);
                 return false;
             }
         }
@@ -318,7 +318,7 @@ public class actionsManual {
         public class Init implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
-                turret.setPosition(Constants.TURRET_INIT);
+                turret.setPosition(Constants.TURRET_INIT_AUTO);
                 return false;
             }
         }
@@ -327,6 +327,14 @@ public class actionsManual {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 turret.setPosition(Constants.TURRET_TAKE_HUMAN);
+                return false;
+            }
+        }
+
+        public class Basket implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                turret.setPosition(Constants.TURRET_BASKET);
                 return false;
             }
         }
@@ -354,6 +362,8 @@ public class actionsManual {
         public Action human() {
             return new Human();
         }
+
+        public Action Basket() {return new Basket();}
 
         public Action take() {
             return new Linkage();
@@ -487,7 +497,7 @@ public class actionsManual {
             claw_tilt.setPosition(Constants.TILT_INIT);
             linkage.setPosition(Constants.LINKAGE_INIT_POS);
             claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_INIT);
-            turret.setPosition(Constants.TURRET_INIT);
+            turret.setPosition(Constants.TURRET_INIT_AUTO);
             slider_claw_tilt.setPosition(Constants.SLIDER_TILT_INIT);
         }
     }

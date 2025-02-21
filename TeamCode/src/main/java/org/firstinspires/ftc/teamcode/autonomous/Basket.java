@@ -13,10 +13,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MECANUM.MecanumDrive;
-import org.firstinspires.ftc.teamcode.autonomous.actions.CollectAuto;
-import org.firstinspires.ftc.teamcode.autonomous.actions.PrepareAuto;
-import org.firstinspires.ftc.teamcode.autonomous.actions.ScoreAuto;
-import org.firstinspires.ftc.teamcode.autonomous.actions.actions;
 import org.firstinspires.ftc.teamcode.autonomous.actions.actionsManual;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
@@ -55,25 +51,25 @@ public class Basket extends LinearOpMode {
                 .strafeTo(new Vector2d(-33.1, -61.5));
 
         TrajectoryActionBuilder PRELOAD = safePose.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-57, -57), Math.toRadians(200));
+                .strafeToLinearHeading(new Vector2d(-55, -55), Math.toRadians(190));
 
         TrajectoryActionBuilder G1 = PRELOAD.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-46, -47), Math.toRadians(90), null, new ProfileAccelConstraint(-40, 40));
+                .strafeToLinearHeading(new Vector2d(-45, -47), Math.toRadians(85), null, new ProfileAccelConstraint(-40, 40));
 
         TrajectoryActionBuilder PLACE1 = G1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-57, -53.5), Math.toRadians(30));
+                .strafeToLinearHeading(new Vector2d(-53, -52), Math.toRadians(65));
 
         TrajectoryActionBuilder G2 = PLACE1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-60.5, -47), Math.toRadians(105), null, new ProfileAccelConstraint(-40, 40));
+                .strafeToLinearHeading(new Vector2d(-59, -47), Math.toRadians(95), null, new ProfileAccelConstraint(-40, 40));
 
         TrajectoryActionBuilder PLACE2 = G1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-55, -53.5), Math.toRadians(30));
+                .strafeToLinearHeading(new Vector2d(-53, -52), Math.toRadians(65));
 
         TrajectoryActionBuilder G3 = PLACE2.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-59.5, -44), Math.toRadians(135), null, new ProfileAccelConstraint(-40, 40));
+                .strafeToLinearHeading(new Vector2d(-59, -44), Math.toRadians(135), null, new ProfileAccelConstraint(-40, 40));
 
         TrajectoryActionBuilder PLACE3 = G3.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-57, -53.5), Math.toRadians(30));
+                .strafeToLinearHeading(new Vector2d(-53, -52), Math.toRadians(55));
 
         TrajectoryActionBuilder PARK = PLACE3.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(-35, -10), Math.toRadians(0))
@@ -92,10 +88,10 @@ public class Basket extends LinearOpMode {
                 lift.beforeLinkage(), new SleepAction(.05), sliderTilt.beforeLinkage()
         );
         Action PlaceOnBasket = new SequentialAction(
-                sliderClaw.close(), new SleepAction(.2), lift.liftBasket(), new SleepAction(.3), sliderTilt.basket() ,turret.place()
+                sliderClaw.close(), new SleepAction(.2), lift.liftBasket(), new SleepAction(.3), sliderTilt.basket() ,turret.Basket()
         );
         Action PlacePreload = new SequentialAction(
-                sliderClaw.close(), new SleepAction(.1), lift.liftBasket(), new SleepAction(.2), sliderTilt.chamber(), turret.place()
+                sliderClaw.close(), new SleepAction(.1), lift.liftPreload(), new SleepAction(.2), sliderTilt.chamber(), turret.place()
         );
 
 
@@ -110,7 +106,7 @@ public class Basket extends LinearOpMode {
                 lift.beforeLinkage(), new SleepAction(.05), sliderTilt.beforeLinkage()
         );
         Action PlaceOnBasket2 = new SequentialAction(
-                sliderClaw.close(), new SleepAction(.2), lift.liftBasket(), new SleepAction(.3), sliderTilt.basket() ,turret.place()
+                sliderClaw.close(), new SleepAction(.2), lift.liftBasket(), new SleepAction(.3), sliderTilt.basket() ,turret.Basket()
         );
 
 
@@ -125,7 +121,7 @@ public class Basket extends LinearOpMode {
                 lift.beforeLinkage(), new SleepAction(.05), sliderTilt.beforeLinkage()
         );
         Action PlaceOnBasket3 = new SequentialAction(
-                sliderClaw.close(), lift.liftBasket(), new SleepAction(.2), sliderTilt.basket() ,turret.place()
+                sliderClaw.close(), new SleepAction(.2), lift.liftBasket(), new SleepAction(.3), sliderTilt.basket() ,turret.Basket()
         );
 
 
@@ -154,7 +150,7 @@ public class Basket extends LinearOpMode {
                 PlaceInSlider,
                 new SleepAction(.5),
                 PlaceOnBasket,
-                new SleepAction(.4),
+                new SleepAction(.7),
                 place1,
                 new SleepAction(.6),
                 sliderClaw.open(),
@@ -166,7 +162,7 @@ public class Basket extends LinearOpMode {
                 PlaceInSlider2,
                 new SleepAction(.5),
                 PlaceOnBasket2,
-                new SleepAction(.4),
+                new SleepAction(.7),
                 place2,
                 new SleepAction(.6),
                 sliderClaw.open(),
@@ -178,7 +174,7 @@ public class Basket extends LinearOpMode {
                 PlaceInSlider3,
                 new SleepAction(.5),
                 PlaceOnBasket3,
-                new SleepAction(.4),
+                new SleepAction(.7),
                 place3,
                 new SleepAction(.6),
                 sliderClaw.open(),

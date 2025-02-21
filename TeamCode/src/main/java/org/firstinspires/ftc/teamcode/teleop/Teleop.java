@@ -57,10 +57,13 @@ public class Teleop extends LinearOpMode {
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
             drive.robotCentricDrive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, gamepad1);
+            robot.claw_pivot.setPosition(0);
+
+            if(gamepad1.options) {sliderClawController.open_close();}
 
             if(gamepad1.dpad_right) {clawController.open_close();}
 
-            if(gamepad1.options) {sliderClawController.open_close();}
+            if(gamepad1.dpad_left){linkageController.manualControl();}
 
             if(gamepad1.dpad_up) {clawRotateController.V_H();}
 
@@ -86,11 +89,13 @@ public class Teleop extends LinearOpMode {
 
             if(gamepad2.y){g2Action.switchBasketPos();}
 
-            linkageController.manualControl(gamepad1.left_trigger, gamepad1.right_trigger);
+
             sliderController.control(gamepad2.left_trigger, gamepad2.right_trigger);
             clawRotateController.update();
             sliderClawController.update();
             sliderController.update();
             clawController.update();
             linkageController.update();
+            telemetry.addData("servo", Constants.currentSliderClawPos);
+            telemetry.update();
         }}}
