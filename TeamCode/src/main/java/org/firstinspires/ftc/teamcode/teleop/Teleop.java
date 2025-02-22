@@ -44,9 +44,8 @@ public class Teleop extends LinearOpMode {
         SliderAction     = new Prepare(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
         LinkageAction    = new Collect(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
         scoreAction      = new Score(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction, SliderAction, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
-
         drive            = new robot_drive(robot.leftFront, robot.leftBack,robot.rightFront,robot.rightBack, 1,  robot.gamepad1);
-        g2Action         = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.claw_pivot, robot.linkage, robot.turret, robot.slider, robot.base_tilt, robot.slider_claw_tilt);
+        g2Action         = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.claw_pivot, robot.linkage, robot.turret, robot.slider, robot.slider_claw_tilt);
 
         Prepare.setSliderController(sliderController);
         Score.setSliderController(sliderController);
@@ -69,7 +68,7 @@ public class Teleop extends LinearOpMode {
 
             if(gamepad1.dpad_down) {sliderController.setTargetPosition(Constants.SLIDER_DOWN);}
 
-            if(gamepad1.right_bumper) {SliderAction.beforeTakeFromLinkage();}
+            if(gamepad1.right_bumper) {scoreAction.collect();}
 
             if(gamepad1.left_bumper){scoreAction.take();}
 
@@ -83,13 +82,13 @@ public class Teleop extends LinearOpMode {
 
             if(gamepad1.right_stick_button){scoreAction.score();}
 
-            if(gamepad2.right_stick_button && gamepad2.left_stick_button){g2Action.lev2Asent();}
+            if(gamepad1.left_stick_button){scoreAction.observation();}
 
             if(gamepad2.ps){g2Action.zeroPos();}
 
             if(gamepad2.y){g2Action.switchBasketPos();}
 
-
+            sliderController.control(gamepad1.left_trigger, gamepad1.right_trigger);
             sliderController.control(gamepad2.left_trigger, gamepad2.right_trigger);
             clawRotateController.update();
             sliderClawController.update();

@@ -25,7 +25,6 @@ public class RobotMap {
     public Servo slider_claw;
     public Servo turret;
     public Servo slider_claw_tilt;
-    public Servo base_tilt;
 
     public Gamepad gamepad1;
 
@@ -47,7 +46,6 @@ public class RobotMap {
         turret = hardwareMap.get(Servo.class, HardwareConstants.ID_TURRET);
         slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
-        base_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_MODIFICA_UNGHI_ROBOT);
 
         slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

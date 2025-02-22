@@ -331,14 +331,6 @@ public class actionsManual {
             }
         }
 
-        public class Basket implements Action {
-            @Override
-            public boolean run(@NonNull TelemetryPacket packet) {
-                turret.setPosition(Constants.TURRET_BASKET);
-                return false;
-            }
-        }
-
         public class Linkage implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
@@ -362,8 +354,6 @@ public class actionsManual {
         public Action human() {
             return new Human();
         }
-
-        public Action Basket() {return new Basket();}
 
         public Action take() {
             return new Linkage();

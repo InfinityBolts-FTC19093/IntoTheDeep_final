@@ -42,58 +42,63 @@ public class Human extends LinearOpMode {
                 .strafeTo(new Vector2d(9, -61.4 ));
 
         TrajectoryActionBuilder PRELOAD = safePose.endTrajectory().fresh()
-                .strafeTo(new Vector2d(8, -32), null, new ProfileAccelConstraint(-70, 70));
+                .strafeTo(new Vector2d(6, -31.5), null, new ProfileAccelConstraint(-70, 70));
 
         TrajectoryActionBuilder HUMAN = PRELOAD.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(32, -40), Math.toRadians(90), null, new ProfileAccelConstraint(-60, 60))
-                .splineToLinearHeading(new Pose2d(32, -14, Math.toRadians(90)), Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(50, -14, Math.toRadians(90)), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(31, -40), Math.toRadians(90), null, new ProfileAccelConstraint(-60, 60))
+                .splineToLinearHeading(new Pose2d(31, -14, Math.toRadians(90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(46, -13, Math.toRadians(90)), Math.toRadians(90))
 
-                .strafeToLinearHeading(new Vector2d(50, -48), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
+                .strafeToLinearHeading(new Vector2d(46, -44), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
 
-                .strafeToLinearHeading(new Vector2d(50, -17), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
-                .strafeToLinearHeading(new Vector2d(62, -17), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
+                .strafeToLinearHeading(new Vector2d(43.5, -17), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
+                .strafeToLinearHeading(new Vector2d(58, -16), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
 
-                .strafeToLinearHeading(new Vector2d(60, -48), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
+                .strafeToLinearHeading(new Vector2d(58, -45), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
 
-                .strafeToLinearHeading(new Vector2d(60, -17), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
-                .strafeToLinearHeading(new Vector2d(70, -17), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90));
+                .strafeToLinearHeading(new Vector2d(58, -17), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
+                .strafeToLinearHeading(new Vector2d(66, -16), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90));
 
 
         TrajectoryActionBuilder GTS1 = HUMAN.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(64, -51), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120));
+                .strafeToLinearHeading(new Vector2d(66, -52.8), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90));
 
         TrajectoryActionBuilder PLACE1 = GTS1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(9, -36), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(9, -31.5));
+                .strafeToLinearHeading(new Vector2d(6.5, -38), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(6.5, -30));
 
         TrajectoryActionBuilder GTS2 = PLACE1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(50, -50), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(50, -52));
+                .strafeTo(new Vector2d(7, -34))
+
+                .strafeToLinearHeading(new Vector2d(45, -50), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(45, -55));
 
         TrajectoryActionBuilder PLACE2 = GTS2.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(11, -36), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(11, -31.5));
+                .strafeToLinearHeading(new Vector2d(7.5, -38), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(7.5, -33.5));
 
         TrajectoryActionBuilder GTS3 = PLACE2.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(50, -50), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(50, -53));
+                .strafeTo(new Vector2d(10, -36))
+
+                .strafeToLinearHeading(new Vector2d(45, -50), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(45, -56));
 
         TrajectoryActionBuilder PLACE3 = GTS3.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(13, -36), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(13, -31.5));
+                .strafeToLinearHeading(new Vector2d(11, -38), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(11, -32));
 
         TrajectoryActionBuilder GTS4 = PLACE3.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(50, -50), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(50, -54));
+                .strafeTo(new Vector2d(11, -35.5))
+
+                .strafeToLinearHeading(new Vector2d(45, -50), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(45, -56));
 
         TrajectoryActionBuilder PLACE4 = GTS4.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(15, -35), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(15, -31.5));
+                .strafeToLinearHeading(new Vector2d(14.5, -38), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(14.5, -30));
 
         TrajectoryActionBuilder PARK = PLACE4.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(13, -55), Math.toRadians(0), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(45, -55));
+                .strafeToLinearHeading(new Vector2d(35, -45), Math.toRadians(320));
 
         Action PreLoad = new SequentialAction(
                 lift.liftChamber(), sliderTilt.chamber(), new SleepAction(.1), turret.place()
@@ -104,19 +109,19 @@ public class Human extends LinearOpMode {
         );
 
         Action Place1= new SequentialAction(
-                lift.liftPlace(), new SleepAction(.2), sliderClaw.open()
+                lift.liftPlace(), new SleepAction(.3), sliderClaw.open()
         );
 
         Action Place2= new SequentialAction(
-                lift.liftPlace(), new SleepAction(.2), sliderClaw.open()
+                lift.liftPlace(), new SleepAction(.3), sliderClaw.open()
         );
 
         Action Place3= new SequentialAction(
-                lift.liftPlace(), new SleepAction(.2), sliderClaw.open()
+                lift.liftPlace(), new SleepAction(.3), sliderClaw.open()
         );
 
         Action Place4= new SequentialAction(
-                lift.liftPlace(), new SleepAction(.2), sliderClaw.open()
+                lift.liftPlace(), new SleepAction(.3), sliderClaw.open()
         );
 
         Action Human = new SequentialAction(
@@ -198,7 +203,8 @@ public class Human extends LinearOpMode {
                 Place4,             //a pus al cincilea
                 lift.liftDown(),
                 sliderTilt.human(),
-                parkAction
+                parkAction,
+                Park
         );
 
         Action pid = new ParallelAction(

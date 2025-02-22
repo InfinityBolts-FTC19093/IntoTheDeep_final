@@ -142,6 +142,10 @@ public class Score {
         }
     }
 
+    public void observation(){
+        LinkageAction.placeInObservation();
+    }
+
     public void score(){
         if(Constants.currentScorePos == Constants.ScorePos.CHAMBER){
             sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER+500);
@@ -168,4 +172,11 @@ public class Score {
         }
     }
 
+    public void collect(){
+        if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE || Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE2){
+            LinkageAction.take2();
+        }else if (Constants.currentLinkageActionPos == Constants.LinkageActionPos.PLACE_IN_SLIDER){
+            SliderAction.beforeTakeFromLinkage();
+        }
+    }
 }

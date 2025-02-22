@@ -54,7 +54,7 @@ public class ManualTeleOp extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         RobotMap robot = new RobotMap(hardwareMap);
         slider_controller sliderController = new slider_controller(robot.slider);
-        G2_Action g2Action = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.claw_pivot, robot.linkage, robot.turret, robot.slider, robot.base_tilt, robot.slider_claw_tilt);
+        G2_Action g2Action = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.claw_pivot, robot.linkage, robot.turret, robot.slider, robot.slider_claw_tilt);
 
         waitForStart();
         while(opModeIsActive() && !isStopRequested()){
@@ -194,8 +194,6 @@ public class ManualTeleOp extends LinearOpMode {
             robot.turret.setPosition(SliderClawRotate);
             robot.slider_claw_tilt.setPosition(SliderClawTilt);
 
-            //unghi robot
-            robot.base_tilt.setPosition(UnghiRobot);
 
             robot.claw_pivot.setPosition(clawAssembly);
 
