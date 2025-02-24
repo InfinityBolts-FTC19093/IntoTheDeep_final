@@ -93,7 +93,7 @@ public class Constants {
     public static int SLIDER_HIGH_CHAMBER = 210;
 
     public static int SLIDER_LOW_BUSKET = 800;
-    public static int SLIDER_HIGH_BUSKET =2000;
+    public static int SLIDER_HIGH_BUSKET =2050;
     public static int SLIDER_PLACE_PRELOAD_AUTO = 1650;
 
     public static int SLIDER_ASCEND = 0;

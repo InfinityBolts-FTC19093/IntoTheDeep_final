@@ -42,7 +42,7 @@ public class Human extends LinearOpMode {
                 .strafeTo(new Vector2d(9, -61.4 ));
 
         TrajectoryActionBuilder PRELOAD = safePose.endTrajectory().fresh()
-                .strafeTo(new Vector2d(6, -31.5), null, new ProfileAccelConstraint(-70, 70));
+                .strafeTo(new Vector2d(6, -32.5), null, new ProfileAccelConstraint(-70, 70));
 
         TrajectoryActionBuilder HUMAN = PRELOAD.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(31, -40), Math.toRadians(90), null, new ProfileAccelConstraint(-60, 60))
@@ -57,18 +57,18 @@ public class Human extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(58, -45), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
 
                 .strafeToLinearHeading(new Vector2d(58, -17), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
-                .strafeToLinearHeading(new Vector2d(66, -16), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90));
+                .strafeToLinearHeading(new Vector2d(65, -16), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90));
 
 
         TrajectoryActionBuilder GTS1 = HUMAN.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(66, -52.8), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90));
+                .strafeToLinearHeading(new Vector2d(65, -52.8), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90));
 
         TrajectoryActionBuilder PLACE1 = GTS1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(6.5, -38), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
-                .strafeTo(new Vector2d(6.5, -30));
+                .strafeToLinearHeading(new Vector2d(6, -38), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
+                .strafeTo(new Vector2d(6, -30));
 
         TrajectoryActionBuilder GTS2 = PLACE1.endTrajectory().fresh()
-                .strafeTo(new Vector2d(7, -34))
+                .strafeTo(new Vector2d(6, -34))
 
                 .strafeToLinearHeading(new Vector2d(45, -50), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
                 .strafeTo(new Vector2d(45, -55));
