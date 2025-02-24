@@ -19,7 +19,6 @@ import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
 @Autonomous (name = "Human", group = "#")
 public class Human extends LinearOpMode {
-    RobotMap robot;
     slider_controller sliderController;
     @Override
     public void runOpMode() {
