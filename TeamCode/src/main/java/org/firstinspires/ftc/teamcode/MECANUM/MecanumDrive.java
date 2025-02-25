@@ -34,12 +34,14 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+import org.firstinspires.ftc.teamcode.constants.HardwareConstants;
 import org.firstinspires.ftc.teamcode.messages.DriveCommandMessage;
 import org.firstinspires.ftc.teamcode.messages.MecanumCommandMessage;
 import org.firstinspires.ftc.teamcode.messages.MecanumLocalizerInputsMessage;
@@ -52,6 +54,7 @@ import java.util.List;
 
 @Config
 public final class MecanumDrive {
+    HardwareMap hardwareMap;
     public static class Params {
         // IMU orientation
         // TODO: fill in these values based on
@@ -137,7 +140,8 @@ public final class MecanumDrive {
             imu = lazyImu.get();
 
             // TODO: reverse encoders if needed
-            //   leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+               leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+               leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
             this.pose = pose;
         }
@@ -224,10 +228,10 @@ public final class MecanumDrive {
 
         // TODO: make sure your config has motors with these names (or change them)
         //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-        leftBack = hardwareMap.get(DcMotorEx.class, "leftBack");
-        rightBack = hardwareMap.get(DcMotorEx.class, "rightBack");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        leftFront = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_LEFT_FRONT);
+        leftBack = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_LEFT_BACK);
+        rightBack = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_RIGHT_BACK);
+        rightFront = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_RIGHT_FRONT);
 
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -235,7 +239,8 @@ public final class MecanumDrive {
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // TODO: reverse motor directions if needed
-        //   leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+           leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+           leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // TODO: make sure your config has an IMU with this name (can be BNO or BHI)
         //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html
@@ -258,10 +263,10 @@ public final class MecanumDrive {
             maxPowerMag = Math.max(maxPowerMag, power.value());
         }
 
-        leftFront.setPower(wheelVels.leftFront.get(0) / maxPowerMag);
-        leftBack.setPower(wheelVels.leftBack.get(0) / maxPowerMag);
-        rightBack.setPower(wheelVels.rightBack.get(0) / maxPowerMag);
-        rightFront.setPower(wheelVels.rightFront.get(0) / maxPowerMag);
+        leftFront.setPower(wheelVels.leftFront.get(0) / maxPowerMag *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+        leftBack.setPower(wheelVels.leftBack.get(0) / maxPowerMag*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+        rightBack.setPower(wheelVels.rightBack.get(0) / maxPowerMag*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+        rightFront.setPower(wheelVels.rightFront.get(0) / maxPowerMag*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
     }
 
     public final class FollowTrajectoryAction implements Action {
@@ -321,18 +326,18 @@ public final class MecanumDrive {
 
             final MotorFeedforward feedforward = new MotorFeedforward(PARAMS.kS,
                     PARAMS.kV / PARAMS.inPerTick, PARAMS.kA / PARAMS.inPerTick);
-            double leftFrontPower = feedforward.compute(wheelVels.leftFront) / voltage;
-            double leftBackPower = feedforward.compute(wheelVels.leftBack) / voltage;
-            double rightBackPower = feedforward.compute(wheelVels.rightBack) / voltage;
-            double rightFrontPower = feedforward.compute(wheelVels.rightFront) / voltage;
+            double leftFrontPower = feedforward.compute(wheelVels.leftFront) / voltage *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage());
+            double leftBackPower = feedforward.compute(wheelVels.leftBack) / voltage *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage());
+            double rightBackPower = feedforward.compute(wheelVels.rightBack) / voltage *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage());
+            double rightFrontPower = feedforward.compute(wheelVels.rightFront) / voltage *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage());
             mecanumCommandWriter.write(new MecanumCommandMessage(
                     voltage, leftFrontPower, leftBackPower, rightBackPower, rightFrontPower
             ));
 
-            leftFront.setPower(leftFrontPower);
-            leftBack.setPower(leftBackPower);
-            rightBack.setPower(rightBackPower);
-            rightFront.setPower(rightFrontPower);
+            leftFront.setPower(leftFrontPower*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+            leftBack.setPower(leftBackPower*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+            rightBack.setPower(rightBackPower*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+            rightFront.setPower(rightFrontPower*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
 
             p.put("x", localizer.getPose().position.x);
             p.put("y", localizer.getPose().position.y);
@@ -412,18 +417,18 @@ public final class MecanumDrive {
             double voltage = voltageSensor.getVoltage();
             final MotorFeedforward feedforward = new MotorFeedforward(PARAMS.kS,
                     PARAMS.kV / PARAMS.inPerTick, PARAMS.kA / PARAMS.inPerTick);
-            double leftFrontPower = feedforward.compute(wheelVels.leftFront) / voltage;
-            double leftBackPower = feedforward.compute(wheelVels.leftBack) / voltage;
-            double rightBackPower = feedforward.compute(wheelVels.rightBack) / voltage;
-            double rightFrontPower = feedforward.compute(wheelVels.rightFront) / voltage;
+            double leftFrontPower = feedforward.compute(wheelVels.leftFront) / voltage *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage());
+            double leftBackPower = feedforward.compute(wheelVels.leftBack) / voltage *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage());
+            double rightBackPower = feedforward.compute(wheelVels.rightBack) / voltage *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage());
+            double rightFrontPower = feedforward.compute(wheelVels.rightFront) / voltage *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage());
             mecanumCommandWriter.write(new MecanumCommandMessage(
                     voltage, leftFrontPower, leftBackPower, rightBackPower, rightFrontPower
             ));
 
-            leftFront.setPower(feedforward.compute(wheelVels.leftFront) / voltage);
-            leftBack.setPower(feedforward.compute(wheelVels.leftBack) / voltage);
-            rightBack.setPower(feedforward.compute(wheelVels.rightBack) / voltage);
-            rightFront.setPower(feedforward.compute(wheelVels.rightFront) / voltage);
+            leftFront.setPower(feedforward.compute(wheelVels.leftFront) / voltage *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+            leftBack.setPower(feedforward.compute(wheelVels.leftBack) / voltage *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+            rightBack.setPower(feedforward.compute(wheelVels.rightBack) / voltage *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+            rightFront.setPower(feedforward.compute(wheelVels.rightFront) / voltage *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
 
             Canvas c = p.fieldOverlay();
             drawPoseHistory(c);

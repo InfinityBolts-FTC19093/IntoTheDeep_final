@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.constants;
 
 import com.acmerobotics.dashboard.config.Config;
-
-
 @Config
 public class Constants {
 
@@ -61,7 +59,10 @@ public class Constants {
 
     public enum ClawRotatePos{
         HORIZONTAL,
-        VERTICAL
+        VERTICAL,
+        DIAGONAL_NEGATIV,
+        DIAGONAL_POSITIV,
+        INVERTED
     }
 
     public enum LinkagePos{
@@ -86,7 +87,7 @@ public class Constants {
     /** SLIDER*/
     public static final int SLIDER_DOWN = 0;
 
-    public static int SLIDER_TAKE_FORM_LINKAGE = 220;
+    public static int SLIDER_TAKE_FORM_LINKAGE = 320;
     public static int SLIDER_BEFORE_TAKE_FORM_LINKAGE = 400;
 
     public static int SLIDER_LOW_CHAMBER = 0;
@@ -118,8 +119,8 @@ public class Constants {
 
     /** Servo TILT */
     public static double TILT_INIT = 0;
-    public static double TILT_TAKE = 0.8;
-    public static double TILT_BEFORE_TAKE = 0.71;
+    public static double TILT_TAKE = 0.9;
+    public static double TILT_BEFORE_TAKE = 0.78;
     public static double TILT_BEFORE_TAKE_AUTO = 0.65;
     public static double TILT_PLACE_IN_SLIDER = 0.05;
     public static double TILT_THROW = 0.3;
@@ -127,8 +128,11 @@ public class Constants {
     /** Servo ROTATE */
     public static double ROTATE_INIT = 0;
     public static double ROTATE_TAKE_HORIONTAL = 0;
+    public static double ROTATE_TAKE_DIAGONAL_NEGATIV = 0.275;
     public static double ROTATE_TAKE_VERTICAL = .55;
+    public static double ROTATE_TAKE_DIAGONAL_POSITIV = .825;
     public static double ROTATE_PLACE_IN_SLIDER = 0;
+    public static double ROTATE_PLACE_IN_SLIDER_INVERTED = 1;
 
     /** Servo Claw ASSEMBLY*/
     public static double CLAW_ASSEMBLY_INIT = 0;

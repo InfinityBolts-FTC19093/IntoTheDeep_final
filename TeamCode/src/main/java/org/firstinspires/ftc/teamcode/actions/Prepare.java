@@ -43,7 +43,7 @@ public class Prepare {
         if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
             claw.setPosition(Constants.CLOSE_CLAW);
             Constants.currentClawPos = Constants.ClawPos.CLOSE_CLAW;
-            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
+            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
         }
 
         if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){

@@ -2,12 +2,15 @@ package org.firstinspires.ftc.teamcode.actions;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 
 public class robot_drive {
     DcMotorEx leftFront, leftBack, rightFront, rightBack;
     double lim;
     Gamepad gamepad1;
+    HardwareMap hardwareMap;
 
     public robot_drive(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim, Gamepad gamepad1){
         this.leftFront = leftFront;
@@ -35,10 +38,10 @@ public class robot_drive {
         frontRightPower = Clip(frontRightPower,lim);
         backRightPower = Clip(backRightPower,lim);
 
-        leftFront.setPower(frontLeftPower);
-        leftBack.setPower(backLeftPower);
-        rightFront.setPower(frontRightPower);
-        rightBack.setPower(backRightPower);
+        leftFront.setPower(frontLeftPower*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+        leftBack.setPower(backLeftPower*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+        rightFront.setPower(frontRightPower*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+        rightBack.setPower(backRightPower*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
     }
 
     double Clip(double Speed,double lim) {return Math.max(Math.min(Speed,lim),-lim);}

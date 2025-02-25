@@ -53,6 +53,9 @@ public class HardwareConstants {
     public static final String ID_ODO_DREAPTA = ID_LEFT_FRONT;
     public static final String ID_ODO_MIJLOC =  ID_LEFT_BACK;
 
+    public static final String ID_COLOR_CENTER_CLAW = "CCC";
+    public static final String ID_COLOR_ROTATE_CLAW = "CRC";
+
 
 
 }
