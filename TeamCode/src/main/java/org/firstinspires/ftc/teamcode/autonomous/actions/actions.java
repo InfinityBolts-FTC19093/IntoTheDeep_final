@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 
 public class actions {
     public static class scoreAuto {
+        PrepareAuto SliderAction;
         CollectAuto LinkageAction;
         ScoreAuto scoreAction;
         Servo claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret;
@@ -56,13 +57,13 @@ public class actions {
             sliderClawController = new sliderClaw_controller(slider_claw);
             clawRotateController = new clawRotate_controller(claw_rotate);
             linkageController = new linkage_controller(linkage);
+
+            SliderAction  = new PrepareAuto(slider_claw, slider_claw_tilt, turret, slider, claw);
+            LinkageAction = new CollectAuto(claw ,claw_tilt, linkage, claw_rotate, claw_pivot);
+            scoreAction   = new ScoreAuto(claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret, slider, LinkageAction);
+
         }
 
-        public scoreAuto(CollectAuto LinkageAction, ScoreAuto ScoreAction) {
-            this.scoreAction = ScoreAction;
-            this.LinkageAction = LinkageAction;
-
-        }
 
         public class UpdateAll implements Action {
             @Override

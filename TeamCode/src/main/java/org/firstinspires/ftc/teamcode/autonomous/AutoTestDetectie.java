@@ -32,7 +32,7 @@ public class AutoTestDetectie extends LinearOpMode {
     clawRotate_controller clawRotateController;
     linkage_controller linkageController;
 
-
+    PrepareAuto SliderAction;
     CollectAuto LinkageAction;
     ScoreAuto Score;
     @Override
@@ -47,15 +47,12 @@ public class AutoTestDetectie extends LinearOpMode {
         clawRotateController     = new clawRotate_controller(robot.claw_rotate);
         linkageController        = new linkage_controller(robot.linkage);
 
+        SliderAction  = new PrepareAuto(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw);
         LinkageAction = new CollectAuto(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot);
-        Score = new ScoreAuto(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction);
+        Score         = new ScoreAuto(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction);
 
         actions.scoreAuto update = new actions.scoreAuto(hardwareMap);
-        actions.scoreAuto score = new actions.scoreAuto(LinkageAction, Score);
-
-        PrepareAuto.setSliderController(sliderController);
-        ScoreAuto.setSliderController(sliderController);
-        CollectAuto.setLinkageController(linkageController);
+     //   actions.scoreAuto score = new actions.scoreAuto();
 
         if (!isStarted()) {
             update.initAll();
@@ -63,7 +60,7 @@ public class AutoTestDetectie extends LinearOpMode {
 
         waitForStart();
         Action autoSequence = new SequentialAction(
-                score.Basket()
+                update.Basket()
         );
 
         Action pid = new ParallelAction(
