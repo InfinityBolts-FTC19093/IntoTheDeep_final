@@ -80,28 +80,14 @@ public class actions {
     }
 
 
-    public static class scoreAuto {
+    public static class Score {
         PrepareAuto SliderAction;
         CollectAuto LinkageAction;
         ScoreAuto scoreAction;
-        DcMotorEx slider;
-        slider_controller sliderController;
-
-        public scoreAuto(PrepareAuto SliderAction, CollectAuto LinkageAction, ScoreAuto ScoreAction, DcMotorEx slider) {
+        public Score(PrepareAuto SliderAction, CollectAuto LinkageAction, ScoreAuto ScoreAction) {
             this.scoreAction = ScoreAction;
             this.LinkageAction = LinkageAction;
             this.SliderAction = SliderAction;
-            this.slider = slider;
-            this.sliderController = new slider_controller(slider);
-        }
-
-        public class UpdateSlider implements Action {
-
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                sliderController.update();
-                return true;
-            }
         }
 
         public class HighChamber implements Action {

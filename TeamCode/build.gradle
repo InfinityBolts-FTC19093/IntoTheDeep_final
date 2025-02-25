@@ -27,6 +27,10 @@ repositories {
     maven {
         url = 'https://maven.brott.dev/'
     }
+    maven {
+        url = "https://maven.zharel.me/snapshots"
+    }
+
 }
 
 dependencies {

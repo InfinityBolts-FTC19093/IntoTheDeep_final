@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.autonomous.actions;
 
+import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.autonomous.subsystems.SliderSubsystem;
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
@@ -15,6 +17,7 @@ public class PrepareAuto {
     Servo slider_claw, tilt, rotate,claw;
     DcMotorEx slider;
     static slider_controller sliderController;
+    SliderSubsystem sliderSubsystem;
 
 
     public PrepareAuto(Servo slider_claw, Servo tilt, Servo rotate, DcMotorEx slider, Servo claw){
@@ -23,39 +26,57 @@ public class PrepareAuto {
         this.rotate = rotate;
         this.slider = slider;
         this.claw = claw;
+        this.sliderSubsystem = new SliderSubsystem(slider);
     }
 
     public static void setSliderController(slider_controller controller){
         sliderController = controller;
     }
 
-    public void takeFromLinkage(){
-        if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
+    private void waitForSlider(double targetPosition) {
+        while (Math.abs(sliderSubsystem.getCurrentPosition() - targetPosition) > 15) {
+            CommandScheduler.getInstance().run();  // ✅ PID keeps running
+        }
+    }
+
+    private void Wait(long milliseconds) {
+        timer = new Timing.Timer(milliseconds, TimeUnit.MILLISECONDS); // Create a timer for the delay
+        timer.start(); // Start the timer
+
+        while (!timer.done()) {  // Keep looping until the time is up
+            CommandScheduler.getInstance().run(); // ✅ Keeps updating commands & subsystems
+        }
+    }
+
+    public void takeFromLinkage() {
+        if (Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW) {
             claw.setPosition(Constants.CLOSE_CLAW);
             Constants.currentClawPos = Constants.ClawPos.CLOSE_CLAW;
-            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+            Wait(50);
         }
 
-        if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
+        if (Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW) {
             slider_claw.setPosition(Constants.OPEN_CLAW);
             Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
-            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+            Wait(50);
         }
 
         rotate.setPosition(Constants.TURRET_TAKE_FROM_LINKAGE);
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+        Wait(50);
 
         tilt.setPosition(Constants.SLIDER_TILT_TAKE_FROM_LINKAGE);
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+        Wait(50);
 
-        sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
-        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()) {sliderController.update();} timer.pause();
+        // ✅ Move slider and hold position
+        sliderSubsystem.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
+        waitForSlider(Constants.SLIDER_TAKE_FORM_LINKAGE);  // ✅ Wait for it to reach target but NOT stop it
 
         slider_claw.setPosition(Constants.CLOSE_CLAW);
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+        Wait(50);
 
         Constants.currentSliderActionPos = Constants.SliderActionPos.TAKE_FOR_LINKAGE;
     }
+
 
     public void beforeTakeFromLinkage(){
         sliderController.setTargetPosition(Constants.SLIDER_BEFORE_TAKE_FORM_LINKAGE);
@@ -87,16 +108,17 @@ public class PrepareAuto {
         if(Constants.currentSliderClawPos == Constants.SliderClawPos.OPEN_CLAW){
             slider_claw.setPosition(Constants.CLOSE_CLAW);
             Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
-            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+            Wait(50);
         }
 
         tilt.setPosition(Constants.SLIDER_TILT_PLACE_ON_HIGH_CHAMBER);
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+        Wait(50);
 
         rotate.setPosition(Constants.TURRET_PLACE);
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+        Wait(50);
 
-        sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER);
+        sliderSubsystem.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER);
+        waitForSlider(Constants.SLIDER_HIGH_CHAMBER);
 
         Constants.previousSliderActionPos = Constants.currentSliderActionPos;
         Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_ON_CHAMBER;
