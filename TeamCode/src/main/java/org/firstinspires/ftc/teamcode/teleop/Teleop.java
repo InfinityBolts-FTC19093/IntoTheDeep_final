@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.teleop;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.teamcode.actions.G2_Action;
 import org.firstinspires.ftc.teamcode.actions.InTimer;
 import org.firstinspires.ftc.teamcode.actions.Score;
@@ -95,6 +93,6 @@ public class Teleop extends LinearOpMode {
             sliderController.update();
             clawController.update();
             linkageController.update();
-            telemetry.addData("servo", Constants.currentSliderClawPos);
-            telemetry.update();
-        }}}
+        }
+    }
+}

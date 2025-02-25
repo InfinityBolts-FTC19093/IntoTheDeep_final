@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.constants;
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -28,6 +29,9 @@ public class RobotMap {
 
     public Gamepad gamepad1;
 
+//    public ColorSensor colorCenterClaw;
+//    public ColorSensor colorRotateClaw;
+
     public RobotMap(HardwareMap hardwareMap){
         leftFront  = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_LEFT_FRONT);
         leftBack   = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_LEFT_BACK);
@@ -46,6 +50,9 @@ public class RobotMap {
         turret = hardwareMap.get(Servo.class, HardwareConstants.ID_TURRET);
         slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
+//        colorCenterClaw = hardwareMap.get(ColorSensor.class, HardwareConstants.ID_COLOR_CENTER_CLAW);
+//        colorRotateClaw = hardwareMap.get(ColorSensor.class, HardwareConstants.ID_COLOR_ROTATE_CLAW);
+
 
         slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -62,7 +69,7 @@ public class RobotMap {
 //        claw.setDirection(Servo.Direction.REVERSE);
 //        linkage.setDirection(Servo.Direction.REVERSE);
 //        claw_rotate.setDirection(Servo.Direction.REVERSE);
-//        claw_titl.setDirection(Servo.Direction.REVERSE);
+//        claw_tilt.setDirection(Servo.Direction.REVERSE);
 //        slider_claw.setDirection(Servo.Direction.REVERSE);
 //        slider_claw_rotate.setDirection(Servo.Direction.REVERSE);
 //        slider_claw_tilt.setDirection(Servo.Direction.REVERSE);

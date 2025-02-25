@@ -29,10 +29,6 @@ public class G2_Action {
         this.slider_tilt = slider_tilt;
     }
 
-//    public int SliderPos(){
-//        return sliderPos;
-//    }
-
     public static void setSliderController(slider_controller controller){
         sliderController = controller;
     }
