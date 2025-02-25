@@ -19,12 +19,11 @@ public class ScoreAuto {
     Servo claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret;
     DcMotorEx slider;
     CollectAuto LinkageAction;
-    PrepareAuto SliderAction;
     static slider_controller sliderController;
     sliderClaw_controller sliderClawController;
 
 
-    public ScoreAuto(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot, Servo slider_claw, Servo slider_claw_tilt, Servo turret, DcMotorEx slider, CollectAuto LinkageAction, PrepareAuto SliderAction) {
+    public ScoreAuto(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot, Servo slider_claw, Servo slider_claw_tilt, Servo turret, DcMotorEx slider, CollectAuto LinkageAction) {
         this.claw = claw;
         this.claw_tilt = claw_tilt;
         this.linkage = linkage;
@@ -35,7 +34,6 @@ public class ScoreAuto {
         this.turret = turret;
         this.slider = slider;
         this.LinkageAction = LinkageAction;
-        this.SliderAction = SliderAction;
         this.sliderClawController = new sliderClaw_controller(this.slider_claw);
     }
 
@@ -47,17 +45,66 @@ public class ScoreAuto {
 
     public void placeOnHighChamber(){
         if(Constants.currentSliderActionPos == Constants.SliderActionPos.BEFORE_TAKE_FROM_LINKAGE){
-            SliderAction.takeFromLinkage();
+            if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
+                claw.setPosition(Constants.CLOSE_CLAW);
+                Constants.currentClawPos = Constants.ClawPos.CLOSE_CLAW;
+                timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+            }
+
+            if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
+                slider_claw.setPosition(Constants.OPEN_CLAW);
+                Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
+                timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+            }
+
+            turret.setPosition(Constants.TURRET_TAKE_FROM_LINKAGE);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+            slider_claw_tilt.setPosition(Constants.SLIDER_TILT_TAKE_FROM_LINKAGE);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+            sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
+            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()) {sliderController.update();} timer.pause();
+
+            slider_claw.setPosition(Constants.CLOSE_CLAW);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+            Constants.currentSliderActionPos = Constants.SliderActionPos.TAKE_FOR_LINKAGE;
             timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
         }
 
-        SliderAction.placeOnHighChamber();
+        if(Constants.currentSliderClawPos == Constants.SliderClawPos.OPEN_CLAW){
+            slider_claw.setPosition(Constants.CLOSE_CLAW);
+            Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+        }
+
+        slider_claw_tilt.setPosition(Constants.SLIDER_TILT_PLACE_ON_HIGH_CHAMBER);
+        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+        turret.setPosition(Constants.TURRET_PLACE);
+        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+        sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER);
+
+        Constants.previousSliderActionPos = Constants.currentSliderActionPos;
+        Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_ON_CHAMBER;
 
         Constants.currentScorePos = Constants.ScorePos.CHAMBER;
     }
 
     public void BasketPreload () {
-        SliderAction.placeOnHighBusketLinkage();
+        slider_claw.setPosition(Constants.CLOSE_CLAW);
+        Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
+        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+        sliderController.setTargetPosition(Constants.SLIDER_HIGH_BUSKET);
+        timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){sliderController.update();} timer.pause();
+
+        slider_claw_tilt.setPosition(Constants.SLIDER_TILT_PLACE_ON_HIGH_CHAMBER);
+        turret.setPosition(Constants.TURRET_PLACE);
+
+        Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_IN_BUSKET;
     }
 
     public void placeOnLowChamber(){
@@ -85,11 +132,48 @@ public class ScoreAuto {
         }
 
         if(Constants.currentSliderActionPos == Constants.SliderActionPos.BEFORE_TAKE_FROM_LINKAGE){
-            SliderAction.takeFromLinkage();
+            if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
+                claw.setPosition(Constants.CLOSE_CLAW);
+                Constants.currentClawPos = Constants.ClawPos.CLOSE_CLAW;
+                timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+            }
+
+            if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
+                slider_claw.setPosition(Constants.OPEN_CLAW);
+                Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
+                timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+            }
+
+            turret.setPosition(Constants.TURRET_TAKE_FROM_LINKAGE);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+            slider_claw_tilt.setPosition(Constants.SLIDER_TILT_TAKE_FROM_LINKAGE);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+            sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
+            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()) {sliderController.update();} timer.pause();
+
+            slider_claw.setPosition(Constants.CLOSE_CLAW);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+            Constants.currentSliderActionPos = Constants.SliderActionPos.TAKE_FOR_LINKAGE;
             timer = new Timing.Timer(WAIT_FOR_SLIDER_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
         }
 
-        SliderAction.placeOnHighBusket();
+        claw.setPosition(Constants.OPEN_CLAW);
+        Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
+
+        slider_claw.setPosition(Constants.CLOSE_CLAW);
+        Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
+        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+        sliderController.setTargetPosition(Constants.SLIDER_HIGH_BUSKET);
+        timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
+
+        slider_claw_tilt.setPosition(Constants.SLIDER_TILT_PLACE_IN_HIGH_BUSKET);
+        turret.setPosition(Constants.TURRET_PLACE);
+
+        Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_IN_BUSKET;
 
         Constants.currentScorePos = Constants.ScorePos.BUSKET;
     }
@@ -103,11 +187,48 @@ public class ScoreAuto {
         }
 
         if(Constants.currentSliderActionPos == Constants.SliderActionPos.PLACE_ON_CHAMBER || Constants.currentSliderActionPos == Constants.SliderActionPos.INIT){
-            SliderAction.takeFromLinkage();
+            if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
+                claw.setPosition(Constants.CLOSE_CLAW);
+                Constants.currentClawPos = Constants.ClawPos.CLOSE_CLAW;
+                timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+            }
+
+            if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
+                slider_claw.setPosition(Constants.OPEN_CLAW);
+                Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
+                timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+            }
+
+            turret.setPosition(Constants.TURRET_TAKE_FROM_LINKAGE);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+            slider_claw_tilt.setPosition(Constants.SLIDER_TILT_TAKE_FROM_LINKAGE);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+            sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
+            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()) {sliderController.update();} timer.pause();
+
+            slider_claw.setPosition(Constants.CLOSE_CLAW);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+            Constants.currentSliderActionPos = Constants.SliderActionPos.TAKE_FOR_LINKAGE;
             timer = new Timing.Timer(WAIT_FOR_SLIDER_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
         }
 
-        SliderAction.placeOnLowBusket();
+        claw.setPosition(Constants.OPEN_CLAW);
+        Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
+
+        slider_claw.setPosition(Constants.CLOSE_CLAW);
+        Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
+        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+        sliderController.setTargetPosition(Constants.SLIDER_LOW_BUSKET);
+        timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
+
+        slider_claw_tilt.setPosition(Constants.SLIDER_TILT_PLACE_IN_LOW_BUSKET);
+        turret.setPosition(Constants.TURRET_PLACE);
+
+        Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_IN_BUSKET;
 
         Constants.currentScorePos = Constants.ScorePos.BUSKET;
     }
@@ -132,7 +253,18 @@ public class ScoreAuto {
             sliderClawController.setPos(Constants.OPEN_CLAW);
             Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
 
-            SliderAction.takeFromHuman();
+            if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
+                slider_claw.setPosition(Constants.OPEN_CLAW);
+                Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
+                timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+            }
+
+            turret.setPosition(Constants.TURRET_TAKE_HUMAN);
+            slider_claw_tilt.setPosition(Constants.SLIDER_TILT_BEFORE_TAKE_FORM_HUMAN);
+            timer = new Timing.Timer(75, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+            slider_claw_tilt.setPosition(Constants.SLIDER_TILT_TAKE_FORM_HUMAN);
+
+            sliderController.setTargetPosition(Constants.SLIDER_DOWN);
         }
 
         if(Constants.currentScorePos == Constants.ScorePos.BUSKET){

@@ -5,14 +5,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.systems.claw_controller;
+import org.firstinspires.ftc.teamcode.systems.linkage_controller;
 
 import java.util.concurrent.TimeUnit;
 
 public class CollectAuto {
     Timing.Timer timer;
     Servo tilt, linkage, claw_rotate, claw, claw_pivot;
+    static linkage_controller linkageController;
     claw_controller clawController;
-
     public CollectAuto(Servo claw, Servo tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot){
         this.tilt = tilt;
         this.linkage = linkage;
@@ -20,6 +21,10 @@ public class CollectAuto {
         this.claw = claw;
         this.claw_pivot = claw_pivot;
         this.clawController = new claw_controller(this.claw);
+    }
+
+    public static void setLinkageController(linkage_controller controller){
+        linkageController = controller;
     }
 
     public void takePos(){
