@@ -62,7 +62,7 @@ public class Teleop extends LinearOpMode {
 
             if(gamepad1.dpad_left){linkageController.manualControl();}
 
-            if(gamepad1.dpad_up) {clawRotateController.V_H();}
+            if(gamepad1.dpad_up) {clawRotateController.rotation();}
 
             if(gamepad1.dpad_down) {sliderController.setTargetPosition(Constants.SLIDER_DOWN);}
 
