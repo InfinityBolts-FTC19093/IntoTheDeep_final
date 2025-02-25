@@ -29,8 +29,8 @@ public class RobotMap {
 
     public Gamepad gamepad1;
 
-//    public ColorSensor colorCenterClaw;
-//    public ColorSensor colorRotateClaw;
+    public ColorSensor colorCenterClaw;
+    public ColorSensor colorRotateClaw;
 
     public RobotMap(HardwareMap hardwareMap){
         leftFront  = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_LEFT_FRONT);
@@ -50,8 +50,8 @@ public class RobotMap {
         turret = hardwareMap.get(Servo.class, HardwareConstants.ID_TURRET);
         slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
-//        colorCenterClaw = hardwareMap.get(ColorSensor.class, HardwareConstants.ID_COLOR_CENTER_CLAW);
-//        colorRotateClaw = hardwareMap.get(ColorSensor.class, HardwareConstants.ID_COLOR_ROTATE_CLAW);
+        colorCenterClaw = hardwareMap.get(ColorSensor.class, HardwareConstants.ID_COLOR_CENTER_CLAW);
+        colorRotateClaw = hardwareMap.get(ColorSensor.class, HardwareConstants.ID_COLOR_ROTATE_CLAW);
 
 
         slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

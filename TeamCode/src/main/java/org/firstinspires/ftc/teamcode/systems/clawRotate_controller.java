@@ -29,9 +29,6 @@ public class clawRotate_controller {
             Constants.currentClawRotatePos = Constants.ClawRotatePos.DIAGONAL_NEGATIV;
             timer = new Timing.Timer(125,TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         } else if(Constants.currentClawRotatePos == Constants.ClawRotatePos.DIAGONAL_NEGATIV){
-            Constants.currentClawRotatePos = Constants.ClawRotatePos.VERTICAL;
-            timer = new Timing.Timer(125, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
-        }else if(Constants.currentClawRotatePos == Constants.ClawRotatePos.VERTICAL){
             Constants.currentClawRotatePos = Constants.ClawRotatePos.DIAGONAL_POSITIV;
             timer = new Timing.Timer(125, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }else{
@@ -43,10 +40,6 @@ public class clawRotate_controller {
     public void update(){
         if(Constants.currentClawRotatePos == Constants.ClawRotatePos.HORIZONTAL){
             claw.setPosition(Constants.ROTATE_TAKE_HORIONTAL);
-        }
-
-        if(Constants.currentClawRotatePos == Constants.ClawRotatePos.VERTICAL){
-            claw.setPosition(Constants.ROTATE_TAKE_VERTICAL);
         }
 
         if(Constants.currentClawRotatePos == Constants.ClawRotatePos.DIAGONAL_NEGATIV){
