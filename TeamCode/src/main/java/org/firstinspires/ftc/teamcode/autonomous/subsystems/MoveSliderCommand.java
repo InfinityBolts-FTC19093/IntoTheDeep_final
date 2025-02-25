@@ -20,7 +20,6 @@ public class MoveSliderCommand extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        // Check if the slider reached the position
         return Math.abs(sliderSubsystem.getCurrentPosition() - targetPosition) < 5;
     }
 }

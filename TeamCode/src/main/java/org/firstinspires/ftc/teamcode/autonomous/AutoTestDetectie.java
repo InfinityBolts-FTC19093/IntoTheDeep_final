@@ -51,8 +51,8 @@ public class AutoTestDetectie extends LinearOpMode {
         LinkageAction = new CollectAuto(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot);
         Score         = new ScoreAuto(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction);
 
-        actions.scoreAuto update = new actions.scoreAuto(hardwareMap);
-     //   actions.scoreAuto score = new actions.scoreAuto();
+        actions.Update update = new actions.Update(hardwareMap);
+        actions.scoreAuto score = new actions.scoreAuto(SliderAction, LinkageAction, Score);
 
         if (!isStarted()) {
             update.initAll();
@@ -60,7 +60,7 @@ public class AutoTestDetectie extends LinearOpMode {
 
         waitForStart();
         Action autoSequence = new SequentialAction(
-                update.Basket()
+                score.Basket()
         );
 
         Action pid = new ParallelAction(

@@ -35,7 +35,7 @@ public class PrepareAuto {
 
     private void waitForSlider(double targetPosition) {
         while (Math.abs(sliderSubsystem.getCurrentPosition() - targetPosition) > 15) {
-            CommandScheduler.getInstance().run();  // ✅ PID keeps running
+            CommandScheduler.getInstance().run();
         }
     }
 
@@ -44,7 +44,7 @@ public class PrepareAuto {
         timer.start(); // Start the timer
 
         while (!timer.done()) {  // Keep looping until the time is up
-            CommandScheduler.getInstance().run(); // ✅ Keeps updating commands & subsystems
+            CommandScheduler.getInstance().run();
         }
     }
 
@@ -67,9 +67,9 @@ public class PrepareAuto {
         tilt.setPosition(Constants.SLIDER_TILT_TAKE_FROM_LINKAGE);
         Wait(50);
 
-        // ✅ Move slider and hold position
+
         sliderSubsystem.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
-        waitForSlider(Constants.SLIDER_TAKE_FORM_LINKAGE);  // ✅ Wait for it to reach target but NOT stop it
+        waitForSlider(Constants.SLIDER_TAKE_FORM_LINKAGE);
 
         slider_claw.setPosition(Constants.CLOSE_CLAW);
         Wait(50);
