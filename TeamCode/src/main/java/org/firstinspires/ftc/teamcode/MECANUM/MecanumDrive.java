@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.MECANUM;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.canvas.Canvas;
@@ -54,7 +56,7 @@ import java.util.List;
 
 @Config
 public final class MecanumDrive {
-    HardwareMap hardwareMap;
+
     public static class Params {
         // IMU orientation
         // TODO: fill in these values based on

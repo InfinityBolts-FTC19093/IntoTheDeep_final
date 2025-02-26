@@ -11,7 +11,6 @@ import org.firstinspires.ftc.teamcode.constants.Constants;
 public class slider_controller {
 
     private final DcMotorEx slider;
-    HardwareMap hardwareMap;
     private double targetPosition;
     double integral = 0;
     double previousError = 0;
@@ -62,7 +61,7 @@ public class slider_controller {
             output = proportional + integralTerm + derivativeTerm;
             output = Math.max(-1, Math.min(output, 1));
 
-            slider.setPower(output*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+            slider.setPower(output);
 
             timer.reset();
             previousError = error;

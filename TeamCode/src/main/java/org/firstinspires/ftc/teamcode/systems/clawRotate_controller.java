@@ -50,6 +50,10 @@ public class clawRotate_controller {
             claw.setPosition(Constants.ROTATE_TAKE_DIAGONAL_POSITIV);
         }
 
+        if(Constants.currentClawRotatePos == Constants.ClawRotatePos.VERTICAL){
+            claw.setPosition(Constants.ROTATE_TAKE_VERTICAL);
+        }
+
         if(Constants.currentClawRotatePos == Constants.ClawRotatePos.INVERTED){
             claw.setPosition(Constants.ROTATE_PLACE_IN_SLIDER_INVERTED);
         }

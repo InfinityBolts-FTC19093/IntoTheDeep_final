@@ -93,6 +93,8 @@ public class Teleop extends LinearOpMode {
             sliderController.update();
             clawController.update();
             linkageController.update();
+            telemetry.addData("cads", Constants.currentClawRotatePos);
+            telemetry.update();
         }
     }
 }

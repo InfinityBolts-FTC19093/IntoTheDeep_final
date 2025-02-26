@@ -2,11 +2,13 @@ package org.firstinspires.ftc.teamcode.actions;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class InTimer {
     DcMotorEx leftFront, leftBack, rightFront, rightBack, slider;double lim;
     Gamepad gamepad1;
     static robot_drive drive;
+
 
 
     public InTimer(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim, Gamepad gamepad1){

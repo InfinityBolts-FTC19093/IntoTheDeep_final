@@ -19,7 +19,7 @@ public class TeleOp_sasiu extends LinearOpMode {
 
         waitForStart();
         while (opModeIsActive() && !isStopRequested()){
-            drive.robotCentricDrive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, gamepad1);
+            //drive.robotCentricDrive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, gamepad1);
             robot.turret.setPosition(0.025);
             robot.claw.setPosition(0);
             robot.slider_claw_tilt.setPosition(0);

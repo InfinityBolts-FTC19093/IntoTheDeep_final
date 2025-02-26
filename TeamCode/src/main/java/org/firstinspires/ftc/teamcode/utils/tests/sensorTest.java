@@ -12,10 +12,10 @@ public class sensorTest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        ColorSensor colorSensor = hardwareMap.get(ColorSensor.class, "color");
+        ColorSensor colorSensor = hardwareMap.get(ColorSensor.class, "CCC");
 
-        dashboard = FtcDashboard.getInstance();
-        telemetry = dashboard.getTelemetry();
+//        dashboard = FtcDashboard.getInstance();
+//        telemetry = dashboard.getTelemetry();
 
         waitForStart();
         while(opModeIsActive() && !isStopRequested()){

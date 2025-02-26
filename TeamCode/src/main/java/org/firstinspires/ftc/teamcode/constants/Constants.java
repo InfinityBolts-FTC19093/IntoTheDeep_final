@@ -129,10 +129,10 @@ public class Constants {
     public static double ROTATE_INIT = 0;
     public static double ROTATE_TAKE_HORIONTAL = 0;
     public static double ROTATE_TAKE_DIAGONAL_NEGATIV = 0.275;
-    public static double ROTATE_TAKE_VERTICAL = .55;
-    public static double ROTATE_TAKE_DIAGONAL_POSITIV = .825;
+    public static double ROTATE_TAKE_VERTICAL = 0.475;
+    public static double ROTATE_TAKE_DIAGONAL_POSITIV = 0.72;
     public static double ROTATE_PLACE_IN_SLIDER = 0;
-    public static double ROTATE_PLACE_IN_SLIDER_INVERTED = 1;
+    public static double ROTATE_PLACE_IN_SLIDER_INVERTED = .942;
 
     /** Servo Claw ASSEMBLY*/
     public static double CLAW_ASSEMBLY_INIT = 0;

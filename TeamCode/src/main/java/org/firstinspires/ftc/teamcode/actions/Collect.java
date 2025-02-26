@@ -137,7 +137,7 @@ public class Collect {
 //        linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
 //        linkageController.getlinkagePos(linkage.getPosition());
 
-        if(centerSensor.alpha() >= 350 && rotateSensor.alpha() >= 350){
+        if((centerSensor.alpha() >= 350 || rotateSensor.alpha() >= 350 ) && rotateSensor.alpha() >= 350){
             tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
             timer = new Timing.Timer(75, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
 
