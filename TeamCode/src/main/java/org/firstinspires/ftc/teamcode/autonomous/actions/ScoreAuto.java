@@ -75,7 +75,6 @@ public class ScoreAuto {
 
         SliderAction.placeOnHighBusket();
 
-        Constants.currentScorePos = Constants.ScorePos.BUSKET;
         }
 
 

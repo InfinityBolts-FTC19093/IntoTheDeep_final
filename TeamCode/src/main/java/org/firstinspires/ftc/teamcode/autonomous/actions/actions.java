@@ -88,7 +88,6 @@ public class actions {
             this.scoreAction = ScoreAction;
             this.LinkageAction = LinkageAction;
             this.SliderAction = SliderAction;
-
         }
 
         public class HighChamber implements Action {

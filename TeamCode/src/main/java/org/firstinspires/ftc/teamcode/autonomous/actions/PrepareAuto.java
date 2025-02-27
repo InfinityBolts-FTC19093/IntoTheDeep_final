@@ -131,7 +131,7 @@ public class PrepareAuto {
         tilt.setPosition(Constants.SLIDER_TILT_PLACE_ON_HIGH_CHAMBER);
         rotate.setPosition(Constants.TURRET_PLACE);
 
-        Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_IN_BUSKET;
+
     }
 
     public void placeOnHighBusket(){
@@ -148,7 +148,7 @@ public class PrepareAuto {
         tilt.setPosition(Constants.SLIDER_TILT_PLACE_IN_HIGH_BUSKET);
         rotate.setPosition(Constants.TURRET_PLACE);
 
-        Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_IN_BUSKET;
+
     }
 
     public void placeOnLowBusket(){
@@ -165,7 +165,7 @@ public class PrepareAuto {
         tilt.setPosition(Constants.SLIDER_TILT_PLACE_IN_LOW_BUSKET);
         rotate.setPosition(Constants.TURRET_PLACE);
 
-        Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_IN_BUSKET;
+
     }
 
     public void switchSliderAction(){
