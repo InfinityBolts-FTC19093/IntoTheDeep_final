@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -19,18 +20,12 @@ import org.firstinspires.ftc.teamcode.systems.slider_controller;
 public class actions {
     public static class Update {
          Servo claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret;
-         DcMotorEx slider;
-         slider_controller sliderController;
          claw_controller clawController;
          sliderClaw_controller sliderClawController;
          clawRotate_controller clawRotateController;
          linkage_controller linkageController;
 
         public Update(HardwareMap hardwareMap) {
-            slider = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_SLIDER);
-            slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            slider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
             claw = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW);
             slider_claw = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW);
@@ -41,8 +36,6 @@ public class actions {
             turret = hardwareMap.get(Servo.class, HardwareConstants.ID_TURRET);
             slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
-
-            sliderController = new slider_controller(slider, hardwareMap);
             clawController = new claw_controller(claw);
             sliderClawController = new sliderClaw_controller(slider_claw);
             clawRotateController = new clawRotate_controller(claw_rotate);
@@ -53,7 +46,6 @@ public class actions {
         public class UpdateAll implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                sliderController.update();
                 clawController.update();
                 clawRotateController.update();
                 sliderClawController.update();
@@ -83,12 +75,28 @@ public class actions {
         PrepareAuto SliderAction;
         CollectAuto LinkageAction;
         ScoreAuto scoreAction;
+        static slider_controller sliderController;
 
         public scoreAuto(PrepareAuto SliderAction, CollectAuto LinkageAction, ScoreAuto ScoreAction) {
             this.scoreAction = ScoreAction;
             this.LinkageAction = LinkageAction;
             this.SliderAction = SliderAction;
         }
+
+        public static void setSliderController(slider_controller controller){
+            sliderController = controller;
+        }
+
+        public class Update implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                sliderController.update();
+                packet.put("pos", sliderController.pos());
+                return true;
+            }
+        }
+
+        public Action updateLift() {return new Update();}
 
         public class HighChamber implements Action {
             @Override

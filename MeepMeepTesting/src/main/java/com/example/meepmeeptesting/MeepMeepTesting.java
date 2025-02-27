@@ -39,24 +39,9 @@ public class MeepMeepTesting {
                 .strafeToLinearHeading(new Vector2d(68, -16), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
 
 
-                /*
-                .strafeToLinearHeading(new Vector2d(35, -35), Math.toRadians(90))
-                .strafeTo(new Vector2d(35, -13))
-                .strafeTo(new Vector2d(45, -13))
-                .strafeTo(new Vector2d(45, -57))
 
-                .strafeTo(new Vector2d(43, -13), null, new ProfileAccelConstraint(-100, 100))
 
-                .strafeTo(new Vector2d(57, -13), null, new ProfileAccelConstraint(-70, 70))
-                .strafeTo(new Vector2d(57, -57), null, new ProfileAccelConstraint(-100, 100))
-
-                        .strafeTo(new Vector2d(50, -13))
-                        .strafeTo(new Vector2d(65, -13))
-
-*/
-                //merge la human
-
-                // SCHIMBA DIN CONSTANT HEADING IN LINEAR
+                /* SCHIMBA DIN CONSTANT HEADING IN LINEAR */
 
 
                 .strafeToLinearHeading(new Vector2d(63, -60), Math.toRadians(90))

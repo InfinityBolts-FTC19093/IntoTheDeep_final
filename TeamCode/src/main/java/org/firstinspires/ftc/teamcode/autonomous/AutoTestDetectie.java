@@ -9,6 +9,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MECANUM.MecanumDrive;
+import org.firstinspires.ftc.teamcode.actions.Collect;
+import org.firstinspires.ftc.teamcode.actions.Prepare;
+import org.firstinspires.ftc.teamcode.actions.Score;
 import org.firstinspires.ftc.teamcode.autonomous.actions.CollectAuto;
 import org.firstinspires.ftc.teamcode.autonomous.actions.PrepareAuto;
 import org.firstinspires.ftc.teamcode.autonomous.actions.ScoreAuto;
@@ -19,7 +22,6 @@ import org.firstinspires.ftc.teamcode.systems.claw_controller;
 import org.firstinspires.ftc.teamcode.systems.linkage_controller;
 import org.firstinspires.ftc.teamcode.systems.sliderClaw_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
-import org.firstinspires.ftc.teamcode.utils.detection.Detectie;
 
 
 @Autonomous (name = "TEST")
@@ -33,7 +35,7 @@ public class AutoTestDetectie extends LinearOpMode {
     PrepareAuto SliderAction;
     CollectAuto LinkageAction;
     ScoreAuto Score;
-    Detectie detectie;
+
     @Override
     public void runOpMode() throws InterruptedException {
         RobotMap robot = new RobotMap(hardwareMap);
@@ -50,23 +52,13 @@ public class AutoTestDetectie extends LinearOpMode {
         LinkageAction = new CollectAuto(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot);
         Score         = new ScoreAuto(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction, SliderAction);
 
-//        detectie = new Detectie(hardwareMap);
-//        double[] limelightData = detectie.getLimelightData();
         actions.Update update = new actions.Update(hardwareMap);
         actions.scoreAuto score = new actions.scoreAuto(SliderAction, LinkageAction, Score);
 
-        PrepareAuto.setSliderController(sliderController);
+        actions.scoreAuto.setSliderController(sliderController);
 
         if (!isStarted()) {
             update.initAll();
-//            detectie.start();
-//            if (limelightData != null) {
-//                telemetry.addData("cadranu", limelightData[0]);
-//            }
-//            else {
-//                telemetry.addData("plm", "nu i");
-//            }
-//            telemetry.update();
         }
 
         Action autoSequence = new SequentialAction(
@@ -74,8 +66,9 @@ public class AutoTestDetectie extends LinearOpMode {
         );
 
         Action pid = new ParallelAction(
-          update.updateAll()
+          update.updateAll(), score.updateLift()
         );
+
         waitForStart();
 
         while (opModeIsActive() && !isStopRequested()) {

@@ -492,7 +492,3 @@ public class actionsManual {
         }
     }
 }
-
-
-
-
