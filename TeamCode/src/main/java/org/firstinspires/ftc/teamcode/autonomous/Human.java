@@ -26,7 +26,7 @@ public class Human extends LinearOpMode {
         Pose2d startPose    = new Pose2d(9, -61.5, Math.toRadians(90));
         MecanumDrive drive  = new MecanumDrive(hardwareMap, startPose);
 
-        sliderController = new slider_controller(robot.slider);
+        sliderController = new slider_controller(robot.slider, hardwareMap);
 
         actionsManual.Lift lift = new actionsManual.Lift(hardwareMap);
         actionsManual.SliderClaw sliderClaw = new actionsManual.SliderClaw(hardwareMap);

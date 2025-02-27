@@ -8,8 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-
-import org.firstinspires.ftc.teamcode.autonomous.subsystems.SliderSubsystem;
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.HardwareConstants;
 import org.firstinspires.ftc.teamcode.systems.clawRotate_controller;
@@ -22,7 +20,7 @@ public class actions {
     public static class Update {
          Servo claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret;
          DcMotorEx slider;
-         SliderSubsystem sliderSubsystem;
+         slider_controller sliderController;
          claw_controller clawController;
          sliderClaw_controller sliderClawController;
          clawRotate_controller clawRotateController;
@@ -44,7 +42,7 @@ public class actions {
             slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
 
-            sliderSubsystem = new SliderSubsystem(slider);
+            sliderController = new slider_controller(slider, hardwareMap);
             clawController = new claw_controller(claw);
             sliderClawController = new sliderClaw_controller(slider_claw);
             clawRotateController = new clawRotate_controller(claw_rotate);
@@ -55,7 +53,7 @@ public class actions {
         public class UpdateAll implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                sliderSubsystem.periodic();
+                sliderController.update();
                 clawController.update();
                 clawRotateController.update();
                 sliderClawController.update();

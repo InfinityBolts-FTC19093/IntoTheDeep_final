@@ -41,7 +41,7 @@ public class AutoTestDetectie extends LinearOpMode {
         Pose2d startPose = new Pose2d(9, -61.5, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
 
-        sliderController         = new slider_controller(robot.slider);
+        sliderController         = new slider_controller(robot.slider, hardwareMap);
         clawController           = new claw_controller(robot.claw);
         sliderClawController     = new sliderClaw_controller(robot.slider_claw);
         clawRotateController     = new clawRotate_controller(robot.claw_rotate);
@@ -60,7 +60,6 @@ public class AutoTestDetectie extends LinearOpMode {
             update.initAll();
         }
 
-        waitForStart();
         Action autoSequence = new SequentialAction(
                 score.Basket()
         );
@@ -68,10 +67,13 @@ public class AutoTestDetectie extends LinearOpMode {
         Action pid = new ParallelAction(
           update.updateAll()
         );
+        waitForStart();
 
-        Actions.runBlocking( new ParallelAction(
-                autoSequence, pid
-                )
-        );
+        while (opModeIsActive() && !isStopRequested()) {
+            Actions.runBlocking(new ParallelAction(
+                            autoSequence, pid
+                    )
+            );
+        }
     }
 }

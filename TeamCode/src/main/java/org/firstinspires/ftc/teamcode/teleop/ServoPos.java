@@ -34,8 +34,6 @@ public class ServoPos extends OpMode {
         slider_claw_rotate = hardwareMap.get(Servo.class, HardwareConstants.ID_TURRET);
         slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
-        unghi_robot = hardwareMap.get(Servo.class, HardwareConstants.ID_MODIFICA_UNGHI_ROBOT);
-
         dashboard = FtcDashboard.getInstance();
         telemetry = dashboard.getTelemetry();
         telemetry.addData("Dashboard", "Connected");
@@ -51,7 +49,6 @@ public class ServoPos extends OpMode {
         slider_claw.setPosition(SliderClawPos);
         slider_claw_rotate.setPosition(SliderClawRotatePos);
         slider_claw_tilt.setPosition(SliderClawTiltPos);
-        unghi_robot.setPosition(ModificaUnghiPos);
         turret.setPosition(RotateAssemplyPos);
 
         telemetry.addData("slider:", slider.getCurrentPosition());

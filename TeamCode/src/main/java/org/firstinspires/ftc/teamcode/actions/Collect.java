@@ -56,6 +56,9 @@ public class Collect {
         claw.setPosition(Constants.OPEN_CLAW);
         Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
 
+        claw_rotate.setPosition(Constants.ROTATE_TAKE_HORIONTAL);
+        Constants.currentClawRotatePos = Constants.ClawRotatePos.HORIZONTAL;
+
         claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_TAKE);
         tilt.setPosition(Constants.TILT_BEFORE_TAKE);
 
@@ -136,6 +139,9 @@ public class Collect {
 //        Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
 //        linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
 //        linkageController.getlinkagePos(linkage.getPosition());
+
+        tilt.setPosition(Constants.TILT_AFTER_TAKE);
+        timer = new Timing.Timer(250, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
 
         if((centerSensor.alpha() >= 350 || rotateSensor.alpha() >= 350 ) && rotateSensor.alpha() >= 350){
             tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);

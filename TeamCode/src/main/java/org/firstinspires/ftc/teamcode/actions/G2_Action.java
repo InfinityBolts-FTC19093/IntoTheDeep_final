@@ -15,7 +15,6 @@ public class G2_Action {
     Servo claw, slider_claw, claw_tilt, claw_rotate, claw_pivot, linkage, turret, slider_tilt;
     DcMotorEx slider;
     static slider_controller sliderController;
-    InTimer inTimer;
 
     public G2_Action(Servo claw, Servo slider_claw, Servo claw_tilt, Servo claw_rotate, Servo claw_pivot, Servo linkage, Servo turret, DcMotorEx slider, Servo slider_tilt) {
         this.claw = claw;
@@ -49,10 +48,10 @@ public class G2_Action {
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.INIT;
 
         sliderController.setTargetPosition(Constants.SLIDER_DOWN);
-        timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){inTimer.whileInTimer();}timer.pause();
+        timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){}timer.pause();
 
         turret.setPosition(Constants.TURRET_INIT_AUTO);
-        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){inTimer.whileInTimer();}timer.pause();
+        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){}timer.pause();
 
         slider_tilt.setPosition(Constants.SLIDER_TILT_INIT);
     }
@@ -68,10 +67,10 @@ public class G2_Action {
     public void switchBasketPos(){
         if(Constants.currentBasketPos == Constants.BasketPos.HIGH_BASKET){
             Constants.currentBasketPos = Constants.BasketPos.LOW_BASKET;
-            timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){inTimer.whileInTimer(); sliderController.update();}timer.pause();
+            timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){sliderController.update();}timer.pause();
         }else{
             Constants.currentBasketPos = Constants.BasketPos.HIGH_BASKET;
-            timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){inTimer.whileInTimer(); sliderController.update();}timer.pause();
+            timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){sliderController.update();}timer.pause();
         }
     }
 }

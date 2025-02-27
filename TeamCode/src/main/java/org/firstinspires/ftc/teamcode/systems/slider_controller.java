@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.systems;
 
-import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.teamcode.constants.Constants;
 
 public class slider_controller {
@@ -15,13 +13,15 @@ public class slider_controller {
     double integral = 0;
     double previousError = 0;
     int pos;
+    HardwareMap hardwareMap;
 
     ElapsedTime timer;
 
-    public slider_controller(DcMotorEx slider) {
+    public slider_controller(DcMotorEx slider, HardwareMap hardwareMap) {
         this.slider = slider;
         this.timer = new ElapsedTime();
         this.targetPosition = pos();
+        this.hardwareMap = hardwareMap;
     }
 
     public void setTargetPosition(double targetPosition){
@@ -61,7 +61,7 @@ public class slider_controller {
             output = proportional + integralTerm + derivativeTerm;
             output = Math.max(-1, Math.min(output, 1));
 
-            slider.setPower(output);
+            slider.setPower(output*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
 
             timer.reset();
             previousError = error;

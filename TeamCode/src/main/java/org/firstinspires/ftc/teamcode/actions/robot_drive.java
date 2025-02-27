@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.actions;
 
-//import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,15 +10,16 @@ public class robot_drive {
     DcMotorEx leftFront, leftBack, rightFront, rightBack;
     double lim;
     Gamepad gamepad1;
+    HardwareMap hardwareMap;
 
-    public robot_drive(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim, Gamepad gamepad1){
+    public robot_drive(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim, Gamepad gamepad1, HardwareMap hardwareMap){
         this.leftFront = leftFront;
         this.leftBack = leftBack;
         this.rightFront = rightFront;
         this.rightBack = rightBack;
         this.lim = lim;
         this.gamepad1 = gamepad1;
-
+        this.hardwareMap = hardwareMap;
     }
 
     public void robotCentricDrive(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim, Gamepad gamepad1) {
@@ -40,10 +39,10 @@ public class robot_drive {
         frontRightPower = Clip(frontRightPower,lim);
         backRightPower = Clip(backRightPower,lim);
 
-        leftFront.setPower(frontLeftPower);
-        leftBack.setPower(backLeftPower);
-        rightFront.setPower(frontRightPower);
-        rightBack.setPower(backRightPower);
+        leftFront.setPower(frontLeftPower*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+        leftBack.setPower(backLeftPower*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+        rightFront.setPower(frontRightPower*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+        rightBack.setPower(backRightPower*(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
     }
 
     double Clip(double Speed,double lim) {return Math.max(Math.min(Speed,lim),-lim);}

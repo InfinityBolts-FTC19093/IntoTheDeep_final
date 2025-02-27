@@ -29,7 +29,7 @@ public class Basket extends LinearOpMode {
         Pose2d startPose = new Pose2d(-33, -61.5, Math.toRadians(180));
         MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
 
-        sliderController = new slider_controller(robot.slider);
+        sliderController = new slider_controller(robot.slider, hardwareMap);
 
 //        SliderAction     = new PrepareAuto(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw);
 //        LinkageAction    = new CollectAuto(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot);

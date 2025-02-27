@@ -87,7 +87,7 @@ public class Constants {
     /** SLIDER*/
     public static final int SLIDER_DOWN = 0;
 
-    public static int SLIDER_TAKE_FORM_LINKAGE = 320;
+    public static int SLIDER_TAKE_FORM_LINKAGE = 350;
     public static int SLIDER_BEFORE_TAKE_FORM_LINKAGE = 400;
 
     public static int SLIDER_LOW_CHAMBER = 0;
@@ -119,8 +119,9 @@ public class Constants {
 
     /** Servo TILT */
     public static double TILT_INIT = 0;
-    public static double TILT_TAKE = 0.9;
-    public static double TILT_BEFORE_TAKE = 0.78;
+    public static double TILT_TAKE = 0.85;
+    public static double TILT_BEFORE_TAKE = 0.75;
+    public static double TILT_AFTER_TAKE = 0.5;
     public static double TILT_BEFORE_TAKE_AUTO = 0.65;
     public static double TILT_PLACE_IN_SLIDER = 0.05;
     public static double TILT_THROW = 0.3;
@@ -151,7 +152,7 @@ public class Constants {
 
     /** Servo Slider Claw Tilt */
     public static double SLIDER_TILT_INIT = 0;
-    public static double SLIDER_TILT_TAKE_FROM_LINKAGE = 0.85;
+    public static double SLIDER_TILT_TAKE_FROM_LINKAGE = 0.875;
     public static double SLIDER_TILT_PLACE_IN_HIGH_BUSKET = 0.20;
     public static double SLIDER_TILT_BASKET_AUTO = 0.223;
     public static double SLIDER_TILT_PLACE_IN_LOW_BUSKET = 0.2;

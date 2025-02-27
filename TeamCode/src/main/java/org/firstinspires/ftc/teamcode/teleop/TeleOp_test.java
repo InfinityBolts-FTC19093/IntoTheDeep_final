@@ -206,7 +206,7 @@ public class TeleOp_test extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot = new RobotMap(hardwareMap);
-        sliderController = new slider_controller(robot.slider);
+        sliderController = new slider_controller(robot.slider, hardwareMap);
         sliderClawController = new sliderClaw_controller(robot.slider_claw);
 
         waitForStart();

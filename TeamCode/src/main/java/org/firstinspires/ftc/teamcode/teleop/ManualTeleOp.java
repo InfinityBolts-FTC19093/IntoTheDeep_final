@@ -53,7 +53,7 @@ public class ManualTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         RobotMap robot = new RobotMap(hardwareMap);
-        slider_controller sliderController = new slider_controller(robot.slider);
+        slider_controller sliderController = new slider_controller(robot.slider, hardwareMap);
         G2_Action g2Action = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.claw_pivot, robot.linkage, robot.turret, robot.slider, robot.slider_claw_tilt);
 
         waitForStart();

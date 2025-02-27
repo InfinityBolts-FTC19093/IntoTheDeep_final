@@ -5,7 +5,6 @@ import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.autonomous.subsystems.SliderSubsystem;
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
@@ -17,7 +16,7 @@ public class PrepareAuto {
     Servo slider_claw, tilt, rotate,claw;
     DcMotorEx slider;
     static slider_controller sliderController;
-    SliderSubsystem sliderSubsystem;
+
 
 
     public PrepareAuto(Servo slider_claw, Servo tilt, Servo rotate, DcMotorEx slider, Servo claw){
@@ -26,17 +25,10 @@ public class PrepareAuto {
         this.rotate = rotate;
         this.slider = slider;
         this.claw = claw;
-        this.sliderSubsystem = new SliderSubsystem(slider);
     }
 
     public static void setSliderController(slider_controller controller){
         sliderController = controller;
-    }
-
-    private void waitForSlider(double targetPosition) {
-        while (Math.abs(sliderSubsystem.getCurrentPosition() - targetPosition) > 15) {
-            CommandScheduler.getInstance().run();
-        }
     }
 
     private void Wait(long milliseconds) {
@@ -68,8 +60,8 @@ public class PrepareAuto {
         Wait(50);
 
 
-        sliderSubsystem.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
-        waitForSlider(Constants.SLIDER_TAKE_FORM_LINKAGE);
+        sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
+
 
         slider_claw.setPosition(Constants.CLOSE_CLAW);
         Wait(50);
@@ -80,7 +72,7 @@ public class PrepareAuto {
 
     public void beforeTakeFromLinkage(){
         sliderController.setTargetPosition(Constants.SLIDER_BEFORE_TAKE_FORM_LINKAGE);
-        sliderController.update();
+
 
         tilt.setPosition(Constants.SLIDER_TILT_BEFORE_TAKE_FROM_LINKAGE);
         slider_claw.setPosition(Constants.OPEN_CLAW);
@@ -117,8 +109,8 @@ public class PrepareAuto {
         rotate.setPosition(Constants.TURRET_PLACE);
         Wait(50);
 
-        sliderSubsystem.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER);
-        waitForSlider(Constants.SLIDER_HIGH_CHAMBER);
+        sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER);
+
 
         Constants.previousSliderActionPos = Constants.currentSliderActionPos;
         Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_ON_CHAMBER;

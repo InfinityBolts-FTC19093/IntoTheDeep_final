@@ -73,6 +73,7 @@ public class Prepare {
 
         tilt.setPosition(Constants.SLIDER_TILT_BEFORE_TAKE_FROM_LINKAGE);
         slider_claw.setPosition(Constants.OPEN_CLAW);
+        Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
 
         Constants.currentSliderActionPos = Constants.SliderActionPos.BEFORE_TAKE_FROM_LINKAGE;
     }
@@ -97,7 +98,7 @@ public class Prepare {
         if(Constants.currentSliderClawPos == Constants.SliderClawPos.OPEN_CLAW){
             slider_claw.setPosition(Constants.CLOSE_CLAW);
             Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
-            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
+            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
         }
 
         tilt.setPosition(Constants.SLIDER_TILT_PLACE_ON_HIGH_CHAMBER);

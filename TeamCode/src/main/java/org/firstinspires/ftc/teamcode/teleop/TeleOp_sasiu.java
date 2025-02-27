@@ -15,7 +15,7 @@ public class TeleOp_sasiu extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot = new RobotMap(hardwareMap);
-        drive = new robot_drive(robot.leftFront, robot.leftBack,robot.rightFront,robot.rightBack, 1,  robot.gamepad1);
+        drive = new robot_drive(robot.leftFront, robot.leftBack,robot.rightFront,robot.rightBack, 1,  robot.gamepad1, hardwareMap);
 
         waitForStart();
         while (opModeIsActive() && !isStopRequested()){

@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.systems.linkage_controller;
 import org.firstinspires.ftc.teamcode.systems.sliderClaw_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
-@TeleOp(name = "TeleOp", group = "#")
+@TeleOp(name = "TeleOp", group = "@")
 public class Teleop extends LinearOpMode {
     RobotMap robot;
     slider_controller sliderController;
@@ -33,7 +33,7 @@ public class Teleop extends LinearOpMode {
     public void runOpMode() {
         robot = new RobotMap(hardwareMap);
 
-        sliderController         = new slider_controller(robot.slider);
+        sliderController         = new slider_controller(robot.slider, hardwareMap);
         clawController           = new claw_controller(robot.claw);
         sliderClawController     = new sliderClaw_controller(robot.slider_claw);
         clawRotateController     = new clawRotate_controller(robot.claw_rotate);
@@ -42,7 +42,7 @@ public class Teleop extends LinearOpMode {
         SliderAction     = new Prepare(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
         LinkageAction    = new Collect(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1, robot.colorRotateClaw, robot.colorCenterClaw);
         scoreAction      = new Score(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction, SliderAction, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
-        drive            = new robot_drive(robot.leftFront, robot.leftBack,robot.rightFront,robot.rightBack, 1,  robot.gamepad1);
+        drive            = new robot_drive(robot.leftFront, robot.leftBack,robot.rightFront,robot.rightBack, 1,  robot.gamepad1, hardwareMap);
         g2Action         = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.claw_pivot, robot.linkage, robot.turret, robot.slider, robot.slider_claw_tilt);
 
         Prepare.setSliderController(sliderController);
@@ -66,7 +66,7 @@ public class Teleop extends LinearOpMode {
 
             if(gamepad1.dpad_down) {sliderController.setTargetPosition(Constants.SLIDER_DOWN);}
 
-            if(gamepad1.right_bumper) {scoreAction.collect();}
+            if(gamepad1.right_bumper) {SliderAction.beforeTakeFromLinkage();}
 
             if(gamepad1.left_bumper){scoreAction.take();}
 
@@ -93,7 +93,7 @@ public class Teleop extends LinearOpMode {
             sliderController.update();
             clawController.update();
             linkageController.update();
-            telemetry.addData("cads", Constants.currentClawRotatePos);
+            telemetry.addData("cads", Constants.currentClawPos);
             telemetry.update();
         }
     }

@@ -28,7 +28,7 @@ public class actionsManual {
             slider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-            sliderController = new slider_controller(slider);
+            sliderController = new slider_controller(slider, hardwareMap);
         }
 
         public class Update implements Action {
@@ -472,7 +472,7 @@ public class actionsManual {
             slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
 
-            sliderController = new slider_controller(slider);
+            sliderController = new slider_controller(slider, hardwareMap);
             clawController = new claw_controller(claw);
             sliderClawController = new sliderClaw_controller(slider_claw);
             clawRotateController = new clawRotate_controller(claw_rotate);
