@@ -58,6 +58,8 @@ public class Teleop extends LinearOpMode {
 
             if(gamepad1.options) {sliderClawController.open_close();}
 
+            if(gamepad1.share){scoreAction.LinkagePlaceInSlider();}
+
             if(gamepad1.dpad_right) {clawController.open_close();}
 
             if(gamepad1.dpad_left){linkageController.manualControl();}

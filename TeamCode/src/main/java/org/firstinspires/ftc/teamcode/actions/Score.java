@@ -146,6 +146,8 @@ public class Score {
         LinkageAction.placeInObservation();
     }
 
+    public void LinkagePlaceInSlider(){LinkageAction.placeInSlider2();}
+
     public void score(){
         if(Constants.currentScorePos == Constants.ScorePos.CHAMBER){
             sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER+500);

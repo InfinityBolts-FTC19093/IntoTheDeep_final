@@ -131,21 +131,15 @@ public class Collect {
             timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
         }
 
-//        claw_rotate.setPosition(Constants.ROTATE_PLACE_IN_SLIDER);
-//        Constants.currentClawRotatePos = Constants.ClawRotatePos.HORIZONTAL;
-//
-//        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
-//
-//        Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
-//        linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
-//        linkageController.getlinkagePos(linkage.getPosition());
-
         tilt.setPosition(Constants.TILT_AFTER_TAKE);
         timer = new Timing.Timer(250, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
 
         if((centerSensor.alpha() >= 350 || rotateSensor.alpha() >= 350 ) && rotateSensor.alpha() >= 350){
             tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
             timer = new Timing.Timer(75, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
+
+            claw_rotate.setPosition(Constants.ROTATE_TAKE_HORIONTAL);
+            Constants.currentClawRotatePos = Constants.ClawRotatePos.HORIZONTAL;
 
             Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
             linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
@@ -165,10 +159,28 @@ public class Collect {
         }else{
             tilt.setPosition(Constants.TILT_BEFORE_TAKE);
             claw.setPosition(Constants.OPEN_CLAW);
+            claw_rotate.setPosition(Constants.ROTATE_TAKE_HORIONTAL);
+            Constants.currentClawRotatePos = Constants.ClawRotatePos.HORIZONTAL;
             Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
         }
 
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){inTimer.whileInTimer();}timer.pause();
+
+        Constants.currentLinkageActionPos = Constants.LinkageActionPos.PLACE_IN_SLIDER;
+    }
+
+    public void placeInSlider2() {
+        claw_rotate.setPosition(Constants.ROTATE_PLACE_IN_SLIDER);
+        Constants.currentClawRotatePos = Constants.ClawRotatePos.HORIZONTAL;
+        timer = new Timing.Timer(175, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()) {inTimer.whileInTimer();}timer.pause();
+
+        tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
+
+        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()) {inTimer.whileInTimer();}timer.pause();
+
+        Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
+        linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
+        linkageController.getlinkagePos(linkage.getPosition());
 
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.PLACE_IN_SLIDER;
     }

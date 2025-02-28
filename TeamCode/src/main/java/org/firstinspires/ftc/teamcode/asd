@@ -145,7 +145,7 @@ public final class MecanumDrive {
         }
 
         @Override
-        public Twist2dDual<Time> update() {
+        public Twist2dDual<Time> auto() {
             PositionVelocityPair leftFrontPosVel = leftFront.getPositionAndVelocity();
             PositionVelocityPair leftBackPosVel = leftBack.getPositionAndVelocity();
             PositionVelocityPair rightBackPosVel = rightBack.getPositionAndVelocity();
@@ -444,7 +444,7 @@ public final class MecanumDrive {
     }
 
     public PoseVelocity2d updatePoseEstimate() {
-        Twist2dDual<Time> twist = localizer.update();
+        Twist2dDual<Time> twist = localizer.auto();
         pose = pose.plus(twist.value());
 
         poseHistory.add(pose);

@@ -31,42 +31,26 @@ public class PrepareAuto {
         sliderController = controller;
     }
 
-    private void Wait(long milliseconds) {
-        timer = new Timing.Timer(milliseconds, TimeUnit.MILLISECONDS); // Create a timer for the delay
-        timer.start(); // Start the timer
-
-        while (!timer.done()) {  // Keep looping until the time is up
-            CommandScheduler.getInstance().run();
-        }
-    }
-
     public void takeFromLinkage() {
         if (Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW) {
             claw.setPosition(Constants.CLOSE_CLAW);
             Constants.currentClawPos = Constants.ClawPos.CLOSE_CLAW;
-            Wait(50);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
         }
 
         if (Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW) {
             slider_claw.setPosition(Constants.OPEN_CLAW);
             Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
-            Wait(50);
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
         }
 
         rotate.setPosition(Constants.TURRET_TAKE_FROM_LINKAGE);
-        Wait(50);
+        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
 
         tilt.setPosition(Constants.SLIDER_TILT_TAKE_FROM_LINKAGE);
-        Wait(50);
+        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
 
 
-        sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
-
-
-        slider_claw.setPosition(Constants.CLOSE_CLAW);
-        Wait(50);
-
-        Constants.currentSliderActionPos = Constants.SliderActionPos.TAKE_FOR_LINKAGE;
     }
 
 
@@ -81,57 +65,37 @@ public class PrepareAuto {
     }
 
     public void takeFromHuman(){
-        if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
-            slider_claw.setPosition(Constants.OPEN_CLAW);
-            Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
-            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
-        }
-
+        slider_claw.setPosition(Constants.OPEN_CLAW);
         rotate.setPosition(Constants.TURRET_TAKE_HUMAN);
         tilt.setPosition(Constants.SLIDER_TILT_BEFORE_TAKE_FORM_HUMAN);
         timer = new Timing.Timer(75, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
         tilt.setPosition(Constants.SLIDER_TILT_TAKE_FORM_HUMAN);
 
         sliderController.setTargetPosition(Constants.SLIDER_DOWN);
-
     }
 
     public void placeOnHighChamber(){
-        if(Constants.currentSliderClawPos == Constants.SliderClawPos.OPEN_CLAW){
-            slider_claw.setPosition(Constants.CLOSE_CLAW);
-            Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
-            Wait(50);
-        }
+        slider_claw.setPosition(Constants.CLOSE_CLAW);
 
         tilt.setPosition(Constants.SLIDER_TILT_PLACE_ON_HIGH_CHAMBER);
-        Wait(50);
-
-        rotate.setPosition(Constants.TURRET_PLACE);
-        Wait(50);
-
-        sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER);
-
-
-        Constants.previousSliderActionPos = Constants.currentSliderActionPos;
-        Constants.currentSliderActionPos = Constants.SliderActionPos.PLACE_ON_CHAMBER;
-    }
-
-    public void placeOnLowChamber(){
-
-    }
-
-    public void placeOnHighBusketLinkage(){
-        slider_claw.setPosition(Constants.CLOSE_CLAW);
-        Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
 
+        rotate.setPosition(Constants.TURRET_PLACE);
+        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+        sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER);
+    }
+
+    public void placeOnHighBusketLinkage() {
+        slider_claw.setPosition(Constants.CLOSE_CLAW);
+        Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
+        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()) timer.pause();
+
         sliderController.setTargetPosition(Constants.SLIDER_HIGH_BUSKET);
-        timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){sliderController.update();} timer.pause();
+        timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
 
         tilt.setPosition(Constants.SLIDER_TILT_PLACE_ON_HIGH_CHAMBER);
         rotate.setPosition(Constants.TURRET_PLACE);
-
-
     }
 
     public void placeOnHighBusket(){
@@ -142,13 +106,10 @@ public class PrepareAuto {
         Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
 
-        sliderController.setTargetPosition(Constants.SLIDER_HIGH_BUSKET);
         timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
 
         tilt.setPosition(Constants.SLIDER_TILT_PLACE_IN_HIGH_BUSKET);
         rotate.setPosition(Constants.TURRET_PLACE);
-
-
     }
 
     public void placeOnLowBusket(){
@@ -164,7 +125,6 @@ public class PrepareAuto {
 
         tilt.setPosition(Constants.SLIDER_TILT_PLACE_IN_LOW_BUSKET);
         rotate.setPosition(Constants.TURRET_PLACE);
-
 
     }
 

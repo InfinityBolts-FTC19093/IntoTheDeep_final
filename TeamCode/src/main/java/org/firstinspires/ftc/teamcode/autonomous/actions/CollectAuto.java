@@ -11,11 +11,11 @@ import java.util.concurrent.TimeUnit;
 
 public class CollectAuto {
     Timing.Timer timer;
-    Servo tilt, linkage, claw_rotate, claw, claw_pivot;
+    Servo slider_claw_tilt, linkage, claw_rotate, claw, claw_pivot;
     static linkage_controller linkageController;
     claw_controller clawController;
-    public CollectAuto(Servo claw, Servo tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot){
-        this.tilt = tilt;
+    public CollectAuto(Servo claw, Servo slider_claw_tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot){
+        this.slider_claw_tilt = slider_claw_tilt;
         this.linkage = linkage;
         this.claw_rotate = claw_rotate;
         this.claw = claw;
@@ -34,7 +34,7 @@ public class CollectAuto {
         Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
 
         claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_TAKE);
-        tilt.setPosition(Constants.TILT_BEFORE_TAKE);
+        slider_claw_tilt.setPosition(Constants.TILT_BEFORE_TAKE);
 
         timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
 
@@ -48,7 +48,7 @@ public class CollectAuto {
         Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
 
         claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_TAKE);
-        tilt.setPosition(Constants.TILT_THROW);
+        slider_claw_tilt.setPosition(Constants.TILT_THROW);
 
         timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
 
@@ -56,7 +56,7 @@ public class CollectAuto {
     }
 
     public void placeInSlider(){
-        tilt.setPosition(Constants.TILT_TAKE);
+        slider_claw_tilt.setPosition(Constants.TILT_TAKE);
         timer = new Timing.Timer(125, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
 
         if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
@@ -68,7 +68,7 @@ public class CollectAuto {
         claw_rotate.setPosition(Constants.ROTATE_PLACE_IN_SLIDER);
         Constants.currentClawRotatePos = Constants.ClawRotatePos.HORIZONTAL;
 
-        tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
+        slider_claw_tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
         claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
 
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
@@ -81,7 +81,7 @@ public class CollectAuto {
     }
 
     public void placeInObservation(){
-        tilt.setPosition(Constants.TILT_TAKE);
+        slider_claw_tilt.setPosition(Constants.TILT_TAKE);
         timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
 
         if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
@@ -90,7 +90,7 @@ public class CollectAuto {
             timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
         }
 
-        tilt.setPosition(Constants.TILT_THROW);
+        slider_claw_tilt.setPosition(Constants.TILT_THROW);
         claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
         linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.INIT;

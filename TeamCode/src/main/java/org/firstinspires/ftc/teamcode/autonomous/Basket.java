@@ -31,9 +31,6 @@ public class Basket extends LinearOpMode {
 
         sliderController = new slider_controller(robot.slider, hardwareMap);
 
-//        SliderAction     = new PrepareAuto(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw);
-//        LinkageAction    = new CollectAuto(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot);
-//        ScoreAction      = new ScoreAuto(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction, SliderAction);
 
         actionsManual.Lift lift = new actionsManual.Lift(hardwareMap);
         actionsManual.SliderClaw sliderClaw = new actionsManual.SliderClaw(hardwareMap);

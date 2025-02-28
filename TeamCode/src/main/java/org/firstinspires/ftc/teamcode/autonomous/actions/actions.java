@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -17,16 +17,27 @@ import org.firstinspires.ftc.teamcode.systems.linkage_controller;
 import org.firstinspires.ftc.teamcode.systems.sliderClaw_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
+import java.util.concurrent.TimeUnit;
+
 public class actions {
-    public static class Update {
-         Servo claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret;
-         claw_controller clawController;
-         sliderClaw_controller sliderClawController;
-         clawRotate_controller clawRotateController;
-         linkage_controller linkageController;
+    public static class Auto {
+        Servo claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret;
+        DcMotorEx slider;
+        claw_controller clawController;
+        sliderClaw_controller sliderClawController;
+        clawRotate_controller clawRotateController;
+        linkage_controller linkageController;
+        slider_controller sliderController;
+        PrepareAuto SliderAction;
+        CollectAuto LinkageAction;
+        ScoreAuto scoreAction;
+        Timing.Timer timer;
 
-        public Update(HardwareMap hardwareMap) {
-
+        public Auto(HardwareMap hardwareMap) {
+            slider = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_SLIDER);
+            slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            slider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             claw = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW);
             slider_claw = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW);
             claw_rotate = hardwareMap.get(Servo.class, HardwareConstants.ID_CLAW_ROTATE);
@@ -40,7 +51,11 @@ public class actions {
             sliderClawController = new sliderClaw_controller(slider_claw);
             clawRotateController = new clawRotate_controller(claw_rotate);
             linkageController = new linkage_controller(linkage);
+            sliderController = new slider_controller(slider, hardwareMap);
 
+            SliderAction = new PrepareAuto(slider_claw, slider_claw_tilt, turret, slider, claw);
+            LinkageAction = new CollectAuto(claw, claw_tilt, linkage, claw_rotate, claw_pivot);
+            scoreAction = new ScoreAuto(claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret, slider, LinkageAction, SliderAction);
         }
 
         public class UpdateAll implements Action {
@@ -50,6 +65,7 @@ public class actions {
                 clawRotateController.update();
                 sliderClawController.update();
                 linkageController.update();
+                sliderController.update();
                 return true;
             }
         }
@@ -68,35 +84,20 @@ public class actions {
             turret.setPosition(Constants.TURRET_INIT_AUTO);
             slider_claw_tilt.setPosition(Constants.SLIDER_TILT_INIT);
         }
-    }
 
 
-    public static class scoreAuto {
-        PrepareAuto SliderAction;
-        CollectAuto LinkageAction;
-        ScoreAuto scoreAction;
-        static slider_controller sliderController;
-
-        public scoreAuto(PrepareAuto SliderAction, CollectAuto LinkageAction, ScoreAuto ScoreAction) {
-            this.scoreAction = ScoreAction;
-            this.LinkageAction = LinkageAction;
-            this.SliderAction = SliderAction;
-        }
-
-        public static void setSliderController(slider_controller controller){
-            sliderController = controller;
-        }
-
-        public class Update implements Action {
-            @Override
-            public boolean run(@NonNull TelemetryPacket packet) {
-                sliderController.update();
-                packet.put("pos", sliderController.pos());
-                return true;
-            }
-        }
-
-        public Action updateLift() {return new Update();}
+//    public static class scoreAuto {
+//        PrepareAuto SliderAction;
+//        CollectAuto LinkageAction;
+//        ScoreAuto scoreAction;
+//        slider_controller sliderController;
+//        Timing.Timer timer;
+//
+//        public scoreAuto(PrepareAuto SliderAction, CollectAuto LinkageAction, ScoreAuto ScoreAction) {
+//            this.scoreAction = ScoreAction;
+//            this.LinkageAction = LinkageAction;
+//            this.SliderAction = SliderAction;
+//        }
 
         public class HighChamber implements Action {
             @Override
@@ -106,10 +107,31 @@ public class actions {
             }
         }
 
-        public class HighBasket implements Action {
+        public class PlaceInLider implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                scoreAction.placeInHighBasket();
+                slider_claw_tilt.setPosition(Constants.TILT_TAKE);
+                timer = new Timing.Timer(125, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+                if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
+                    claw.setPosition(Constants.CLOSE_CLAW);
+                    Constants.currentClawPos = Constants.ClawPos.CLOSE_CLAW;
+                    timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+                }
+
+                claw_rotate.setPosition(Constants.ROTATE_PLACE_IN_SLIDER);
+                Constants.currentClawRotatePos = Constants.ClawRotatePos.HORIZONTAL;
+
+                slider_claw_tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
+                claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
+
+                timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+                linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
+
+                timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+
+                Constants.currentLinkageActionPos = Constants.LinkageActionPos.PLACE_IN_SLIDER;
                 return false;
             }
         }
@@ -131,48 +153,48 @@ public class actions {
         }
 
 
-            public class TakeFromHuman implements Action {
+        public class TakeFromHuman implements Action {
 
-                @Override
-                public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                    SliderAction.takeFromHuman();
-                    return false;
-                }
-            }
-
-            public class TakeFromGround implements Action {
-
-                @Override
-                public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                    scoreAction.take();
-                    return false;
-                }
-            }
-
-            public Action Chamber() {
-                return new HighChamber();
-            }
-
-            public Action Basket() {
-                return new HighBasket();
-            }
-
-            public Action TakeFromHuman() {
-                return new TakeFromHuman();
-            }
-
-            public Action TakeFromGround() {
-                return new TakeFromGround();
-            }
-
-            public Action Place() {
-                return new Place();
-            }
-
-            public Action BasketPreload() {
-                return new BasketPreload();
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                SliderAction.takeFromHuman();
+                return false;
             }
         }
+
+        public class TakeFromGround implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                scoreAction.take();
+                return false;
+            }
+        }
+
+        public Action Chamber() {
+            return new HighChamber();
+        }
+
+        public Action PlaceInSlider() {
+            return new PlaceInLider();
+        }
+
+        public Action TakeFromHuman() {
+            return new TakeFromHuman();
+        }
+
+        public Action TakeFromGround() {
+            return new TakeFromGround();
+        }
+
+        public Action Place() {
+            return new Place();
+        }
+
+        public Action BasketPreload() {
+            return new BasketPreload();
+        }
     }
+}
 
 
