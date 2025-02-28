@@ -43,7 +43,7 @@ public class slider_controller {
     }
 
     public void update() {
-        if (pos() <= 25 && targetPosition <= 25) {
+        if (pos() <= 10 && targetPosition <= 10) {
             stopMotor();
         } else {
             double currentPosition = slider.getCurrentPosition();

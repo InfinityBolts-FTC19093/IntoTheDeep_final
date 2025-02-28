@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
+import org.firstinspires.ftc.teamcode.systems.linkage_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
 import java.util.concurrent.TimeUnit;
@@ -15,6 +16,7 @@ public class G2_Action {
     Servo claw, slider_claw, claw_tilt, claw_rotate, claw_pivot, linkage, turret, slider_tilt;
     DcMotorEx slider;
     static slider_controller sliderController;
+    static linkage_controller linkageController;
 
     public G2_Action(Servo claw, Servo slider_claw, Servo claw_tilt, Servo claw_rotate, Servo claw_pivot, Servo linkage, Servo turret, DcMotorEx slider, Servo slider_tilt) {
         this.claw = claw;
@@ -32,6 +34,10 @@ public class G2_Action {
         sliderController = controller;
     }
 
+    public static void setLinkageController(linkage_controller controller){
+        linkageController = controller;
+    }
+
     public void zeroPos(){
         claw.setPosition(Constants.OPEN_CLAW);
         slider_claw.setPosition(Constants.OPEN_CLAW);
@@ -44,8 +50,11 @@ public class G2_Action {
 
         claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_INIT);
 
+        Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
         linkage.setPosition(Constants.LINKAGE_INIT_POS);
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.INIT;
+        linkageController.getlinkagePos(linkage.getPosition());
+
 
         sliderController.setTargetPosition(Constants.SLIDER_DOWN);
         timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){}timer.pause();

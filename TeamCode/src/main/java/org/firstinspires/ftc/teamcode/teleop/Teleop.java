@@ -49,6 +49,7 @@ public class Teleop extends LinearOpMode {
         Score.setSliderController(sliderController);
         InTimer.setRobotDrive(drive);
         G2_Action.setSliderController(sliderController);
+        G2_Action.setLinkageController(linkageController);
         Collect.setLinkageController(linkageController);
 
         waitForStart();
@@ -95,9 +96,6 @@ public class Teleop extends LinearOpMode {
             sliderController.update();
             clawController.update();
             linkageController.update();
-            telemetry.addData("claw", Constants.currentClawPos);
-            telemetry.addData("sliderClaw", Constants.currentSliderClawPos);
-            telemetry.update();
         }
     }
 }

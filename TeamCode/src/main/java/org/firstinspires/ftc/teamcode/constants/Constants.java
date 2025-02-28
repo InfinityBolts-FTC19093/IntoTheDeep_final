@@ -87,7 +87,7 @@ public class Constants {
     /** SLIDER*/
     public static final int SLIDER_DOWN = 0;
 
-    public static int SLIDER_TAKE_FORM_LINKAGE = 350;
+    public static int SLIDER_TAKE_FORM_LINKAGE = 400;
     public static int SLIDER_BEFORE_TAKE_FORM_LINKAGE = 400;
 
     public static int SLIDER_LOW_CHAMBER = 0;
