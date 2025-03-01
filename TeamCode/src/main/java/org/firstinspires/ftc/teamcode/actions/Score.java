@@ -19,16 +19,13 @@ public class Score {
      Timing.Timer timer;
      Servo claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret;
      DcMotorEx slider;
-     DcMotorEx leftFront, leftBack, rightFront, rightBack;
-     Gamepad gamepad1;
-     double lim;
      Collect LinkageAction;
      Prepare SliderAction;
      static slider_controller sliderController;
      sliderClaw_controller sliderClawController;
-     InTimer inTimer;
+     static InTimer inTimer;
 
-    public Score(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot, Servo slider_claw, Servo slider_claw_tilt, Servo turret, DcMotorEx slider, Collect LinkageAction, Prepare SliderAction, DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim, Gamepad gamepad1) {
+    public Score(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot, Servo slider_claw, Servo slider_claw_tilt, Servo turret, DcMotorEx slider, Collect LinkageAction, Prepare SliderAction) {
         this.claw = claw;
         this.claw_tilt = claw_tilt;
         this.linkage = linkage;
@@ -41,15 +38,6 @@ public class Score {
         this.LinkageAction = LinkageAction;
         this.SliderAction = SliderAction;
         this.sliderClawController = new sliderClaw_controller(this.slider_claw);
-
-        this.leftFront = leftFront;
-        this.leftBack = leftBack;
-        this.rightFront = rightFront;
-        this.rightBack = rightBack;
-        this.lim = lim;
-        this.gamepad1 = gamepad1;
-        this.inTimer = new InTimer(leftFront, leftBack, rightFront, rightBack, 1, gamepad1);
-
     }
 
 
@@ -59,6 +47,10 @@ public class Score {
 
     public static void setSliderController(slider_controller controller){
         sliderController = controller;
+    }
+
+    public static void setInTimer(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim, Gamepad gamepad1){
+        inTimer = new InTimer(leftFront, leftBack, rightFront, rightBack, lim, gamepad1);
     }
 
     /** CHAMBER */
@@ -72,10 +64,6 @@ public class Score {
         SliderAction.placeOnHighChamber();
 
         Constants.currentScorePos = Constants.ScorePos.CHAMBER;
-    }
-
-    public void BasketPreload () {
-        SliderAction.placeOnHighBusketLinkage();
     }
 
     public void placeOnLowChamber(){
@@ -146,7 +134,7 @@ public class Score {
         LinkageAction.placeInObservation();
     }
 
-    public void LinkagePlaceInSlider(){LinkageAction.placeInSlider2();}
+    public void LinkagePlaceInSlider(){LinkageAction.placeInSliderWithoutCollect();}
 
     public void score(){
         if(Constants.currentScorePos == Constants.ScorePos.CHAMBER){
@@ -171,14 +159,6 @@ public class Score {
 
 
             sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
-        }
-    }
-
-    public void collect(){
-        if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE || Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE2){
-            LinkageAction.take2();
-        }else if (Constants.currentLinkageActionPos == Constants.LinkageActionPos.PLACE_IN_SLIDER){
-            SliderAction.beforeTakeFromLinkage();
         }
     }
 }

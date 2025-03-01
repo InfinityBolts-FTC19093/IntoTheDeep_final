@@ -28,6 +28,7 @@ public class Teleop extends LinearOpMode {
     Score scoreAction;
     robot_drive drive;
     G2_Action g2Action;
+    double lim = 1;
 
     @Override
     public void runOpMode() {
@@ -39,22 +40,25 @@ public class Teleop extends LinearOpMode {
         clawRotateController     = new clawRotate_controller(robot.claw_rotate);
         linkageController        = new linkage_controller(robot.linkage);
 
-        SliderAction     = new Prepare(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
-        LinkageAction    = new Collect(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1, robot.colorRotateClaw, robot.colorCenterClaw);
-        scoreAction      = new Score(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction, SliderAction, robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, robot.gamepad1);
-        drive            = new robot_drive(robot.leftFront, robot.leftBack,robot.rightFront,robot.rightBack, 1,  robot.gamepad1, hardwareMap);
+        SliderAction     = new Prepare(robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, robot.claw);
+        LinkageAction    = new Collect(robot.claw ,robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.colorRotateClaw, robot.colorCenterClaw);
+        scoreAction      = new Score(robot.claw, robot.claw_tilt, robot.linkage, robot.claw_rotate, robot.claw_pivot, robot.slider_claw, robot.slider_claw_tilt, robot.turret, robot.slider, LinkageAction, SliderAction);
+        drive            = new robot_drive(robot.leftFront, robot.leftBack,robot.rightFront,robot.rightBack, lim,  robot.gamepad1, hardwareMap);
         g2Action         = new G2_Action(robot.claw, robot.slider_claw, robot.claw_tilt, robot.claw_rotate, robot.claw_pivot, robot.linkage, robot.turret, robot.slider, robot.slider_claw_tilt);
 
-        Prepare.setSliderController(sliderController);
-        Score.setSliderController(sliderController);
         InTimer.setRobotDrive(drive);
+        Prepare.setSliderController(sliderController);
+        Prepare.setInTimer(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, lim, robot.gamepad1);
+        Score.setSliderController(sliderController);
+        Score.setInTimer(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, lim, robot.gamepad1);
+        Collect.setLinkageController(linkageController);
+        Collect.setInTimer(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, lim, robot.gamepad1);
         G2_Action.setSliderController(sliderController);
         G2_Action.setLinkageController(linkageController);
-        Collect.setLinkageController(linkageController);
 
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
-            drive.robotCentricDrive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, 1, gamepad1);
+            drive.robotCentricDrive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, lim, gamepad1);
             robot.claw_pivot.setPosition(0);
 
             if(gamepad1.options) {sliderClawController.open_close();}
