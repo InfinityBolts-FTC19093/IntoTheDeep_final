@@ -63,13 +63,19 @@ public class ScoreAuto {
     /** BUSKET */
 
     public void placeInHighBasket(){
-       LinkageAction.placeInSlider();
-       timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+        if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
+            LinkageAction.placeInSlider();
+            timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
+        }
 
-       SliderAction.takeFromLinkage();
-       timer = new Timing.Timer(WAIT_FOR_SLIDER_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+        if(Constants.currentSliderActionPos == Constants.SliderActionPos.BEFORE_TAKE_FROM_LINKAGE){
+            SliderAction.takeFromLinkage();
+            timer = new Timing.Timer(WAIT_FOR_SLIDER_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
+        }
 
-       SliderAction.placeOnHighBusket();
+        SliderAction.placeOnHighBusket();
+
+        Constants.currentScorePos = Constants.ScorePos.BUSKET;
 
     }
 

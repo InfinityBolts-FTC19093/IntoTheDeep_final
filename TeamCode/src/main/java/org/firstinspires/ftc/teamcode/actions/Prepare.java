@@ -26,6 +26,13 @@ public class Prepare {
         this.rotate = rotate;
         this.slider = slider;
         this.claw = claw;
+
+        this.leftFront = leftFront;
+        this.leftBack = leftBack;
+        this.rightFront = rightFront;
+        this.rightBack = rightBack;
+        this.gamepad1 = gamepad1;
+        this.lim = lim;
     }
 
     public static void setSliderController(slider_controller controller){

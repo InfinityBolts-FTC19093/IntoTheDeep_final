@@ -150,7 +150,7 @@ public class Score {
 
     public void score(){
         if(Constants.currentScorePos == Constants.ScorePos.CHAMBER){
-            sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER+500);
+            sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER+1000);
             timer = new Timing.Timer(350, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();sliderController.update();}timer.pause();
 
             sliderClawController.setPos(Constants.OPEN_CLAW);

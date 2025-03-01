@@ -54,6 +54,22 @@ public class Collect {
     public void whileInTimer(){
         drive.robotCentricDrive(leftFront, leftBack, rightFront, rightBack, lim, gamepad1);
     }
+    //(centerSensor.alpha() >= 350 || rotateSensor.alpha() >= 350 ) && rotateSensor.alpha() >= 350
+    //centerSensor.alpha() >= 350 && rotateSensor.alpha() <= 350
+    public boolean colorDetection1(){
+        if(((centerSensor.red()>=350 || centerSensor.blue() >=350 || centerSensor.green()>=350) || (rotateSensor.red()>=350 || rotateSensor.blue() >=350 || rotateSensor.green()>=350)) && (rotateSensor.red()>=350 || rotateSensor.blue() >=350 || rotateSensor.green()>=350)){
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean colorDetection2(){
+        if((centerSensor.red()>=350 || centerSensor.blue() >=350 || centerSensor.green()>=350) && (rotateSensor.red()<=350 || rotateSensor.blue() <=350 || rotateSensor.green()<=350)){
+            return true;
+        }
+        return false;
+    }
 
     public void takePos(){
         Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
@@ -76,12 +92,6 @@ public class Collect {
         tilt.setPosition(Constants.TILT_TAKE);
         timer = new Timing.Timer(175, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
 
-        if(Constants.currentClawRotatePos == Constants.ClawRotatePos.DIAGONAL_NEGATIV){
-            claw_rotate.setPosition(Constants.ROTATE_TAKE_DIAGONAL_NEGATIV);
-        } else if (Constants.currentClawRotatePos == Constants.ClawRotatePos.DIAGONAL_POSITIV){
-            claw_rotate.setPosition(Constants.ROTATE_TAKE_DIAGONAL_POSITIV);
-        }
-
         if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
             claw.setPosition(Constants.CLOSE_CLAW);
             Constants.currentClawPos = Constants.ClawPos.CLOSE_CLAW;
@@ -90,7 +100,7 @@ public class Collect {
         tilt.setPosition(Constants.TILT_AFTER_TAKE);
         timer = new Timing.Timer(250, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
 
-        if((centerSensor.alpha() >= 350 || rotateSensor.alpha() >= 350 ) && rotateSensor.alpha() >= 350){
+        if(colorDetection1()){
             tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
             timer = new Timing.Timer(75, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
 
@@ -101,7 +111,8 @@ public class Collect {
             linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
             linkageController.getlinkagePos(linkage.getPosition());
 
-        }else if(centerSensor.alpha() >= 350 && rotateSensor.alpha() <= 350){
+            Constants.currentLinkageActionPos = Constants.LinkageActionPos.PLACE_IN_SLIDER;
+        }else if(colorDetection2()){
             tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
             timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
 
@@ -112,6 +123,8 @@ public class Collect {
             Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
             linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
             linkageController.getlinkagePos(linkage.getPosition());
+
+            Constants.currentLinkageActionPos = Constants.LinkageActionPos.PLACE_IN_SLIDER;
         }else{
             tilt.setPosition(Constants.TILT_BEFORE_TAKE);
             claw.setPosition(Constants.OPEN_CLAW);
@@ -119,11 +132,6 @@ public class Collect {
             Constants.currentClawRotatePos = Constants.ClawRotatePos.HORIZONTAL;
             Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
         }
-
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){
-            drive.whileInTimer();}timer.pause();
-
-        Constants.currentLinkageActionPos = Constants.LinkageActionPos.PLACE_IN_SLIDER;
     }
 
     public void placeInSliderWithoutCollect() {

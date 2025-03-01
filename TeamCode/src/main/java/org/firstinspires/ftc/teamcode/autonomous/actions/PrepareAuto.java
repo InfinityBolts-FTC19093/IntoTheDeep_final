@@ -32,23 +32,31 @@ public class PrepareAuto {
     }
 
     public void takeFromLinkage() {
-        if (Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW) {
+        if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
             claw.setPosition(Constants.CLOSE_CLAW);
             Constants.currentClawPos = Constants.ClawPos.CLOSE_CLAW;
-            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
         }
 
-        if (Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW) {
+        if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
             slider_claw.setPosition(Constants.OPEN_CLAW);
             Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
-            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
         }
 
         rotate.setPosition(Constants.TURRET_TAKE_FROM_LINKAGE);
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
 
         tilt.setPosition(Constants.SLIDER_TILT_TAKE_FROM_LINKAGE);
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
+
+        sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
+        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
+
+        slider_claw.setPosition(Constants.CLOSE_CLAW);
+        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
+
+        Constants.currentSliderActionPos = Constants.SliderActionPos.TAKE_FOR_LINKAGE;
 
 
     }

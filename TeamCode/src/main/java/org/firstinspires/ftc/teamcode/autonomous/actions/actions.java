@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.util.Timing;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -17,21 +19,19 @@ import org.firstinspires.ftc.teamcode.systems.linkage_controller;
 import org.firstinspires.ftc.teamcode.systems.sliderClaw_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
-import java.util.concurrent.TimeUnit;
-
 public class actions {
     public static class Auto {
-        Servo claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret;
-        DcMotorEx slider;
-        claw_controller clawController;
-        sliderClaw_controller sliderClawController;
-        clawRotate_controller clawRotateController;
-        linkage_controller linkageController;
-        slider_controller sliderController;
-        PrepareAuto SliderAction;
-        CollectAuto LinkageAction;
-        ScoreAuto scoreAction;
-        Timing.Timer timer;
+        private final Servo claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret;
+        private final DcMotorEx slider;
+        private final claw_controller clawController;
+        private final sliderClaw_controller sliderClawController;
+        private final clawRotate_controller clawRotateController;
+        private final linkage_controller linkageController;
+        private final slider_controller sliderController;
+        private final PrepareAuto SliderAction;
+        private final CollectAuto LinkageAction;
+        private final ScoreAuto scoreAction;
+        private Timing.Timer timer;
 
         public Auto(HardwareMap hardwareMap) {
             slider = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_SLIDER);
@@ -56,6 +56,18 @@ public class actions {
             SliderAction = new PrepareAuto(slider_claw, slider_claw_tilt, turret, slider, claw);
             LinkageAction = new CollectAuto(claw, claw_tilt, linkage, claw_rotate, claw_pivot);
             scoreAction = new ScoreAuto(claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret, slider, LinkageAction, SliderAction);
+
+            actionsManual.Lift lift = new actionsManual.Lift(hardwareMap);
+            actionsManual.SliderClaw sliderClaw = new actionsManual.SliderClaw(hardwareMap);
+            actionsManual.Linkage linkage = new actionsManual.Linkage(hardwareMap);
+            actionsManual.Claw claw = new actionsManual.Claw(hardwareMap);
+            actionsManual.ClawRotate clawRotate = new actionsManual.ClawRotate(hardwareMap);
+            actionsManual.SliderTilt sliderTilt = new actionsManual.SliderTilt(hardwareMap);
+            actionsManual.Turret turret = new actionsManual.Turret(hardwareMap);
+            actionsManual.ClawTilt clawTilt = new actionsManual.ClawTilt(hardwareMap);
+            actionsManual.Pivot pivot = new actionsManual.Pivot(hardwareMap);
+            actionsManual.Update updateAuto = new actionsManual.Update(hardwareMap);
+
         }
 
         public class UpdateAll implements Action {
@@ -107,34 +119,15 @@ public class actions {
             }
         }
 
-        public class PlaceInLider implements Action {
+        public class HighBasket implements Action {
+
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                slider_claw_tilt.setPosition(Constants.TILT_TAKE);
-                timer = new Timing.Timer(125, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
-
-                if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
-                    claw.setPosition(Constants.CLOSE_CLAW);
-                    Constants.currentClawPos = Constants.ClawPos.CLOSE_CLAW;
-                    timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
-                }
-
-                claw_rotate.setPosition(Constants.ROTATE_PLACE_IN_SLIDER);
-                Constants.currentClawRotatePos = Constants.ClawRotatePos.HORIZONTAL;
-
-                slider_claw_tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
-                claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
-
-                timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
-
-                linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
-
-                timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
-
-                Constants.currentLinkageActionPos = Constants.LinkageActionPos.PLACE_IN_SLIDER;
+                scoreAction.placeInHighBasket();
                 return false;
             }
         }
+
 
         public class BasketPreload implements Action {
             @Override
@@ -175,9 +168,7 @@ public class actions {
             return new HighChamber();
         }
 
-        public Action PlaceInSlider() {
-            return new PlaceInLider();
-        }
+        public Action Basket() {return new HighBasket();}
 
         public Action TakeFromHuman() {
             return new TakeFromHuman();

@@ -28,7 +28,7 @@ public class AutoTestDetectie extends LinearOpMode {
         }
 
         Action autoSequence = new SequentialAction(
-                auto.PlaceInSlider()
+            auto.Basket()
         );
 
         Action pid = new ParallelAction(
@@ -36,8 +36,8 @@ public class AutoTestDetectie extends LinearOpMode {
         );
 
         waitForStart();
-
         while (opModeIsActive() && !isStopRequested()) {
+
             Actions.runBlocking(new ParallelAction(
                             autoSequence, pid
                     )
