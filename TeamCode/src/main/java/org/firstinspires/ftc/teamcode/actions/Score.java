@@ -23,9 +23,12 @@ public class Score {
      Prepare SliderAction;
      static slider_controller sliderController;
      sliderClaw_controller sliderClawController;
-     static InTimer inTimer;
+     static robot_drive drive;
+     DcMotorEx leftFront, leftBack, rightFront, rightBack;
+     Gamepad gamepad1;
+     double lim;
 
-    public Score(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot, Servo slider_claw, Servo slider_claw_tilt, Servo turret, DcMotorEx slider, Collect LinkageAction, Prepare SliderAction) {
+    public Score(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot, Servo slider_claw, Servo slider_claw_tilt, Servo turret, DcMotorEx slider, Collect LinkageAction, Prepare SliderAction, DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim, Gamepad gamepad1) {
         this.claw = claw;
         this.claw_tilt = claw_tilt;
         this.linkage = linkage;
@@ -38,19 +41,28 @@ public class Score {
         this.LinkageAction = LinkageAction;
         this.SliderAction = SliderAction;
         this.sliderClawController = new sliderClaw_controller(this.slider_claw);
+
+        this.leftFront = leftFront;
+        this.leftBack = leftBack;
+        this.rightFront = rightFront;
+        this.rightBack = rightBack;
+        this.gamepad1 = gamepad1;
+        this.lim = lim;
     }
 
 
-    public void whileInTimer(){
-        inTimer.whileInTimer();
-    }
+
 
     public static void setSliderController(slider_controller controller){
         sliderController = controller;
     }
 
-    public static void setInTimer(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim, Gamepad gamepad1){
-        inTimer = new InTimer(leftFront, leftBack, rightFront, rightBack, lim, gamepad1);
+    public static void setDrive(robot_drive drive1){
+        drive = drive1;
+    }
+
+    public void whileInTimer(){
+        drive.robotCentricDrive(leftFront, leftBack, rightFront, rightBack, lim, gamepad1);
     }
 
     /** CHAMBER */

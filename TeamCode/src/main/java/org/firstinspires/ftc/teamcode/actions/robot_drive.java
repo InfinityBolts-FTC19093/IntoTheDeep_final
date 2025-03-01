@@ -46,5 +46,9 @@ public class robot_drive {
     }
 
     double Clip(double Speed,double lim) {return Math.max(Math.min(Speed,lim),-lim);}
+
+    public void whileInTimer(){
+        robotCentricDrive(leftFront, leftBack, rightFront, rightBack, lim, gamepad1);
+    }
 }
 
