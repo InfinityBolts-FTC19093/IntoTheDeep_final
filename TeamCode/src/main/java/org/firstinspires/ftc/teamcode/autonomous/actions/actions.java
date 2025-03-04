@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -32,6 +33,7 @@ public class actions {
         private final CollectAuto LinkageAction;
         private final ScoreAuto scoreAction;
         private Timing.Timer timer;
+        private final ColorSensor colorCenterClaw, colorRotateClaw;
 
         public Auto(HardwareMap hardwareMap) {
             slider = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_SLIDER);
@@ -47,6 +49,9 @@ public class actions {
             turret = hardwareMap.get(Servo.class, HardwareConstants.ID_TURRET);
             slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
+            colorCenterClaw = hardwareMap.get(ColorSensor.class, HardwareConstants.ID_COLOR_CENTER_CLAW);
+            colorRotateClaw = hardwareMap.get(ColorSensor.class, HardwareConstants.ID_COLOR_ROTATE_CLAW);
+
             clawController = new claw_controller(claw);
             sliderClawController = new sliderClaw_controller(slider_claw);
             clawRotateController = new clawRotate_controller(claw_rotate);
@@ -54,20 +59,8 @@ public class actions {
             sliderController = new slider_controller(slider, hardwareMap);
 
             SliderAction = new PrepareAuto(slider_claw, slider_claw_tilt, turret, slider, claw);
-            LinkageAction = new CollectAuto(claw, claw_tilt, linkage, claw_rotate, claw_pivot);
+            LinkageAction = new CollectAuto(claw, claw_tilt, linkage, claw_rotate, claw_pivot, colorRotateClaw, colorCenterClaw);
             scoreAction = new ScoreAuto(claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret, slider, LinkageAction, SliderAction);
-
-            actionsManual.Lift lift = new actionsManual.Lift(hardwareMap);
-            actionsManual.SliderClaw sliderClaw = new actionsManual.SliderClaw(hardwareMap);
-            actionsManual.Linkage linkage = new actionsManual.Linkage(hardwareMap);
-            actionsManual.Claw claw = new actionsManual.Claw(hardwareMap);
-            actionsManual.ClawRotate clawRotate = new actionsManual.ClawRotate(hardwareMap);
-            actionsManual.SliderTilt sliderTilt = new actionsManual.SliderTilt(hardwareMap);
-            actionsManual.Turret turret = new actionsManual.Turret(hardwareMap);
-            actionsManual.ClawTilt clawTilt = new actionsManual.ClawTilt(hardwareMap);
-            actionsManual.Pivot pivot = new actionsManual.Pivot(hardwareMap);
-            actionsManual.Update updateAuto = new actionsManual.Update(hardwareMap);
-
         }
 
         public class UpdateAll implements Action {

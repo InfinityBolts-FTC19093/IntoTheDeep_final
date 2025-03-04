@@ -106,8 +106,8 @@ public class Constants {
 
 
     /** PINPOINT OFFSETS*/
-    public static int X_OFFSET = -122;
-    public static int Y_OFFSET = -14;
+    public static double X_OFFSET = -4.8032;
+    public static double Y_OFFSET = -0.5512;
 
 
 

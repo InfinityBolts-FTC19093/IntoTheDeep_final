@@ -9,22 +9,25 @@ import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MECANUM.MecanumDrive;
+import org.firstinspires.ftc.teamcode.MECANUM.PinpointDrive;
 import org.firstinspires.ftc.teamcode.autonomous.actions.actionsManual;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
 @Autonomous (name = "Human", group = "#")
 public class Human extends LinearOpMode {
+    GoBildaPinpointDriverRR odo;
     slider_controller sliderController;
     @Override
     public void runOpMode() {
         RobotMap robot      = new RobotMap(hardwareMap);
         Pose2d startPose    = new Pose2d(9, -61.5, Math.toRadians(90));
-        MecanumDrive drive  = new MecanumDrive(hardwareMap, startPose);
+        PinpointDrive drive  = new PinpointDrive(hardwareMap, startPose);
 
         sliderController = new slider_controller(robot.slider, hardwareMap);
 
@@ -211,7 +214,7 @@ public class Human extends LinearOpMode {
         );
 
         if (!isStarted()) {
-            updateAuto.initAll();
+            updateAuto.initAll(); odo.resetPosAndIMU();
         }
 
         waitForStart();

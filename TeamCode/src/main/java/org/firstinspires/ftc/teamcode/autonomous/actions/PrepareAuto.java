@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.autonomous.actions;
 
+import com.acmerobotics.roadrunner.SleepAction;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
@@ -15,8 +17,8 @@ public class PrepareAuto {
 
     Servo slider_claw, tilt, rotate,claw;
     DcMotorEx slider;
-    static slider_controller sliderController;
-
+    slider_controller sliderController;
+    HardwareMap hardwareMap;
 
 
     public PrepareAuto(Servo slider_claw, Servo tilt, Servo rotate, DcMotorEx slider, Servo claw){
@@ -25,37 +27,33 @@ public class PrepareAuto {
         this.rotate = rotate;
         this.slider = slider;
         this.claw = claw;
+        this.sliderController = new slider_controller(slider, hardwareMap);
     }
 
-    public static void setSliderController(slider_controller controller){
-        sliderController = controller;
-    }
+//    public static void setSliderController(slider_controller controller){
+//        sliderController = controller;
+//    }
 
     public void takeFromLinkage() {
         if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
             claw.setPosition(Constants.CLOSE_CLAW);
             Constants.currentClawPos = Constants.ClawPos.CLOSE_CLAW;
-            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
+            new SleepAction(.1);
         }
 
         if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
             slider_claw.setPosition(Constants.OPEN_CLAW);
             Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
-            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
-        }
+            new SleepAction(.05);        }
 
         rotate.setPosition(Constants.TURRET_TAKE_FROM_LINKAGE);
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
-
+        new SleepAction(.05);
         tilt.setPosition(Constants.SLIDER_TILT_TAKE_FROM_LINKAGE);
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
-
+        new SleepAction(.05);
         sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
-        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
-
+        new SleepAction(.1);
         slider_claw.setPosition(Constants.CLOSE_CLAW);
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
-
+        new SleepAction(.05);
         Constants.currentSliderActionPos = Constants.SliderActionPos.TAKE_FOR_LINKAGE;
 
 
@@ -112,9 +110,10 @@ public class PrepareAuto {
 
         slider_claw.setPosition(Constants.CLOSE_CLAW);
         Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+        new SleepAction(.05);
 
-        timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){sliderController.update();}timer.pause();
+        sliderController.setTargetPosition(Constants.SLIDER_HIGH_BUSKET);
+        new SleepAction(.2);
 
         tilt.setPosition(Constants.SLIDER_TILT_PLACE_IN_HIGH_BUSKET);
         rotate.setPosition(Constants.TURRET_PLACE);

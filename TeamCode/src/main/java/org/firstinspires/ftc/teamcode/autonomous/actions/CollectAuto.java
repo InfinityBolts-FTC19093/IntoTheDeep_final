@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.autonomous.actions;
 
+import com.acmerobotics.roadrunner.SleepAction;
 import com.arcrobotics.ftclib.util.Timing;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
@@ -14,12 +16,15 @@ public class CollectAuto {
     Servo slider_claw_tilt, linkage, claw_rotate, claw, claw_pivot;
     static linkage_controller linkageController;
     claw_controller clawController;
-    public CollectAuto(Servo claw, Servo slider_claw_tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot){
+    ColorSensor rotateSensor, centerSensor;
+    public CollectAuto(Servo claw, Servo slider_claw_tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot, ColorSensor rotateSensor, ColorSensor centerSensor){
         this.slider_claw_tilt = slider_claw_tilt;
         this.linkage = linkage;
         this.claw_rotate = claw_rotate;
         this.claw = claw;
         this.claw_pivot = claw_pivot;
+        this.rotateSensor = rotateSensor;
+        this.centerSensor = centerSensor;
         this.clawController = new claw_controller(this.claw);
     }
 
@@ -57,13 +62,11 @@ public class CollectAuto {
 
     public void placeInSlider(){
         slider_claw_tilt.setPosition(Constants.TILT_TAKE);
-        timer = new Timing.Timer(125, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
-
+        new SleepAction(.125);
         if(Constants.currentClawPos == Constants.ClawPos.OPEN_CLAW){
             claw.setPosition(Constants.CLOSE_CLAW);
             Constants.currentClawPos = Constants.ClawPos.CLOSE_CLAW;
-            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
-        }
+            new SleepAction(.1);        }
 
         claw_rotate.setPosition(Constants.ROTATE_PLACE_IN_SLIDER);
         Constants.currentClawRotatePos = Constants.ClawRotatePos.HORIZONTAL;
@@ -71,12 +74,10 @@ public class CollectAuto {
         slider_claw_tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
         claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
 
-        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
-
+        new SleepAction(.1);
         linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
 
-        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
-
+        new SleepAction(.05);
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.PLACE_IN_SLIDER;
     }
 

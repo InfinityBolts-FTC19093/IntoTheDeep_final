@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode.autonomous.actions;
 import static org.firstinspires.ftc.teamcode.constants.Constants.WAIT_FOR_LINKAGE_ACTION;
 import static org.firstinspires.ftc.teamcode.constants.Constants.WAIT_FOR_SLIDER_ACTION;
 
+import com.acmerobotics.roadrunner.SleepAction;
 import com.arcrobotics.ftclib.util.Timing;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
@@ -20,9 +22,9 @@ public class ScoreAuto {
     DcMotorEx slider;
     CollectAuto LinkageAction;
     PrepareAuto SliderAction;
-    static slider_controller sliderController;
+     slider_controller sliderController;
     sliderClaw_controller sliderClawController;
-
+    HardwareMap hardwareMap;
 
     public ScoreAuto(Servo claw, Servo claw_tilt, Servo linkage, Servo claw_rotate, Servo claw_pivot, Servo slider_claw, Servo slider_claw_tilt, Servo turret, DcMotorEx slider, CollectAuto LinkageAction, PrepareAuto SliderAction) {
         this.claw = claw;
@@ -37,11 +39,12 @@ public class ScoreAuto {
         this.LinkageAction = LinkageAction;
         this.SliderAction = SliderAction;
         this.sliderClawController = new sliderClaw_controller(this.slider_claw);
+        this.sliderController = new slider_controller(slider, hardwareMap);
     }
 
-    public static void setSliderController(slider_controller controller){
-        sliderController = controller;
-    }
+//    public static void setSliderController(slider_controller controller){
+//        sliderController = controller;
+//    }
 
     /** CHAMBER */
 
@@ -65,18 +68,17 @@ public class ScoreAuto {
     public void placeInHighBasket(){
         if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.TAKE || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
             LinkageAction.placeInSlider();
-            timer = new Timing.Timer(WAIT_FOR_LINKAGE_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
+            new SleepAction(WAIT_FOR_LINKAGE_ACTION);
         }
 
         if(Constants.currentSliderActionPos == Constants.SliderActionPos.BEFORE_TAKE_FROM_LINKAGE){
             SliderAction.takeFromLinkage();
-            timer = new Timing.Timer(WAIT_FOR_SLIDER_ACTION, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){}timer.pause();
+            new SleepAction(WAIT_FOR_SLIDER_ACTION);
         }
 
         SliderAction.placeOnHighBusket();
 
         Constants.currentScorePos = Constants.ScorePos.BUSKET;
-
     }
 
 
