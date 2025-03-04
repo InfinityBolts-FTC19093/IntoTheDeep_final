@@ -56,6 +56,8 @@ public class HardwareConstants {
     public static final String ID_COLOR_CENTER_CLAW = "CCC";
     public static final String ID_COLOR_ROTATE_CLAW = "CRC";
 
+    public static final String ID_PINPOINT = "pinpoint";
+
 
 
 }

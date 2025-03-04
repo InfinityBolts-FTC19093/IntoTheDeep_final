@@ -105,6 +105,11 @@ public class Constants {
     public static double Slider_kD = 0;
 
 
+    /** PINPOINT OFFSETS*/
+    public static int X_OFFSET = -122;
+    public static int Y_OFFSET = -14;
+
+
 
     /** CLAW*/
     public static double OPEN_CLAW = 0;
@@ -119,7 +124,7 @@ public class Constants {
 
     /** Servo TILT */
     public static double TILT_INIT = 0;
-    public static double TILT_TAKE = 0.85;
+    public static double TILT_TAKE = 0.9;
     public static double TILT_BEFORE_TAKE = 0.75;
     public static double TILT_AFTER_TAKE = 0.5;
     public static double TILT_BEFORE_TAKE_AUTO = 0.65;
