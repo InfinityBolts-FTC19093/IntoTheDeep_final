@@ -4,8 +4,8 @@ import com.acmerobotics.dashboard.config.Config;
 @Config
 public class Constants {
 
-    public static int WAIT_FOR_LINKAGE_ACTION = 300;
-    public static int WAIT_FOR_SLIDER_ACTION = 350;
+    public static int WAIT_FOR_LINKAGE_ACTION = 400;
+    public static int WAIT_FOR_SLIDER_ACTION = 400;
 
     public enum BasketPos{
         HIGH_BASKET,
@@ -123,7 +123,7 @@ public class Constants {
     public static double TILT_BEFORE_TAKE = 0.75;
     public static double TILT_AFTER_TAKE = 0.5;
     public static double TILT_BEFORE_TAKE_AUTO = 0.65;
-    public static double TILT_PLACE_IN_SLIDER = 0.05;
+    public static double TILT_PLACE_IN_SLIDER = 0.08;
     public static double TILT_THROW = 0.3;
 
     /** Servo ROTATE */

@@ -171,6 +171,7 @@ public class Score {
 
 
             sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
+            Constants.currentSliderActionPos = Constants.SliderActionPos.BEFORE_TAKE_FROM_LINKAGE;
         }
     }
 }
