@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.systems;
 
 import com.arcrobotics.ftclib.util.Timing;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
@@ -41,27 +42,24 @@ public class linkage_controller {
         }
     }
 
-    public void manualControl(){
+    public void manualControl(Gamepad gamepad1){
         Constants.currentLinkagePos = Constants.LinkagePos.MANUAL;
         linkage.scaleRange(0.1,.79);
 
-        if(manualPos == 1){
+        if(gamepad1.right_trigger >= .75){
             manualPos = 0.75;
             linkage.setPosition(manualPos);
-        }else if(manualPos == .75){
+        }else if(gamepad1.right_trigger >= .5){
             manualPos = .5;
             linkage.setPosition(manualPos);
-        }else if(manualPos == .5){
+        }else if(gamepad1.right_trigger >= .25){
             manualPos = .25;
             linkage.setPosition(manualPos);
-        }else if(manualPos == .25){
+        }else if(gamepad1.right_trigger >= 0){
             manualPos = 0;
             linkage.setPosition(manualPos);
-        }else if(manualPos == 0){
-            manualPos = 1;
-            linkage.setPosition(manualPos);
-
         }
-        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS); timer.start(); while (!timer.done()); timer.pause();
+
+//        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS); timer.start(); while (!timer.done()); timer.pause();
     }
 }

@@ -180,6 +180,34 @@ public class Collect {
         Constants.currentLinkageActionPos = Constants.LinkageActionPos.PLACE_IN_SLIDER;
     }
 
+    public void placeInObservation2(){
+        tilt.setPosition(Constants.TILT_BEFORE_TAKE);
+
+        claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
+
+        linkageController.manualControl(gamepad1);
+
+        timer = new Timing.Timer(400, TimeUnit.MILLISECONDS); timer.start(); while (!timer.done());{whileInTimer();} timer.pause();
+        Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
+        claw.setPosition(Constants.OPEN_CLAW);
+
+        claw_rotate.setPosition(Constants.ROTATE_PLACE_IN_SLIDER);
+        Constants.currentClawRotatePos = Constants.ClawRotatePos.HORIZONTAL;
+
+        tilt.setPosition(Constants.TILT_PLACE_IN_SLIDER);
+        claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_PLACE_IN_SLIDER);
+
+        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
+
+        Constants.currentLinkagePos = Constants.LinkagePos.AUTO;
+        linkage.setPosition(Constants.LINKAGE_PLACE_IN_SLIDER);
+        linkageController.getlinkagePos(linkage.getPosition());
+
+        timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
+
+        Constants.currentLinkageActionPos = Constants.LinkageActionPos.PLACE_IN_SLIDER;
+    }
+
     public void switchServoAction_TakeSlider(){
         if(Constants.currentLinkageActionPos == Constants.LinkageActionPos.PLACE_IN_SLIDER || Constants.currentLinkageActionPos == Constants.LinkageActionPos.INIT){
             timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start(); while (!timer.done()){whileInTimer();}timer.pause();

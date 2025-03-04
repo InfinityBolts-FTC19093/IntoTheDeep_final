@@ -83,7 +83,7 @@ public class Teleop extends LinearOpMode {
 
             if(gamepad1.right_stick_button){scoreAction.score();}
 
-            if(gamepad1.right_trigger >=.5){scoreAction.observation();}
+            if(gamepad1.right_trigger >=.05){scoreAction.observation();}
 
             if(gamepad2.ps){g2Action.zeroPos();}
 
