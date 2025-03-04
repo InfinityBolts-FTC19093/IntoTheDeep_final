@@ -51,6 +51,8 @@ public class ServoPos extends OpMode {
         slider_claw_tilt.setPosition(SliderClawTiltPos);
         turret.setPosition(RotateAssemplyPos);
 
+
+
         telemetry.addData("slider:", slider.getCurrentPosition());
 
         telemetry.addData("Loop", "Running");

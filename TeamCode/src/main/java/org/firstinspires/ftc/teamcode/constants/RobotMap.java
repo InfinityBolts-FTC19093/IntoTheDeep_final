@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.constants;
 
+
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -7,9 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-
-import org.firstinspires.ftc.teamcode.MECANUM.GoBildaPinpointDriver;
-import org.firstinspires.ftc.teamcode.MECANUM.PinpointLocalizer;
 
 public class RobotMap {
 
@@ -30,7 +28,7 @@ public class RobotMap {
     public Servo turret;
     public Servo slider_claw_tilt;
 
-    public GoBildaPinpointDriver odo;
+
 
     public Gamepad gamepad1;
 
@@ -43,7 +41,7 @@ public class RobotMap {
         rightFront = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_RIGHT_FRONT);
         rightBack  = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_RIGHT_BACK);
 
-        odo = hardwareMap.get(GoBildaPinpointDriver.class, HardwareConstants.ID_PINPOINT);
+
 
         slider = hardwareMap.get(DcMotorEx.class, HardwareConstants.ID_SLIDER);
 

@@ -12,7 +12,6 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.MECANUM.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.MECANUM.MecanumDrive;
 import org.firstinspires.ftc.teamcode.autonomous.actions.actionsManual;
 import org.firstinspires.ftc.teamcode.constants.Constants;
@@ -32,10 +31,6 @@ public class Basket extends LinearOpMode {
 
         sliderController = new slider_controller(robot.slider, hardwareMap);
 
-        robot.odo.setOffsets(Constants.X_OFFSET, Constants.Y_OFFSET);
-        robot.odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
-        robot.odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
-        robot.odo.resetPosAndIMU();
 
         actionsManual.Lift lift = new actionsManual.Lift(hardwareMap);
         actionsManual.SliderClaw sliderClaw = new actionsManual.SliderClaw(hardwareMap);
@@ -202,7 +197,7 @@ public class Basket extends LinearOpMode {
 
 
         while (opModeIsActive() && !isStopRequested()) {
-            robot.odo.update();
+
             Actions.runBlocking(
                     new ParallelAction(
                             autoSequence, pid
