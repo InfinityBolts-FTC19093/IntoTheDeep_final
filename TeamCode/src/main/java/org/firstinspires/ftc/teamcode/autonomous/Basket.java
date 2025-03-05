@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MECANUM.MecanumDrive;
+import org.firstinspires.ftc.teamcode.MECANUM.PinpointDrive;
 import org.firstinspires.ftc.teamcode.autonomous.actions.actionsManual;
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
@@ -27,7 +28,7 @@ public class Basket extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot = new RobotMap(hardwareMap);
         Pose2d startPose = new Pose2d(-33, -61.5, Math.toRadians(180));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
+        PinpointDrive drive = new PinpointDrive(hardwareMap, startPose);
 
         sliderController = new slider_controller(robot.slider, hardwareMap);
 

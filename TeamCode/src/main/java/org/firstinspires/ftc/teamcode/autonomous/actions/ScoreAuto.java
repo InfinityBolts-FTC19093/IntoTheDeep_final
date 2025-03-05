@@ -22,7 +22,7 @@ public class ScoreAuto {
     DcMotorEx slider;
     CollectAuto LinkageAction;
     PrepareAuto SliderAction;
-     slider_controller sliderController;
+    static slider_controller sliderController;
     sliderClaw_controller sliderClawController;
     HardwareMap hardwareMap;
 
@@ -39,19 +39,18 @@ public class ScoreAuto {
         this.LinkageAction = LinkageAction;
         this.SliderAction = SliderAction;
         this.sliderClawController = new sliderClaw_controller(this.slider_claw);
-        this.sliderController = new slider_controller(slider, hardwareMap);
     }
 
-//    public static void setSliderController(slider_controller controller){
-//        sliderController = controller;
-//    }
+    public static void setSliderController(slider_controller controller){
+        sliderController = controller;
+    }
 
     /** CHAMBER */
 
     public void placeOnHighChamber(){
         if(Constants.currentSliderActionPos == Constants.SliderActionPos.BEFORE_TAKE_FROM_LINKAGE){
             SliderAction.takeFromLinkage();
-            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+            new SleepAction(.1);
         }
 
         SliderAction.placeOnHighChamber();
@@ -82,15 +81,18 @@ public class ScoreAuto {
     }
 
 
-    public void take () {
-        LinkageAction.switchServoAction_TakeSlider();
+    public void takePos () {
+        LinkageAction.takePos();
+    }
+
+    public void takeGround () {
+        LinkageAction.TakeGround();
     }
 
     public void score(){
         if(Constants.currentScorePos == Constants.ScorePos.CHAMBER){
             sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER+500);
-            timer = new Timing.Timer(350, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
-
+            new SleepAction(.35);
             sliderClawController.setPos(Constants.OPEN_CLAW);
             Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
 
@@ -101,12 +103,11 @@ public class ScoreAuto {
             if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
                 slider_claw.setPosition(Constants.OPEN_CLAW);
                 Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
-                timer = new Timing.Timer(350, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
+                new SleepAction(.35);
             }
 
             slider_claw_tilt.setPosition(Constants.SLIDER_TILT_BEFORE_TAKE_FROM_LINKAGE);
-            timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done())timer.pause();
-
+            new SleepAction(.05);
 
             sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
         }

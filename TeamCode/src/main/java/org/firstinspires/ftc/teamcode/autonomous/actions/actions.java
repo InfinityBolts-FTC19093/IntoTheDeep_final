@@ -12,6 +12,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.teamcode.actions.Collect;
+import org.firstinspires.ftc.teamcode.actions.Prepare;
+import org.firstinspires.ftc.teamcode.actions.Score;
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.HardwareConstants;
 import org.firstinspires.ftc.teamcode.systems.clawRotate_controller;
@@ -61,6 +65,8 @@ public class actions {
             SliderAction = new PrepareAuto(slider_claw, slider_claw_tilt, turret, slider, claw);
             LinkageAction = new CollectAuto(claw, claw_tilt, linkage, claw_rotate, claw_pivot, colorRotateClaw, colorCenterClaw);
             scoreAction = new ScoreAuto(claw, claw_tilt, linkage, claw_rotate, claw_pivot, slider_claw, slider_claw_tilt, turret, slider, LinkageAction, SliderAction);
+
+
         }
 
         public class UpdateAll implements Action {
@@ -80,7 +86,7 @@ public class actions {
         }
 
         public void initAll() {
-            claw.setPosition(Constants.CLOSE_CLAW);
+            claw.setPosition(Constants.OPEN_CLAW);
             slider_claw.setPosition(Constants.CLOSE_CLAW);
             claw_rotate.setPosition(Constants.ROTATE_INIT);
             claw_tilt.setPosition(Constants.TILT_INIT);
@@ -148,36 +154,41 @@ public class actions {
             }
         }
 
-        public class TakeFromGround implements Action {
+        public class TakePos implements Action {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                scoreAction.take();
+                scoreAction.takePos();
                 return false;
             }
         }
 
-        public Action Chamber() {
-            return new HighChamber();
+        public class Drop implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                LinkageAction.LeaveSample();
+                return false;
+            }
         }
 
-        public Action Basket() {return new HighBasket();}
+        public class TakeFromGround implements Action {
 
-        public Action TakeFromHuman() {
-            return new TakeFromHuman();
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                scoreAction.takeGround();
+                return false;
+            }
         }
 
-        public Action TakeFromGround() {
-            return new TakeFromGround();
-        }
-
-        public Action Place() {
-            return new Place();
-        }
-
-        public Action BasketPreload() {
-            return new BasketPreload();
-        }
+        public Action Drop()            {return new Drop();}
+        public Action Chamber()         {return new HighChamber();}
+        public Action TakePos()         {return new TakePos();}
+        public Action Basket()          {return new HighBasket();}
+        public Action TakeFromHuman()   {return new TakeFromHuman();}
+        public Action TakeFromGround()  {return new TakeFromGround();}
+        public Action Place()           {return new Place();}
+        public Action BasketPreload()   {return new BasketPreload();}
     }
 }
 

@@ -37,6 +37,17 @@ public class clawRotate_controller {
         }
     }
 
+    public void V_I(){
+        timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+        if(Constants.currentClawRotatePos == Constants.ClawRotatePos.HORIZONTAL || Constants.currentClawRotatePos == Constants.ClawRotatePos.DIAGONAL_NEGATIV){
+            Constants.currentClawRotatePos = Constants.ClawRotatePos.VERTICAL;
+            timer = new Timing.Timer(125,TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+        }else{
+            Constants.currentClawRotatePos = Constants.ClawRotatePos.INVERTED;
+            timer = new Timing.Timer(125, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
+        }
+    }
+
     public void update(){
         if(Constants.currentClawRotatePos == Constants.ClawRotatePos.HORIZONTAL){
             claw.setPosition(Constants.ROTATE_TAKE_HORIONTAL);

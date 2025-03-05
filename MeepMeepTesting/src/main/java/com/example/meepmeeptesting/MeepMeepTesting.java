@@ -20,23 +20,16 @@ public class MeepMeepTesting {
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(9, -61.5, Math.toRadians(90)))
                 .strafeTo(new Vector2d(8, -33), null, new ProfileAccelConstraint(-70, 70))
-                .strafeTo(new Vector2d(8, -40))
+                                .strafeTo(new Vector2d(8, -35))
 
                 //da elementele la human
-                .setTangent(Math.toRadians(0))
-                .strafeToLinearHeading(new Vector2d(32, -40), Math.toRadians(90), null, new ProfileAccelConstraint(-60, 60))
-                .splineToLinearHeading(new Pose2d(32, -14, Math.toRadians(90)), Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(50, -14, Math.toRadians(90)), Math.toRadians(90))
+                                .splineToLinearHeading(new Pose2d(30, -38, Math.toRadians(40)), Math.toRadians(90))
+                                .strafeToLinearHeading(new Vector2d(30, -40), Math.toRadians(300))
+                                .strafeToLinearHeading(new Vector2d(38, -38), Math.toRadians(40))
+                .strafeToLinearHeading(new Vector2d(38, -40), Math.toRadians(300))
+                .strafeToLinearHeading(new Vector2d(46, -38), Math.toRadians(30))
+                .strafeToLinearHeading(new Vector2d(46, -40), Math.toRadians(300))
 
-                .strafeToLinearHeading(new Vector2d(50, -50), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
-
-                .splineToLinearHeading(new Pose2d(50, -16, Math.toRadians(90)), Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(62, -16, Math.toRadians(90)), Math.toRadians(90))
-
-                .strafeToLinearHeading(new Vector2d(60, -50), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
-
-                .strafeToLinearHeading(new Vector2d(60, -16), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
-                .strafeToLinearHeading(new Vector2d(68, -16), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
 
 
 
@@ -44,7 +37,7 @@ public class MeepMeepTesting {
                 /* SCHIMBA DIN CONSTANT HEADING IN LINEAR */
 
 
-                .strafeToLinearHeading(new Vector2d(63, -60), Math.toRadians(90))
+                .strafeToLinearHeading(new Vector2d(45, -60), Math.toRadians(90))
 
                 //pune primu
                 .strafeToConstantHeading(new Vector2d(6, -35), null, new ProfileAccelConstraint(-120, 120))
@@ -83,7 +76,7 @@ public class MeepMeepTesting {
 //                        .strafeTo(new Vector2d(12, -40))
 //                        .strafeToLinearHeading(new Vector2d(40, -55), Math.toRadians(0))
 
-                .splineToLinearHeading(new Pose2d(40, -55, Math.toRadians(0)), Math.toRadians(0))
+                .strafeToLinearHeading(new Vector2d(35, -45),Math.toRadians(330))
 
                 .build());
 

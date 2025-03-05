@@ -144,6 +144,7 @@ public class Constants {
     public static double CLAW_ASSEMBLY_INIT = 0;
     public static double CLAW_ASSEMBLY_PLACE_IN_SLIDER = 0;
     public static double CLAW_ASSEMBLY_TAKE = 0;
+    public static double CLAW_ASSEMBLY_TAKE_RIGHT = .35;
     public static double CLAW_PIVOT_TAKE = 0.2;
 
 

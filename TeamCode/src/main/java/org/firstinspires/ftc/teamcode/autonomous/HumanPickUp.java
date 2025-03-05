@@ -9,18 +9,16 @@ import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.MECANUM.MecanumDrive;
 import org.firstinspires.ftc.teamcode.MECANUM.PinpointDrive;
 import org.firstinspires.ftc.teamcode.autonomous.actions.actionsManual;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
-@Autonomous (name = "Human", group = "#")
-public class Human extends LinearOpMode {
+@Autonomous (name = "Human2.0", group = "#")
+public class HumanPickUp extends LinearOpMode {
 
     slider_controller sliderController;
     @Override
@@ -46,23 +44,29 @@ public class Human extends LinearOpMode {
         TrajectoryActionBuilder PRELOAD = safePose.endTrajectory().fresh()
                 .strafeTo(new Vector2d(6, -32.5), null, new ProfileAccelConstraint(-70, 70));
 
-        TrajectoryActionBuilder HUMAN = PRELOAD.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(31, -40), Math.toRadians(90), null, new ProfileAccelConstraint(-60, 60))
-                .splineToLinearHeading(new Pose2d(31, -14, Math.toRadians(90)), Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(46, -13, Math.toRadians(90)), Math.toRadians(90))
+        TrajectoryActionBuilder GROUND1 = PRELOAD.endTrajectory().fresh()
+                .strafeTo(new Vector2d(8, -35))
+                .splineToLinearHeading(new Pose2d(30, -38, Math.toRadians(40)), Math.toRadians(90));
 
-                .strafeToLinearHeading(new Vector2d(46, -44), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
+        TrajectoryActionBuilder DROP1 = GROUND1.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(30, -40), Math.toRadians(300));
 
-                .strafeToLinearHeading(new Vector2d(43.5, -17), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
-                .strafeToLinearHeading(new Vector2d(58, -16), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
+        TrajectoryActionBuilder GROUND2 = DROP1.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(38, -38), Math.toRadians(40));
 
-                .strafeToLinearHeading(new Vector2d(58, -45), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
+        TrajectoryActionBuilder DROP2 = GROUND1.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(38, -40), Math.toRadians(300));
 
-                .strafeToLinearHeading(new Vector2d(58, -17), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90))
-                .strafeToLinearHeading(new Vector2d(65, -16), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90));
+        TrajectoryActionBuilder GROUND3 = DROP2.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(46, -38), Math.toRadians(30));
 
+        TrajectoryActionBuilder DROP3 = GROUND1.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(46, -40), Math.toRadians(300));
 
-        TrajectoryActionBuilder GTS1 = HUMAN.endTrajectory().fresh()
+        TrajectoryActionBuilder GO_TO_STACK1 = DROP3.endTrajectory().fresh()
+                .strafeToLinearHeading(new Vector2d(45, -60), Math.toRadians(90));
+
+        TrajectoryActionBuilder GTS1 = GO_TO_STACK1.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(65, -52.8), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90));
 
         TrajectoryActionBuilder PLACE1 = GTS1.endTrajectory().fresh()
@@ -158,13 +162,22 @@ public class Human extends LinearOpMode {
                 sliderClaw.close(), new SleepAction(.2), lift.liftChamber(), sliderTilt.chamber()
         );
 
+        /*
+        FA ACTIUNILE PT LUAT DE PE JOS
+         */
+
         Action Park = new SequentialAction(
                 linkage.take(), clawTilt.beforeTake()
         );
 
         Action safepose = safePose.build();
         Action preloadAction = PRELOAD.build();
-        Action humanAction = HUMAN.build();
+        Action GR1 = GROUND1.build();
+        Action drop1 = DROP1.build();
+        Action GR2 = GROUND2.build();
+        Action drop2 = DROP2.build();
+        Action GR3 = GROUND3.build();
+        Action drop3 = DROP3.build();
         Action GTS1Action = GTS1.build();
         Action chamber1 = PLACE1.build();
         Action GTS2Action = GTS2.build();
@@ -183,7 +196,10 @@ public class Human extends LinearOpMode {
                 PlacePreload,
                 sliderClaw.open(), //a pus preloadu
                 Human,
-                humanAction,  //duce sample urile
+
+
+
+                          //duce sample urile
                 GTS1Action, //merge la human
                 Chamber1,
                 chamber1,
