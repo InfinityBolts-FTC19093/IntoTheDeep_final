@@ -37,34 +37,36 @@ public class HumanPickUp extends LinearOpMode {
         actionsManual.Turret turret = new actionsManual.Turret(hardwareMap);
         actionsManual.Update updateAuto = new actionsManual.Update(hardwareMap);
         actionsManual.ClawTilt clawTilt = new actionsManual.ClawTilt(hardwareMap);
+        actionsManual.Pivot pivot = new actionsManual.Pivot(hardwareMap);
+        actionsManual.ClawRotate rotate = new actionsManual.ClawRotate(hardwareMap);
 
         TrajectoryActionBuilder safePose = drive.actionBuilder(startPose)
                 .strafeTo(new Vector2d(9, -61.4 ));
 
         TrajectoryActionBuilder PRELOAD = safePose.endTrajectory().fresh()
-                .strafeTo(new Vector2d(6, -32.5), null, new ProfileAccelConstraint(-70, 70));
+                .strafeTo(new Vector2d(6, -30), null, new ProfileAccelConstraint(-70, 70));
 
         TrajectoryActionBuilder GROUND1 = PRELOAD.endTrajectory().fresh()
                 .strafeTo(new Vector2d(8, -35))
-                .splineToLinearHeading(new Pose2d(30, -38, Math.toRadians(40)), Math.toRadians(90));
+                .splineToLinearHeading(new Pose2d(33, -36, Math.toRadians(45)), Math.toRadians(90));
 
         TrajectoryActionBuilder DROP1 = GROUND1.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(30, -40), Math.toRadians(300));
 
         TrajectoryActionBuilder GROUND2 = DROP1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(38, -38), Math.toRadians(40));
+                .strafeToLinearHeading(new Vector2d(38, -38), Math.toRadians(45));
 
         TrajectoryActionBuilder DROP2 = GROUND1.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(38, -40), Math.toRadians(300));
 
         TrajectoryActionBuilder GROUND3 = DROP2.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(46, -38), Math.toRadians(30));
+                .strafeToLinearHeading(new Vector2d(46, -38), Math.toRadians(35));
 
         TrajectoryActionBuilder DROP3 = GROUND1.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(46, -40), Math.toRadians(300));
 
         TrajectoryActionBuilder GO_TO_STACK1 = DROP3.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(45, -60), Math.toRadians(90));
+                .strafeToLinearHeading(new Vector2d(40, -55), Math.toRadians(90));
 
         TrajectoryActionBuilder GTS1 = GO_TO_STACK1.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(65, -52.8), Math.toRadians(90), null, new ProfileAccelConstraint(-90, 90));
@@ -162,12 +164,24 @@ public class HumanPickUp extends LinearOpMode {
                 sliderClaw.close(), new SleepAction(.2), lift.liftChamber(), sliderTilt.chamber()
         );
 
-        /*
-        FA ACTIUNILE PT LUAT DE PE JOS
-         */
+        Action BeforeGround = new SequentialAction(
+                linkage.take(), claw.open(), clawTilt.beforeTake(), pivot.take(), rotate.vertical()
+        );
 
-        Action Park = new SequentialAction(
-                linkage.take(), clawTilt.beforeTake()
+        Action TakeGround1 = new SequentialAction(
+            clawTilt.take(), new SleepAction(.1), claw.close(), new SleepAction(.1), clawTilt.beforeTake()
+        );
+
+        Action TakeGround2 = new SequentialAction(
+                clawTilt.take(), new SleepAction(.1), claw.close(), new SleepAction(.1), clawTilt.beforeTake()
+        );
+
+        Action TakeGround3 = new SequentialAction(
+                clawTilt.take(), new SleepAction(.1), claw.close(), new SleepAction(.1), clawTilt.beforeTake()
+        );
+
+        Action Retract = new SequentialAction(
+                linkage.place(), clawTilt.init(), claw.open(), rotate.horizontal(), pivot.init()
         );
 
         Action safepose = safePose.build();
@@ -196,11 +210,25 @@ public class HumanPickUp extends LinearOpMode {
                 PlacePreload,
                 sliderClaw.open(), //a pus preloadu
                 Human,
-
-
-
-                          //duce sample urile
-                GTS1Action, //merge la human
+                GR1,
+                new SleepAction(.3),
+                BeforeGround,
+                new SleepAction(.1),
+                TakeGround1,
+                drop1,
+                claw.open(),
+                GR2,
+                new SleepAction(.1),
+                TakeGround2,
+                drop2,
+                claw.open(),
+                GR3,
+                new SleepAction(.1),
+                TakeGround3,
+                drop3,
+                claw.open(),
+                Retract,            //duce sample urile
+                GTS1Action,
                 Chamber1,
                 chamber1,
                 Place1,             //a pus al doilea
@@ -221,8 +249,7 @@ public class HumanPickUp extends LinearOpMode {
                 Place4,             //a pus al cincilea
                 lift.liftDown(),
                 sliderTilt.human(),
-                parkAction,
-                Park
+                parkAction
         );
 
         Action pid = new ParallelAction(

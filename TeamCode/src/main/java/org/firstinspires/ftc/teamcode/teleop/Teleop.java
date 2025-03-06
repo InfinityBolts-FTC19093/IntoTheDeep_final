@@ -57,6 +57,7 @@ public class Teleop extends LinearOpMode {
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
             drive.robotCentricDrive(robot.leftFront, robot.leftBack, robot.rightFront, robot.rightBack, lim, gamepad1);
+            robot.claw_pivot.setPosition(0);
 
             if(gamepad1.options) {sliderClawController.open_close();}
 

@@ -62,7 +62,7 @@ public class actionsManual {
         public Action liftChamber() {return new MoveSlides(Constants.SLIDER_HIGH_CHAMBER);}
 
         public Action liftPlace() {
-            return new MoveSlides(Constants.SLIDER_HIGH_CHAMBER + 500);
+            return new MoveSlides(Constants.SLIDER_HIGH_CHAMBER + 1000);
         }
 
         public Action liftBasket() {

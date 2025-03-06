@@ -100,6 +100,8 @@ public class Constants {
     public static int SLIDER_ASCEND = 0;
     public static int SLIDER_LEV2_ASCEND = 0;
 
+    public static double Slider_kPAuto = 0.01;
+
     public static double Slider_kP = 0.03;
     public static double Slider_kI = 0.0001;
     public static double Slider_kD = 0;
