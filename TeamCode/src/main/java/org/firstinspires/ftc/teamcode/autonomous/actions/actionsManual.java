@@ -66,7 +66,7 @@ public class actionsManual {
         }
 
         public Action liftBasket() {
-            return new MoveSlides(Constants.SLIDER_HIGH_BUSKET);
+            return new MoveSlides(Constants.SLIDER_HIGH_BUSKET_AUTO);
         }
 
         public Action liftDown() {
@@ -77,7 +77,6 @@ public class actionsManual {
             return new MoveSlides(Constants.SLIDER_TAKE_FORM_LINKAGE);
         }
 
-        public Action liftPreload() {return new MoveSlides(Constants.SLIDER_PLACE_PRELOAD_AUTO);}
 
         public Action beforeLinkage () {
             return new MoveSlides(Constants.SLIDER_BEFORE_TAKE_FORM_LINKAGE);
@@ -207,6 +206,15 @@ public class actionsManual {
             }
         }
 
+        public class Inverted implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                rotate.setPosition(Constants.ROTATE_PLACE_IN_SLIDER_INVERTED);
+                return false;
+            }
+        }
+
         public Action horizontal() {
             return new H();
         }
@@ -214,6 +222,8 @@ public class actionsManual {
         public Action vertical() {
             return new V();
         }
+
+        public Action inverted() {return new Inverted();}
 
     }
 
@@ -346,6 +356,17 @@ public class actionsManual {
                 return false;
             }
         }
+
+        public class PlaceBasket implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                turret.setPosition(Constants.TURRET_BASKET_AUTO);
+                return false;
+            }
+        }
+
+        public Action Basket() {return new PlaceBasket();}
 
         public Action init() {
             return new Init();

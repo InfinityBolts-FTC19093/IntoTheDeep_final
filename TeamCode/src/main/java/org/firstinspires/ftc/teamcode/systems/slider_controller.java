@@ -49,7 +49,7 @@ public class slider_controller {
             double currentPosition = slider.getCurrentPosition();
             double error = targetPosition - currentPosition;
 
-            double proportional = Constants.Slider_kPAuto * error;
+            double proportional = Constants.Slider_kP * error;
 
             integral += error * timer.seconds();
             double integralTerm = Constants.Slider_kI * integral;

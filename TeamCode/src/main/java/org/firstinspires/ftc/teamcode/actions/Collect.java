@@ -57,7 +57,7 @@ public class Collect {
     //(centerSensor.alpha() >= 350 || rotateSensor.alpha() >= 350 ) && rotateSensor.alpha() >= 350
     //centerSensor.alpha() >= 350 && rotateSensor.alpha() <= 350
     public boolean colorDetection1(){
-        if(((centerSensor.red()>=350 || centerSensor.blue() >=350 || centerSensor.green()>=350) || (rotateSensor.red()>=350 || rotateSensor.blue() >=350 || rotateSensor.green()>=350)) && (rotateSensor.red()>=350 || rotateSensor.blue() >=350 || rotateSensor.green()>=350)){
+        if(((centerSensor.red()>=250 || centerSensor.blue() >=350 || centerSensor.green()>=350) || (rotateSensor.red()>=250 || rotateSensor.blue() >=350 || rotateSensor.green()>=350)) && (rotateSensor.red()>=250 || rotateSensor.blue() >=350 || rotateSensor.green()>=350)){
             return true;
         }
 
@@ -65,7 +65,7 @@ public class Collect {
     }
 
     public boolean colorDetection2(){
-        if((centerSensor.red()>=350 || centerSensor.blue() >=350 || centerSensor.green()>=350) && (rotateSensor.red()<=350 || rotateSensor.blue() <=350 || rotateSensor.green()<=350)){
+        if((centerSensor.red()>=250 || centerSensor.blue() >=350 || centerSensor.green()>=350) && (rotateSensor.red()<=250 || rotateSensor.blue() <=350 || rotateSensor.green()<=350)){
             return true;
         }
         return false;

@@ -95,7 +95,8 @@ public class Constants {
 
     public static int SLIDER_LOW_BUSKET = 800;
     public static int SLIDER_HIGH_BUSKET =2050;
-    public static int SLIDER_PLACE_PRELOAD_AUTO = 1650;
+    public static int SLIDER_HIGH_BUSKET_AUTO =1850;
+
 
     public static int SLIDER_ASCEND = 0;
     public static int SLIDER_LEV2_ASCEND = 0;
@@ -140,7 +141,7 @@ public class Constants {
     public static double ROTATE_TAKE_VERTICAL = 0.475;
     public static double ROTATE_TAKE_DIAGONAL_POSITIV = 0.72;
     public static double ROTATE_PLACE_IN_SLIDER = 0;
-    public static double ROTATE_PLACE_IN_SLIDER_INVERTED = .942;
+    public static double ROTATE_PLACE_IN_SLIDER_INVERTED = 1;
 
     /** Servo Claw ASSEMBLY*/
     public static double CLAW_ASSEMBLY_INIT = 0;
@@ -155,11 +156,12 @@ public class Constants {
     public static double TURRET_TAKE_HUMAN = 0.17;
     public static double TURRET_TAKE_FROM_LINKAGE = 0.17;
     public static double TURRET_PLACE = 0.17;
+    public static double TURRET_BASKET_AUTO = 0.075;
 
 
 
     /** Servo Slider Claw Tilt */
-    public static double SLIDER_TILT_INIT = 0;
+    public static double SLIDER_TILT_INIT = 0.84;
     public static double SLIDER_TILT_TAKE_FROM_LINKAGE = 0.86;
     public static double SLIDER_TILT_PLACE_IN_HIGH_BUSKET = 0.20;
     public static double SLIDER_TILT_BASKET_AUTO = 0.223;
@@ -170,8 +172,6 @@ public class Constants {
     public static double SLIDER_TILT_BEFORE_TAKE_FROM_LINKAGE = 0.78;
     public static double SLIDER_TILT_BEFORE_TAKE_FORM_HUMAN = 0.2;
     public static double SLIDER_TILT_PARK = 0.57;
-
-
 
     /** Servo Unghi Robot */
     public static double UNGHI_ROBOT_SUS = 0;
