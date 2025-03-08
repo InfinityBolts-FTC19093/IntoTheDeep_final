@@ -62,6 +62,7 @@ public class RobotMap {
         slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        slider.setDirection(DcMotorSimple.Direction.REVERSE);
 
         leftFront .setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack  .setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

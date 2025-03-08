@@ -49,66 +49,67 @@ public class Basket extends LinearOpMode {
                 .strafeTo(new Vector2d(-33.1, -61.5));
 
         TrajectoryActionBuilder PRELOAD = safePose.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-54, -53), Math.toRadians(30));
+                .strafeToLinearHeading(new Vector2d(-54, -53), Math.toRadians(40));
 
         TrajectoryActionBuilder G1 = PRELOAD.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-58, -47), Math.toRadians(90), null, new ProfileAccelConstraint(-70, 70));
+                .strafeToLinearHeading(new Vector2d(-53.5, -46), Math.toRadians(90), null, new ProfileAccelConstraint(-70, 70));
 
         TrajectoryActionBuilder PLACE1 = G1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-58, -50), Math.toRadians(65));
+                .strafeToLinearHeading(new Vector2d(-54, -52), Math.toRadians(40));
 
         TrajectoryActionBuilder G2 = PLACE1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-64.5, -44), Math.toRadians(90), null, new ProfileAccelConstraint(-70, 70));
+                .strafeToLinearHeading(new Vector2d(-65, -45), Math.toRadians(95), null, new ProfileAccelConstraint(-70, 70));
 
         TrajectoryActionBuilder PLACE2 = G1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-64, -50), Math.toRadians(65));
+                .strafeToLinearHeading(new Vector2d(-63, -44), Math.toRadians(65));
 
         TrajectoryActionBuilder G3 = G2.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-59, -42), Math.toRadians(135), null, new ProfileAccelConstraint(-70, 70));
+                .strafeToLinearHeading(new Vector2d(-59, -40), Math.toRadians(145), null, new ProfileAccelConstraint(-70, 70));
 
         TrajectoryActionBuilder PLACE3 = G3.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-59, -50), Math.toRadians(65));
+                .strafeToLinearHeading(new Vector2d(-58, -47.5), Math.toRadians(40));
 
         TrajectoryActionBuilder PARK = PLACE3.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(-35, -10), Math.toRadians(0))
                 .strafeTo(new Vector2d(-20, -10));
 
+        Action PlacePreload = new SequentialAction(
+                sliderClaw.close(), new SleepAction(.1), lift.liftBasket(), new SleepAction(.2), sliderTilt.basket(), turret.place()
+        );
+
         Action TakeFromGround = new SequentialAction(
                 linkage.take(), claw.open(), clawTilt.beforeTake(), clawRotate.horizontal()
         );
         Action PlaceInSlider = new SequentialAction(
-                clawTilt.take(), new SleepAction(.2), claw.close(), new SleepAction(.2), clawRotate.inverted(), clawTilt.place(),new SleepAction(.2), linkage.place(), new SleepAction(.2),sliderClaw.open(), turret.take(),new SleepAction(.1), sliderTilt.take(),new SleepAction(.2), lift.takeFromLinkage(),new SleepAction(.2), claw.open(), sliderClaw.close()
+                clawTilt.take(), new SleepAction(.2), claw.close(), new SleepAction(.2), clawRotate.horizontal(), clawTilt.place(),new SleepAction(.2), linkage.place(), new SleepAction(.2),sliderClaw.open(), turret.take(),new SleepAction(.1), sliderTilt.take(),new SleepAction(.2), lift.takeFromLinkage(),new SleepAction(.2), claw.open(),sliderClaw.close()
         );
 
         Action BeforeTakeFromLinkage = new SequentialAction(
                 lift.beforeLinkage(), new SleepAction(.05), sliderTilt.beforeLinkage()
         );
         Action PlaceOnBasket = new SequentialAction(
-                sliderClaw.close(), new SleepAction(.2), lift.liftBasket(), new SleepAction(.3), sliderTilt.basket() ,turret.place()
-        );
-        Action PlacePreload = new SequentialAction(
-                sliderClaw.close(), new SleepAction(.1), lift.liftBasket(), new SleepAction(.2), sliderTilt.basket(), turret.place()
+                sliderClaw.close(), new SleepAction(.2), lift.liftBasket(), new SleepAction(.3), sliderTilt.basket() ,turret.Basket()
         );
 
         Action TakeFromGround2 = new SequentialAction(
                 linkage.take(), claw.open(), clawTilt.beforeTake(), clawRotate.horizontal()
         );
         Action PlaceInSlider2 = new SequentialAction(
-                clawTilt.take(), new SleepAction(.2), claw.close(), new SleepAction(.2), clawRotate.inverted(), clawTilt.place(),new SleepAction(.2), linkage.place(), new SleepAction(.2),sliderClaw.open(), turret.take(),new SleepAction(.1), sliderTilt.take(),new SleepAction(.2), lift.takeFromLinkage(),new SleepAction(.2), claw.open(), sliderClaw.close()
+                clawTilt.take(), new SleepAction(.2), claw.close(), new SleepAction(.2), clawRotate.horizontal(), clawTilt.place(),new SleepAction(.2), linkage.place(), new SleepAction(.2),sliderClaw.open(), turret.take(),new SleepAction(.1), sliderTilt.take(),new SleepAction(.2), lift.takeFromLinkage(),new SleepAction(.2), claw.open(),sliderClaw.close()
         );
 
         Action BeforeTakeFromLinkage2 = new SequentialAction(
                 lift.beforeLinkage(), new SleepAction(.05), sliderTilt.beforeLinkage()
         );
         Action PlaceOnBasket2 = new SequentialAction(
-                sliderClaw.close(), new SleepAction(.2), lift.liftBasket(), new SleepAction(.3), sliderTilt.basket() ,turret.Basket()
+                sliderClaw.close(), new SleepAction(.2), lift.liftBasket(), new SleepAction(.3), sliderTilt.basket() ,turret.place()
         );
 
         Action TakeFromGround3 = new SequentialAction(
                 linkage.take(), claw.open(), clawTilt.beforeTake(), pivot.take(), clawRotate.horizontal()
         );
         Action PlaceInSlider3 = new SequentialAction(
-                clawTilt.take(), new SleepAction(.2), claw.close(), new SleepAction(.2), clawRotate.inverted(), pivot.init(), clawTilt.place(),new SleepAction(.2), linkage.place(), new SleepAction(.2),sliderClaw.open(), turret.take(),new SleepAction(.1), sliderTilt.take(),new SleepAction(.2), lift.takeFromLinkage(),new SleepAction(.2), claw.open(), sliderClaw.close()
+                clawTilt.take(), new SleepAction(.2), claw.close(), new SleepAction(.2), clawRotate.horizontal(), pivot.init(), clawTilt.place(),new SleepAction(.2), linkage.place(), new SleepAction(.2),sliderClaw.open(), turret.take(),new SleepAction(.1), sliderTilt.take(),new SleepAction(.2), lift.takeFromLinkage(),new SleepAction(.2), claw.open(), sliderClaw.close()
         );
 
         Action BeforeTakeFromLinkage3 = new SequentialAction(
@@ -135,17 +136,19 @@ public class Basket extends LinearOpMode {
                 preload,
                 new SleepAction(.2),
                 sliderClaw.open(),
-                new SleepAction(.1),
+                new SleepAction(.2),
+                TakeFromGround,
                 g1,
                 BeforeTakeFromLinkage,
-                TakeFromGround,
-                new SleepAction(.3),
+                new SleepAction(.4),
                 PlaceInSlider,
                 new SleepAction(.4),
                 PlaceOnBasket,
-                new SleepAction(.3),
+                new SleepAction(.4),
                 place1,
+                new SleepAction(.3),
                 sliderClaw.open(),
+                new SleepAction(.3),
                 TakeFromGround2,
                 g2,
                 BeforeTakeFromLinkage2,
@@ -153,11 +156,11 @@ public class Basket extends LinearOpMode {
                 PlaceInSlider2,
                 new SleepAction(.4),
                 PlaceOnBasket2,
-                new SleepAction(.2),
+                new SleepAction(.5),
                 place2,
-                new SleepAction(.3),
-                sliderClaw.open(),
                 new SleepAction(.2),
+                sliderClaw.open(),
+                new SleepAction(.3),
                 TakeFromGround3,
                 g3,
                 BeforeTakeFromLinkage3,
@@ -165,10 +168,11 @@ public class Basket extends LinearOpMode {
                 PlaceInSlider3,
                 new SleepAction(.4),
                 PlaceOnBasket3,
-                new SleepAction(.3),
+                new SleepAction(.4),
                 place3,
+                new SleepAction(.3),
                 sliderClaw.open(),
-                new SleepAction(.2),
+                new SleepAction(.3),
                 sliderTilt.park(),
                 lift.liftDown(),
                 park
