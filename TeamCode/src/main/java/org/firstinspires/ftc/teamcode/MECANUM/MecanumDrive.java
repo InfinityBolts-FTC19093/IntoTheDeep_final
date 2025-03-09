@@ -246,7 +246,7 @@ public class MecanumDrive {
         FlightRecorder.write("MECANUM_PARAMS", PARAMS);
     }
 
-    public void setDrivePowers(PoseVelocity2d powers) {
+    public void setDrivePowers(PoseVelocity2d powers, HardwareMap hardwareMap) {
         MecanumKinematics.WheelVelocities<Time> wheelVels = new MecanumKinematics(1).inverse(
                 PoseVelocity2dDual.constant(powers, 1));
 
@@ -255,10 +255,10 @@ public class MecanumDrive {
             maxPowerMag = Math.max(maxPowerMag, power.value());
         }
 
-        leftFront.setPower(wheelVels.leftFront.get(0) / maxPowerMag);
-        leftBack.setPower(wheelVels.leftBack.get(0) / maxPowerMag);
-        rightBack.setPower(wheelVels.rightBack.get(0) / maxPowerMag);
-        rightFront.setPower(wheelVels.rightFront.get(0) / maxPowerMag);
+        leftFront.setPower(wheelVels.leftFront.get(0) / maxPowerMag *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+        leftBack.setPower(wheelVels.leftBack.get(0) / maxPowerMag *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+        rightBack.setPower(wheelVels.rightBack.get(0) / maxPowerMag *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
+        rightFront.setPower(wheelVels.rightFront.get(0) / maxPowerMag *(12/hardwareMap.getAll(VoltageSensor.class).get(0).getVoltage()));
     }
 
     public final class FollowTrajectoryAction implements Action {

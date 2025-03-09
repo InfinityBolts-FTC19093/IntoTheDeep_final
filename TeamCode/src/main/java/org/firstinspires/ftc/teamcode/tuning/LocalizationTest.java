@@ -7,11 +7,13 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.MECANUM.Drawing;
 import org.firstinspires.ftc.teamcode.MECANUM.PinpointDrive;
 
 public class LocalizationTest extends LinearOpMode {
+    HardwareMap hardwareMap;
     @Override
     public void runOpMode() throws InterruptedException {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
@@ -21,13 +23,14 @@ public class LocalizationTest extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+
             drive.setDrivePowers(new PoseVelocity2d(
                     new Vector2d(
                             -gamepad1.left_stick_y,
                             -gamepad1.left_stick_x
                     ),
                     -gamepad1.right_stick_x
-            ));
+            ), hardwareMap);
 
             drive.updatePoseEstimate();
 

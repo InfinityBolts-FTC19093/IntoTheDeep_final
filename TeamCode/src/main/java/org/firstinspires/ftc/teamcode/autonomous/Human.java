@@ -9,11 +9,9 @@ import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-import com.acmerobotics.roadrunner.ftc.GoBildaPinpointDriverRR;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.MECANUM.MecanumDrive;
 import org.firstinspires.ftc.teamcode.MECANUM.PinpointDrive;
 import org.firstinspires.ftc.teamcode.autonomous.actions.actionsManual;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
@@ -214,7 +212,7 @@ public class Human extends LinearOpMode {
         );
 
         if (!isStarted()) {
-            updateAuto.initAll();
+            updateAuto.initAllBasket();
         }
 
         waitForStart();

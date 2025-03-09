@@ -62,7 +62,7 @@ public class G2_Action {
         turret.setPosition(Constants.TURRET_INIT_AUTO);
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){}timer.pause();
 
-        slider_tilt.setPosition(Constants.SLIDER_TILT_INIT);
+        slider_tilt.setPosition(Constants.SLIDER_TILT_INIT_BASKET);
     }
 
 //    public void lev2Asent(){

@@ -12,10 +12,8 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.MECANUM.MecanumDrive;
 import org.firstinspires.ftc.teamcode.MECANUM.PinpointDrive;
 import org.firstinspires.ftc.teamcode.autonomous.actions.actionsManual;
-import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
@@ -183,7 +181,7 @@ public class Basket extends LinearOpMode {
         );
 
         if (!isStarted()) {
-            updateAuto.initAll();
+            updateAuto.initAllBasket();
         }
 
 

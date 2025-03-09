@@ -62,7 +62,7 @@ public class actionsManual {
         public Action liftChamber() {return new MoveSlides(Constants.SLIDER_HIGH_CHAMBER);}
 
         public Action liftPlace() {
-            return new MoveSlides(Constants.SLIDER_HIGH_CHAMBER + 1000);
+            return new MoveSlides(Constants.SLIDER_HIGH_CHAMBER + 600);
         }
 
         public Action liftBasket() {
@@ -238,7 +238,7 @@ public class actionsManual {
         public class Init implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
-                slider_tilt.setPosition(Constants.SLIDER_TILT_INIT);
+                slider_tilt.setPosition(Constants.SLIDER_TILT_INIT_BASKET);
                 return false;
             }
         }
@@ -501,7 +501,7 @@ public class actionsManual {
 
         }
 
-        public void initAll() {
+        public void initAllBasket() {
             claw.setPosition(Constants.CLOSE_CLAW);
             slider_claw.setPosition(Constants.CLOSE_CLAW);
             claw_rotate.setPosition(Constants.ROTATE_INIT);
@@ -509,7 +509,18 @@ public class actionsManual {
             linkage.setPosition(Constants.LINKAGE_INIT_POS);
             claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_INIT);
             turret.setPosition(Constants.TURRET_INIT_AUTO);
-            slider_claw_tilt.setPosition(Constants.SLIDER_TILT_INIT);
+            slider_claw_tilt.setPosition(Constants.SLIDER_TILT_INIT_BASKET);
+        }
+
+        public void initAllChamber() {
+            claw.setPosition(Constants.CLOSE_CLAW);
+            slider_claw.setPosition(Constants.CLOSE_CLAW);
+            claw_rotate.setPosition(Constants.ROTATE_INIT);
+            claw_tilt.setPosition(Constants.TILT_INIT);
+            linkage.setPosition(Constants.LINKAGE_INIT_POS);
+            claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_INIT);
+            turret.setPosition(Constants.TURRET_INIT_AUTO);
+            slider_claw_tilt.setPosition(Constants.SLIDER_TILT_INIT_CHAMBER);
         }
     }
 }

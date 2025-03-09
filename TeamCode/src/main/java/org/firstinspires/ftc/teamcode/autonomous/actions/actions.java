@@ -4,18 +4,13 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.util.Timing;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.actions.Collect;
-import org.firstinspires.ftc.teamcode.actions.Prepare;
-import org.firstinspires.ftc.teamcode.actions.Score;
 import org.firstinspires.ftc.teamcode.constants.Constants;
 import org.firstinspires.ftc.teamcode.constants.HardwareConstants;
 import org.firstinspires.ftc.teamcode.systems.clawRotate_controller;
@@ -93,7 +88,7 @@ public class actions {
             linkage.setPosition(Constants.LINKAGE_INIT_POS);
             claw_pivot.setPosition(Constants.CLAW_ASSEMBLY_INIT);
             turret.setPosition(Constants.TURRET_INIT_AUTO);
-            slider_claw_tilt.setPosition(Constants.SLIDER_TILT_INIT);
+            slider_claw_tilt.setPosition(Constants.SLIDER_TILT_INIT_BASKET);
         }
 
 

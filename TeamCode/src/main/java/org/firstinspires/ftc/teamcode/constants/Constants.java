@@ -161,7 +161,8 @@ public class Constants {
 
 
     /** Servo Slider Claw Tilt */
-    public static double SLIDER_TILT_INIT = 0.84;
+    public static double SLIDER_TILT_INIT_BASKET = 0.84;
+    public static double SLIDER_TILT_INIT_CHAMBER = 0;
     public static double SLIDER_TILT_TAKE_FROM_LINKAGE = 0.85;
     public static double SLIDER_TILT_PLACE_IN_HIGH_BUSKET = 0.175;
     public static double SLIDER_TILT_BASKET_AUTO = 0.223;
