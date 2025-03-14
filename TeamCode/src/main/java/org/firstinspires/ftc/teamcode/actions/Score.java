@@ -68,11 +68,6 @@ public class Score {
     /** CHAMBER */
 
     public void placeOnHighChamber(){
-        if(Constants.currentSliderActionPos == Constants.SliderActionPos.BEFORE_TAKE_FROM_LINKAGE){
-            SliderAction.takeFromLinkage();
-            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
-        }
-
         SliderAction.placeOnHighChamber();
 
         Constants.currentScorePos = Constants.ScorePos.CHAMBER;
@@ -151,7 +146,7 @@ public class Score {
     public void score(){
         if(Constants.currentScorePos == Constants.ScorePos.CHAMBER){
             sliderController.setTargetPosition(Constants.SLIDER_HIGH_CHAMBER+1000);
-            timer = new Timing.Timer(350, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();sliderController.update();}timer.pause();
+            timer = new Timing.Timer(400, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();sliderController.update();}timer.pause();
 
             sliderClawController.setPos(Constants.OPEN_CLAW);
             Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;

@@ -11,7 +11,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import org.firstinspires.ftc.teamcode.constants.HardwareConstants;
 
 @Config
-@TeleOp(name="ServoPos")
+@TeleOp(name="ServoPos", group = "TEST")
 public class ServoPos extends OpMode {
 
     public static double ClawPos=0,LinkagePos=0,RotateClawPos=0,ClawTiltPos=0,SliderClawPos=0,SliderClawRotatePos=.5,SliderClawTiltPos=0,ModificaUnghiPos=0,RotateAssemplyPos=0;

@@ -5,7 +5,7 @@ import com.acmerobotics.dashboard.config.Config;
 public class Constants {
 
     public static int WAIT_FOR_LINKAGE_ACTION = 400;
-    public static int WAIT_FOR_SLIDER_ACTION = 400;
+    public static int WAIT_FOR_SLIDER_ACTION = 100;
 
     public enum BasketPos{
         HIGH_BASKET,
@@ -85,17 +85,17 @@ public class Constants {
 
 
     /** SLIDER*/
-    public static final int SLIDER_DOWN = 0;
+    public static final int SLIDER_DOWN = -1;
 
-    public static int SLIDER_TAKE_FORM_LINKAGE = 380;
-    public static int SLIDER_BEFORE_TAKE_FORM_LINKAGE = 400;
+    public static int SLIDER_TAKE_FORM_LINKAGE = 350;
+    public static int SLIDER_BEFORE_TAKE_FORM_LINKAGE = 350;
 
     public static int SLIDER_LOW_CHAMBER = 0;
-    public static int SLIDER_HIGH_CHAMBER = 210;
+    public static int SLIDER_HIGH_CHAMBER = 240;
 
     public static int SLIDER_LOW_BUSKET = 800;
     public static int SLIDER_HIGH_BUSKET =2050;
-    public static int SLIDER_HIGH_BUSKET_AUTO =1850;
+    public static int SLIDER_HIGH_BUSKET_AUTO =1950;
 
 
     public static int SLIDER_ASCEND = 0;
@@ -122,7 +122,7 @@ public class Constants {
     public static double LINKAGE_INIT_POS = 0.1;
     public static double LINKAGE_MAX_POS = 0.69;
     public static double LINKAGE_TAKE_POS = 0.80;
-    public static double LINKAGE_PLACE_IN_SLIDER = 0.05;
+    public static double LINKAGE_PLACE_IN_SLIDER = 0.06;
     public static double LINKAGE_INTERMEDIARY_POS = 0;
 
     /** Servo TILT */
@@ -141,7 +141,7 @@ public class Constants {
     public static double ROTATE_TAKE_VERTICAL = 0.475;
     public static double ROTATE_TAKE_DIAGONAL_POSITIV = 0.72;
     public static double ROTATE_PLACE_IN_SLIDER = 0;
-    public static double ROTATE_PLACE_IN_SLIDER_INVERTED = 1;
+    public static double ROTATE_PLACE_IN_SLIDER_INVERTED = .9;
 
     /** Servo Claw ASSEMBLY*/
     public static double CLAW_ASSEMBLY_INIT = 0;
@@ -163,14 +163,14 @@ public class Constants {
     /** Servo Slider Claw Tilt */
     public static double SLIDER_TILT_INIT_BASKET = 0.84;
     public static double SLIDER_TILT_INIT_CHAMBER = 0;
-    public static double SLIDER_TILT_TAKE_FROM_LINKAGE = 0.85;
-    public static double SLIDER_TILT_PLACE_IN_HIGH_BUSKET = 0.175;
+    public static double SLIDER_TILT_TAKE_FROM_LINKAGE = 0.88;
+    public static double SLIDER_TILT_PLACE_IN_HIGH_BUSKET = 0.225;
     public static double SLIDER_TILT_BASKET_AUTO = 0.223;
     public static double SLIDER_TILT_PLACE_IN_LOW_BUSKET = 0.2;
-    public static double SLIDER_TILT_PLACE_ON_HIGH_CHAMBER = 0.55;
+    public static double SLIDER_TILT_PLACE_ON_HIGH_CHAMBER = 0.6;
     public static double SLIDER_TILT_PLACE_ON_LOW_CHAMBER = 0;
-    public static double SLIDER_TILT_TAKE_FORM_HUMAN = 0.06;
-    public static double SLIDER_TILT_BEFORE_TAKE_FROM_LINKAGE = 0.78;
+    public static double SLIDER_TILT_TAKE_FORM_HUMAN = 0.1;
+    public static double SLIDER_TILT_BEFORE_TAKE_FROM_LINKAGE = 0.75;
     public static double SLIDER_TILT_BEFORE_TAKE_FORM_HUMAN = 0.2;
     public static double SLIDER_TILT_PARK = 0.57;
 

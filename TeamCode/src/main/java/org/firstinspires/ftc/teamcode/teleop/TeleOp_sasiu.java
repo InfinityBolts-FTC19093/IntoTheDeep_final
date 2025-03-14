@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.actions.robot_drive;
 import org.firstinspires.ftc.teamcode.constants.RobotMap;
 
 
-@TeleOp(name = "TeleOp-sasiu", group = "#")
+@TeleOp(name = "TeleOp-sasiu", group = "TEST")
 public class TeleOp_sasiu extends LinearOpMode {
     RobotMap robot;
     robot_drive drive;

@@ -39,7 +39,7 @@ public class clawRotate_controller {
 
     public void V_I(){
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
-        if(Constants.currentClawRotatePos == Constants.ClawRotatePos.HORIZONTAL || Constants.currentClawRotatePos == Constants.ClawRotatePos.DIAGONAL_NEGATIV){
+        if(Constants.currentClawRotatePos == Constants.ClawRotatePos.HORIZONTAL || Constants.currentClawRotatePos == Constants.ClawRotatePos.DIAGONAL_NEGATIV || Constants.currentClawRotatePos == Constants.ClawRotatePos.INVERTED){
             Constants.currentClawRotatePos = Constants.ClawRotatePos.VERTICAL;
             timer = new Timing.Timer(125,TimeUnit.MILLISECONDS);timer.start();while (!timer.done());timer.pause();
         }else{

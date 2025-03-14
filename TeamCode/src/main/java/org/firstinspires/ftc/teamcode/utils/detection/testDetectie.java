@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.utils.detection;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp (name = "DetectieTest", group = "#")
+@TeleOp (name = "DetectieTest", group = "##")
 public class testDetectie extends OpMode {
     Detectie detectie;
     @Override

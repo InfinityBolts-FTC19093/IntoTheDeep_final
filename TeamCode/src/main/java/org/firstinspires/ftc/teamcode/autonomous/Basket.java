@@ -50,7 +50,7 @@ public class Basket extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(-54, -53), Math.toRadians(40));
 
         TrajectoryActionBuilder G1 = PRELOAD.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-53.5, -46), Math.toRadians(90), null, new ProfileAccelConstraint(-70, 70));
+                .strafeToLinearHeading(new Vector2d(-54, -45), Math.toRadians(90), null, new ProfileAccelConstraint(-70, 70));
 
         TrajectoryActionBuilder PLACE1 = G1.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(-54, -52), Math.toRadians(40));
@@ -58,8 +58,8 @@ public class Basket extends LinearOpMode {
         TrajectoryActionBuilder G2 = PLACE1.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(-65, -45), Math.toRadians(95), null, new ProfileAccelConstraint(-70, 70));
 
-        TrajectoryActionBuilder PLACE2 = G1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-63, -44), Math.toRadians(65));
+//        TrajectoryActionBuilder PLACE2 = G1.endTrajectory().fresh()
+//                .strafeToLinearHeading(new Vector2d(-63, -44), Math.toRadians(65));
 
         TrajectoryActionBuilder G3 = G2.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(-59, -40), Math.toRadians(145), null, new ProfileAccelConstraint(-70, 70));
@@ -86,7 +86,7 @@ public class Basket extends LinearOpMode {
                 lift.beforeLinkage(), new SleepAction(.05), sliderTilt.beforeLinkage()
         );
         Action PlaceOnBasket = new SequentialAction(
-                sliderClaw.close(), new SleepAction(.2), lift.liftBasket(), new SleepAction(.3), sliderTilt.basket() ,turret.Basket()
+                sliderClaw.close(), new SleepAction(.2), lift.liftBasket(), new SleepAction(.3), sliderTilt.basket() ,turret.place()
         );
 
         Action TakeFromGround2 = new SequentialAction(
@@ -122,7 +122,7 @@ public class Basket extends LinearOpMode {
         Action g1 = G1.build();
         Action place1 = PLACE1.build();
         Action g2 = G2.build();
-        Action place2 = PLACE2.build();
+        //Action place2 = PLACE2.build();
         Action g3 = G3.build();
         Action place3 = PLACE3.build();
         Action park = PARK.build();
@@ -155,7 +155,7 @@ public class Basket extends LinearOpMode {
                 new SleepAction(.4),
                 PlaceOnBasket2,
                 new SleepAction(.5),
-                place2,
+                //place2,
                 new SleepAction(.2),
                 sliderClaw.open(),
                 new SleepAction(.3),

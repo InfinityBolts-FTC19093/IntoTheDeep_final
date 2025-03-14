@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.systems.slider_controller;
 import java.util.concurrent.TimeUnit;
 
 @Disabled
-@TeleOp(name = "TeleOp-Test", group = "#")
+@TeleOp(name = "TeleOp-Test", group = "TEST")
 public class TeleOp_test extends LinearOpMode {
 
     RobotMap robot;

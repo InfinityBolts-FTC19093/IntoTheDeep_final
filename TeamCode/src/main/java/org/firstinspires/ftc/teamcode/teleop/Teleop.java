@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.systems.linkage_controller;
 import org.firstinspires.ftc.teamcode.systems.sliderClaw_controller;
 import org.firstinspires.ftc.teamcode.systems.slider_controller;
 
-@TeleOp(name = "TeleOp", group = "##")
+@TeleOp(name = "TeleOp", group = "#")
 public class Teleop extends LinearOpMode {
     RobotMap robot;
     slider_controller sliderController;
@@ -90,6 +90,8 @@ public class Teleop extends LinearOpMode {
             if(gamepad2.ps){g2Action.zeroPos();}
 
             if(gamepad2.y){g2Action.switchBasketPos();}
+
+            if(gamepad2.touchpad){g2Action.reset_slider();}
 
             sliderController.control(gamepad2.left_trigger, gamepad2.right_trigger);
             clawRotateController.update();

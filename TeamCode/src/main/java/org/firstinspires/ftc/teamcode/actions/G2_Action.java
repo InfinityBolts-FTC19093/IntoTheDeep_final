@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.actions;
 
 import com.arcrobotics.ftclib.util.Timing;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.constants.Constants;
@@ -81,5 +83,12 @@ public class G2_Action {
             Constants.currentBasketPos = Constants.BasketPos.HIGH_BASKET;
             timer = new Timing.Timer(150, TimeUnit.MILLISECONDS);timer.start();while(!timer.done()){sliderController.update();}timer.pause();
         }
+    }
+
+    public void reset_slider(){
+        slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        slider.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 }
