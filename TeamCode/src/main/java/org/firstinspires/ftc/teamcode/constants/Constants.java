@@ -5,7 +5,7 @@ import com.acmerobotics.dashboard.config.Config;
 public class Constants {
 
     public static int WAIT_FOR_LINKAGE_ACTION = 400;
-    public static int WAIT_FOR_SLIDER_ACTION = 100;
+    public static int WAIT_FOR_SLIDER_ACTION = 150;
 
     public enum BasketPos{
         HIGH_BASKET,
@@ -38,6 +38,7 @@ public class Constants {
 
     public enum SliderActionPos {
         TAKE_FOR_LINKAGE,
+        TAKE_FROM_HUMAN,
         PLACE_ON_CHAMBER,
         PLACE_IN_BUSKET,
         BEFORE_TAKE_FROM_LINKAGE,
@@ -163,13 +164,13 @@ public class Constants {
     /** Servo Slider Claw Tilt */
     public static double SLIDER_TILT_INIT_BASKET = 0.84;
     public static double SLIDER_TILT_INIT_CHAMBER = 0;
-    public static double SLIDER_TILT_TAKE_FROM_LINKAGE = 0.88;
+    public static double SLIDER_TILT_TAKE_FROM_LINKAGE = 0.9;
     public static double SLIDER_TILT_PLACE_IN_HIGH_BUSKET = 0.225;
     public static double SLIDER_TILT_BASKET_AUTO = 0.223;
     public static double SLIDER_TILT_PLACE_IN_LOW_BUSKET = 0.2;
     public static double SLIDER_TILT_PLACE_ON_HIGH_CHAMBER = 0.6;
     public static double SLIDER_TILT_PLACE_ON_LOW_CHAMBER = 0;
-    public static double SLIDER_TILT_TAKE_FORM_HUMAN = 0.1;
+    public static double SLIDER_TILT_TAKE_FORM_HUMAN = 0.115;
     public static double SLIDER_TILT_BEFORE_TAKE_FROM_LINKAGE = 0.75;
     public static double SLIDER_TILT_BEFORE_TAKE_FORM_HUMAN = 0.2;
     public static double SLIDER_TILT_PARK = 0.57;

@@ -93,6 +93,8 @@ public class Teleop extends LinearOpMode {
 
             if(gamepad2.touchpad){g2Action.reset_slider();}
 
+            telemetry.addData("BASKET", Constants.currentBasketPos);telemetry.update();
+
             sliderController.control(gamepad2.left_trigger, gamepad2.right_trigger);
             clawRotateController.update();
             sliderClawController.update();

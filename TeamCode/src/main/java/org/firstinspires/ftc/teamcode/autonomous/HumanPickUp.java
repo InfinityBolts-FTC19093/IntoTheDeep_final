@@ -24,7 +24,7 @@ public class HumanPickUp extends LinearOpMode {
     @Override
     public void runOpMode() {
         RobotMap robot      = new RobotMap(hardwareMap);
-        Pose2d startPose    = new Pose2d(9, -61.5, Math.toRadians(90));
+        Pose2d startPose    = new Pose2d(9, -62, Math.toRadians(90));
         PinpointDrive drive  = new PinpointDrive(hardwareMap, startPose);
 
         sliderController = new slider_controller(robot.slider, hardwareMap);
@@ -47,19 +47,19 @@ public class HumanPickUp extends LinearOpMode {
                 .strafeTo(new Vector2d(4, -30.7523413412342356262), null, new ProfileAccelConstraint(-70, 70));
 
         TrajectoryActionBuilder GROUND1 = PRELOAD.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(29.5, -36), Math.toRadians(30));
+                .strafeToLinearHeading(new Vector2d(30, -37), Math.toRadians(30));
 
         TrajectoryActionBuilder DROP1 = GROUND1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(35, -40), Math.toRadians(310), null, new ProfileAccelConstraint(-120, 120));
+                .strafeToLinearHeading(new Vector2d(35, -40), Math.toRadians(300), null, new ProfileAccelConstraint(-120, 120));
 
         TrajectoryActionBuilder GROUND2 = DROP1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(42, -39), Math.toRadians(50), null, new ProfileAccelConstraint(-120, 120));
+                .strafeToLinearHeading(new Vector2d(42, -39.5), Math.toRadians(50), null, new ProfileAccelConstraint(-120, 120));
 
         TrajectoryActionBuilder DROP2 = GROUND1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(42, -40), Math.toRadians(300), null, new ProfileAccelConstraint(-120, 120));
+                .strafeToLinearHeading(new Vector2d(42, -40), Math.toRadians(290), null, new ProfileAccelConstraint(-120, 120));
 
         TrajectoryActionBuilder GROUND3 = DROP2.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(50, -38), Math.toRadians(50), null, new ProfileAccelConstraint(-120, 120));
+                .strafeToLinearHeading(new Vector2d(52, -38.5), Math.toRadians(50), null, new ProfileAccelConstraint(-120, 120));
 
         TrajectoryActionBuilder DROP3 = GROUND1.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(50, -37), Math.toRadians(280), null, new ProfileAccelConstraint(-120, 120));
@@ -69,14 +69,14 @@ public class HumanPickUp extends LinearOpMode {
                 .strafeTo(new Vector2d(40, -56));
 
         TrajectoryActionBuilder PLACE1 = GTS1.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(5.5, -28.5), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120));
+                .strafeToLinearHeading(new Vector2d(5.5, -29), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120));
 
         TrajectoryActionBuilder GTS2 = PLACE1.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(40, -50), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
                 .strafeTo(new Vector2d(40, -55));
 
         TrajectoryActionBuilder PLACE2 = GTS2.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(7, -28.5), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120));
+                .strafeToLinearHeading(new Vector2d(7, -29), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120));
 
         TrajectoryActionBuilder GTS3 = PLACE2.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(40, -50), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120))
@@ -90,13 +90,13 @@ public class HumanPickUp extends LinearOpMode {
                 .strafeTo(new Vector2d(40, -54.5));
 
         TrajectoryActionBuilder PLACE4 = GTS4.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(10, -28.5), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120));
+                .strafeToLinearHeading(new Vector2d(10, -29), Math.toRadians(90), null, new ProfileAccelConstraint(-120, 120));
 
         TrajectoryActionBuilder GTS5 = PLACE4.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(29.5, -59), Math.toRadians(355));
+                .strafeToLinearHeading(new Vector2d(29.5, -61), Math.toRadians(355));
 
         TrajectoryActionBuilder Basket = GTS5.endTrajectory().fresh()
-                .strafeToLinearHeading(new Vector2d(-48, -55), Math.toRadians(15));
+                .strafeToLinearHeading(new Vector2d(-46, -58), Math.toRadians(15));
 
         TrajectoryActionBuilder PARK = Basket.endTrajectory().fresh()
                 .strafeToLinearHeading(new Vector2d(30, -60), Math.toRadians(350), null, new ProfileAccelConstraint(-200, 200));

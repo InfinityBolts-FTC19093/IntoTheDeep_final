@@ -43,7 +43,7 @@ public class slider_controller {
     }
 
     public void update() {
-        if (pos() <= 25 && targetPosition <= 25 && targetPosition >=0) {
+        if (pos() <= 25 && targetPosition <= 25 && targetPosition >=0 ) {
             stopMotor();
         } else {
             double currentPosition = slider.getCurrentPosition();
@@ -69,13 +69,10 @@ public class slider_controller {
     }
 
     public void control(double leftTrigger, double rightTrigger){
-        if (leftTrigger>= 0.05) {
+        if (leftTrigger >= 0.05) {
             slider.setPower(-leftTrigger);
             pos = slider.getCurrentPosition();
             setTargetPosition(pos);
-            if (pos() <= 0) {
-                setTargetPosition(Constants.SLIDER_DOWN);
-            }
         }
         if (rightTrigger >= 0.05) {
             slider.setPower(rightTrigger);
