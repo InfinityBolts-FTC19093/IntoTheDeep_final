@@ -65,7 +65,7 @@ public class Prepare {
         }
 
         if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
-            slider_claw.setPosition(Constants.OPEN_CLAW);
+            slider_claw.setPosition(Constants.OPEN_CLAW_SLIDER);
             Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
             timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
         }
@@ -74,7 +74,7 @@ public class Prepare {
         sliderController.setTargetPosition(Constants.SLIDER_TAKE_FORM_LINKAGE);
         timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();sliderController.update();}timer.pause();
 
-        slider_claw.setPosition(Constants.CLOSE_CLAW);
+        slider_claw.setPosition(Constants.CLOSE_CLAW_SLIDER);
         Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
 
@@ -86,7 +86,7 @@ public class Prepare {
         sliderController.update();
 
         tilt.setPosition(Constants.SLIDER_TILT_BEFORE_TAKE_FROM_LINKAGE);
-        slider_claw.setPosition(Constants.OPEN_CLAW);
+        slider_claw.setPosition(Constants.OPEN_CLAW_SLIDER);
         Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
 
         Constants.currentSliderActionPos = Constants.SliderActionPos.BEFORE_TAKE_FROM_LINKAGE;
@@ -94,7 +94,7 @@ public class Prepare {
 
     public void takeFromHuman(){
         if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
-            slider_claw.setPosition(Constants.OPEN_CLAW);
+            slider_claw.setPosition(Constants.OPEN_CLAW_SLIDER);
             Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
             timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
         }
@@ -110,7 +110,7 @@ public class Prepare {
 
     public void placeOnHighChamber(){
         if(Constants.currentSliderClawPos == Constants.SliderClawPos.OPEN_CLAW){
-            slider_claw.setPosition(Constants.CLOSE_CLAW);
+            slider_claw.setPosition(Constants.CLOSE_CLAW_SLIDER);
             Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
             timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
         }
@@ -131,7 +131,7 @@ public class Prepare {
         claw.setPosition(Constants.OPEN_CLAW);
         Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
 
-        slider_claw.setPosition(Constants.CLOSE_CLAW);
+        slider_claw.setPosition(Constants.CLOSE_CLAW_SLIDER);
         Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
 
@@ -148,7 +148,7 @@ public class Prepare {
         claw.setPosition(Constants.OPEN_CLAW);
         Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
 
-        slider_claw.setPosition(Constants.CLOSE_CLAW);
+        slider_claw.setPosition(Constants.CLOSE_CLAW_SLIDER);
         Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
         timer = new Timing.Timer(50, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
 

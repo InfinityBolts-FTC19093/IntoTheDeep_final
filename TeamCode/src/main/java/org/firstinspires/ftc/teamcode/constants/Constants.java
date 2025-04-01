@@ -119,6 +119,10 @@ public class Constants {
     public static double OPEN_CLAW = 0;
     public static double CLOSE_CLAW = 1;
 
+    /** CLAW*/
+    public static double OPEN_CLAW_SLIDER = 0;
+    public static double CLOSE_CLAW_SLIDER = 1;
+
     /** Servo LINKAGE */
     public static double LINKAGE_INIT_POS = 0.1;
     public static double LINKAGE_MAX_POS = 0.69;

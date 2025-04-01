@@ -156,7 +156,7 @@ public class Score {
 
         if(Constants.currentScorePos == Constants.ScorePos.BUSKET){
             if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
-                slider_claw.setPosition(Constants.OPEN_CLAW);
+                slider_claw.setPosition(Constants.OPEN_CLAW_SLIDER);
                 Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
                 timer = new Timing.Timer(350, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
             }

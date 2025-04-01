@@ -42,7 +42,7 @@ public class G2_Action {
 
     public void zeroPos(){
         claw.setPosition(Constants.OPEN_CLAW);
-        slider_claw.setPosition(Constants.OPEN_CLAW);
+        slider_claw.setPosition(Constants.OPEN_CLAW_SLIDER);
         Constants.currentClawPos = Constants.ClawPos.OPEN_CLAW;
         Constants.currentSliderClawPos = Constants.SliderClawPos.OPEN_CLAW;
 
