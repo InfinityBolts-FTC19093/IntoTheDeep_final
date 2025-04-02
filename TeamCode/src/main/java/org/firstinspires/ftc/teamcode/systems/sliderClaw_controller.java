@@ -38,11 +38,11 @@ public class sliderClaw_controller {
 
     public void update(){
         if(Constants.currentSliderClawPos == Constants.SliderClawPos.OPEN_CLAW){
-            claw.setPosition(Constants.OPEN_CLAW);
+            claw.setPosition(Constants.OPEN_CLAW_SLIDER);
         }
 
         if(Constants.currentSliderClawPos == Constants.SliderClawPos.CLOSE_CLAW){
-            claw.setPosition(Constants.CLOSE_CLAW);
+            claw.setPosition(Constants.CLOSE_CLAW_SLIDER);
         }
     }
 }
