@@ -121,7 +121,7 @@ public class Constants {
 
     /** SLIDER CLAW*/
     public static double OPEN_CLAW_SLIDER = 0.4;
-    public static double CLOSE_CLAW_SLIDER = 1;
+    public static double CLOSE_CLAW_SLIDER = 0.8;
 
     /** Servo LINKAGE */
     public static double LINKAGE_INIT_POS = 0.1;

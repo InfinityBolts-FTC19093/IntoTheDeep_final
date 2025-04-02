@@ -76,7 +76,7 @@ public class RobotMap {
 //        linkage.setDirection(Servo.Direction.REVERSE);
 //        claw_rotate.setDirection(Servo.Direction.REVERSE);
 //        claw_tilt.setDirection(Servo.Direction.REVERSE);
-//        slider_claw.setDirection(Servo.Direction.REVERSE);
+        slider_claw.setDirection(Servo.Direction.REVERSE);
 //        slider_claw_rotate.setDirection(Servo.Direction.REVERSE);
 //        slider_claw_tilt.setDirection(Servo.Direction.REVERSE);
 //        unghi_robot.setDirection(Servo.Direction.REVERSE);

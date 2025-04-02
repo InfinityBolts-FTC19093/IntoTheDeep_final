@@ -31,6 +31,8 @@ public class ServoPos extends OpMode {
         turret = hardwareMap.get(Servo.class, HardwareConstants.ID_PIVOT);
 
         slider_claw = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW);
+        slider_claw.setDirection(Servo.Direction.REVERSE);
+
         slider_claw_rotate = hardwareMap.get(Servo.class, HardwareConstants.ID_TURRET);
         slider_claw_tilt = hardwareMap.get(Servo.class, HardwareConstants.ID_SLIDER_CLAW_TILT);
 
