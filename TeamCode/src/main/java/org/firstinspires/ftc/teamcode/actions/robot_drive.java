@@ -23,7 +23,7 @@ public class robot_drive {
     }
 
     public void robotCentricDrive(DcMotorEx leftFront, DcMotorEx leftBack, DcMotorEx rightFront, DcMotorEx rightBack, double lim, Gamepad gamepad1) {
-        double y = -gamepad1.left_stick_y;
+        double y =  gamepad1.left_stick_y;
         double x =  gamepad1.left_stick_x* 1;
         double rx = gamepad1.right_stick_x*1;
 
