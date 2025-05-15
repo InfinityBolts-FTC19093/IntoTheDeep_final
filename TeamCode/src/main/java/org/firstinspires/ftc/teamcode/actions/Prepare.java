@@ -112,7 +112,7 @@ public class Prepare {
         if(Constants.currentSliderClawPos == Constants.SliderClawPos.OPEN_CLAW){
             slider_claw.setPosition(Constants.CLOSE_CLAW_SLIDER);
             Constants.currentSliderClawPos = Constants.SliderClawPos.CLOSE_CLAW;
-            timer = new Timing.Timer(100, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
+            timer = new Timing.Timer(200, TimeUnit.MILLISECONDS);timer.start();while (!timer.done()){whileInTimer();}timer.pause();
         }
 
         tilt.setPosition(Constants.SLIDER_TILT_PLACE_ON_HIGH_CHAMBER);
