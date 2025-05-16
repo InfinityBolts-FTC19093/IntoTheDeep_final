@@ -1,80 +1,89 @@
-# 🤖 IntoTheDeep_final – Codul echipei InfinityBolts FTC #19093
+# 🤖 IntoTheDeep_final – Proiect robotică FTC: Sezonul INTO THE DEEP (2024-2025)
 
-Acest repository conține codul sursă al echipei InfinityBolts FTC #19093 pentru sezonul 2023-2024 *CENTERSTAGE* (tema: **INTO THE DEEP**) din cadrul competiției FIRST Tech Challenge (FTC). Proiectul este scris în Java și utilizează Road Runner pentru navigație autonomă, MeepMeep pentru simulări și multiple module hardware pentru a optimiza performanța robotului pe teren.
-
----
-
-## 🧠 Arhitectura Software
-
-Codul este modularizat și organizat în funcție de următoarele componente majore:
-
-### 1. **Moduri de operare (OpModes)**
-- `Autonom` – Clasa de bază pentru autonom (ex: `BlueLeft`, `RedRight` etc.), fiecare cu strategii diferite de parcare, poziționare pe linia de aliniere și depozitare de **sample-uri**.
-- `TeleOp` – Codul pentru controlul manual al robotului, cu suport pentru mecanum drive, manipulare braț, intake, outtake și ajustare dinamică a vitezei.
-
-### 2. **Sisteme hardware personalizate**
-- `HardwareMap_IB` – Clasa centrală pentru inițializarea motoarelor, servourilor, senzorilor și encoderelor.
-- `DriveTrain_IB` – Implementare mecanum drive cu ajustări pentru precizie și alunecare pe suprafață.
-- `Arm_IB` – Controlul brațului articulat și al sistemului de ridicare.
-- `Intake_IB` și `Outtake_IB` – Sisteme pentru colectare și depozitare a elementelor de joc (sample-uri).
-- `Turret_IB` – Modul de rotire pentru aliniere automată cu ținta.
-
-### 3. **Traiectorii și simulare**
-- `RoadRunner` – Folosit pentru definirea traiectoriilor spline, constante de accelerație și poziționare precisă în autonom.
-- `MeepMeepTesting` – Vizualizări pentru verificarea logicii autonome fără a depinde de robotul fizic.
+Acest repository conține codul sursă al echipei InfinityBolts FTC #19093 pentru sezonul 2024-2025 al competiției **FIRST Tech Challenge (FTC)**, cu tema **INTO THE DEEP**. Proiectul este dezvoltat în Java și include funcționalități avansate de control autonom, navigație, simulare și operare manuală, optimizate pentru provocările specifice ale sezonului.
 
 ---
 
-## 📊 Strategii de joc
+## 📁 Structura proiectului
 
-### ♟️ În Autonom:
-- Detectarea poziției sample-ului folosind **AprilTags** și/sau analiza de culoare.
-- Depozitarea strategică în **Backboard** sau plasarea în poziția centrală pentru puncte rapide.
-- Parcare în zona aliatului pentru puncte bonus.
-- Traiectorii optimizate pentru coliziuni minime cu elemente de decor (bariere, coastă etc.).
-
-### 🎮 În TeleOp:
-- Sistem mecanum drive cu **mod slow-motion** pentru control fin în apropierea țintelor.
-- Braț articulat cu presetări pentru nivelurile **Low, Mid, High**.
-- Operare duală (driver + operator) cu scheme de control intuitive.
-- Reconfigurare automată a poziției robotului după colectare.
+- `FtcRobotController/` – Codul principal al aplicației care rulează pe Control Hub.
+- `TeamCode/` – Conține logica personalizată a echipei, pentru modurile Autonom și TeleOp.
+- `MeepMeepTesting/` – Simulări de traiectorii autonome folosind MeepMeep.
+- `libs/` – Biblioteci externe incluse.
+- `gradle/` – Configurații de build.
 
 ---
 
-## 🧰 Tehnologii și echipamente utilizate
+## 🔍 Declarație privind componentele externe
 
-- **Road Runner v1.0** – pentru localizare și deplasare autonomă.
-- **GoBilda 435RPM motors** – cu encoder intern.
-- **Servouri Axon MAX** – pentru prindere rapidă și precizie.
-- **Odometry GoBilda** – cu tensionare integrată pentru detecție poziție.
-- **Camera Limelight 3A** (FTC-legală) – pentru identificare și urmărire obiecte.
-- **Control Hub + Expansion Hub** – pentru conectivitate extinsă și fiabilitate.
+Conform regulamentului concursului, declarăm că următoarele componente **nu au fost realizate integral de autori**, ci sunt utilizate cu respectarea licențelor oficiale:
+
+- 📦 **FTC SDK** – Platforma oficială de dezvoltare, furnizată de FIRST și REV Robotics.
+- 📦 **Road Runner v1.0** – Bibliotecă open-source pentru traiectorii autonome, dezvoltată de Acme Robotics.
+- 📦 **MeepMeep** – Aplicație desktop pentru simularea traiectoriilor Road Runner.
+- 🖼️ **Elemente grafice și media oficiale FTC** – utilizate strict pentru scopuri educaționale și competiționale.
+
+📌 Toate celelalte fișiere, clase, metode, scheme logice, idei de implementare și comentarii din `TeamCode/`, `MeepMeepTesting/` și `HardwareMap` sunt create de membrii echipei InfinityBolts #19093.
 
 ---
 
-## ⚙️ Instalare rapidă
+## 👥 Componența echipei și roluri
 
-1. **Clonează repository-ul**:
+Proiectul a fost realizat de o echipă formată din 2 elevi, fiecare având responsabilități bine definite:
+
+### 1. **Danci Iacob Valentin**
+- Rol principal: dezvoltarea modului **TeleOp**
+- Contribuții:
+   - Implementarea logicii pentru controlere și sistemul mecanum drive.
+   - Crearea și integrarea funcțiilor de acțiune ale robotului în control manual.
+   - Adaptarea comenzilor pentru un răspuns fluid în timpul competiției.
+
+### 2. **Zlagnean Nicolaie Ștefan**
+- Rol principal: dezvoltarea modului **Autonom**
+- Contribuții:
+   - Crearea traiectoriilor autonome în MeepMeep și integrarea acestora în Road Runner.
+   - Calibrarea odometriilor pentru o acuratețe sporită în detectarea poziției.
+   - Ajustări ale poziției inițiale și aliniere automată pentru execuție optimă în meci.
+
+---
+
+## 🧠 Arhitectură software
+
+- **HardwareMap personalizat** – Inițializare dedicată pentru toate componentele robotului (motoare, encodere, servouri).
+- **Moduri Autonome multiple** – Adaptate în funcție de poziția pe teren și detectarea obiectelor.
+- **Mecanum Drive + controlere dinamice** – Sistem de deplasare omnidirecțional, cu suport pentru precizie și rotație în moduri TeleOp.
+- **Simulări în MeepMeep** – Vizualizarea și testarea traiectoriilor autonome înainte de implementarea pe robotul fizic.
+
+---
+
+## ⚙️ Cerințe pentru rulare
+
+- **Java JDK 8+**
+- **Android Studio** (recomandat Arctic Fox sau mai nou)
+- **Dispozitiv FTC Control Hub / Expansion Hub**
+- **MeepMeep** (opțional pentru testare autonomă)
+
+---
+
+## 🔧 Instrucțiuni de utilizare
+
+1. Clonează repository-ul:
    ```bash
    git clone https://github.com/InfinityBolts-FTC19093/IntoTheDeep_final.git
    ```
 
-2. **Deschide în Android Studio**:
-    - Selectează „Open an existing project”.
-    - Alege folderul `IntoTheDeep_final`.
+2. Deschide-l în Android Studio și lasă build-ul să se finalizeze automat.
 
-3. **Build & Deploy**:
-    - Conectează Control Hub-ul prin USB sau Wi-Fi.
-    - Selectează modul (`TeleOp` / `Autonom`) și rulează aplicația.
+3. Conectează-te la robot (Control Hub) și încarcă aplicația folosind butonul “Run”.
 
 ---
 
 ## 📄 Licență
 
-Acest proiect este publicat sub licența **BSD-3-Clause-Clear**. Pentru mai multe detalii, consultă fișierul [LICENSE](LICENSE).
+Acest proiect este licențiat sub **BSD-3-Clause-Clear**, compatibil cu utilizarea în scop educațional și competițional. Pentru detalii complete, consultă fișierul `LICENSE`.
 
 ---
 
-## 👥 Despre echipă
+## 🏁 Concluzie
 
-**InfinityBolts #19093** este o echipă din Arad, România, pasionată de robotică, educație STEM și inovație. Avem o abordare interdisciplinară care combină ingineria mecanică, programarea avansată și designul 3D, obținând rezultate remarcabile atât la nivel național, cât și internațional.
+Proiectul IntoTheDeep_final reflectă munca, dedicația și abilitățile tehnice ale echipei InfinityBolts FTC #19093 în sezonul **INTO THE DEEP (2024-2025)**. Codul și strategiile au fost dezvoltate conform cerințelor FTC și pot fi adaptate pentru viitoare implementări educaționale și competiționale.
