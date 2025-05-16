@@ -38,7 +38,7 @@ Proiectul a fost realizat de o echipă formată din 2 elevi, fiecare având resp
    - Crearea și integrarea funcțiilor de acțiune ale robotului în control manual.
    - Adaptarea comenzilor pentru un răspuns fluid în timpul competiției.
 
-### 2. **Zlagnean Nicolaie Ștefan**
+### 2. **Zlăgnean Nicolaie Ștefan**
 - Rol principal: dezvoltarea modului **Autonom**
 - Contribuții:
    - Crearea traiectoriilor autonome în MeepMeep și integrarea acestora în Road Runner.
